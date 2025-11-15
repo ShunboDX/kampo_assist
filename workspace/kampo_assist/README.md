@@ -133,4 +133,4 @@ MVPリリース時に実装したい機能
 * ページネーション
     * kaminari または pagy：検索結果一覧のページング
 * 管理画面
-    * administrate や rails_admin など（必要に応じて検討）
+    * administrate や rails_admin など（必要に応じて検討） 
