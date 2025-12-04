@@ -161,3 +161,11 @@ MVPリリース時に実装したい機能
     * kaminari または pagy：検索結果一覧のページング
 * 管理画面
     * administrate や rails_admin など（必要に応じて検討）   
+
+### ER図
+（ER図のスクリーンショットの画像を貼り付けてください）
+アプリで使用する全テーブル・カラム・リレーションを整理し、最新の状態のスクリーンショットを貼り付けてください。
+https://drive.google.com/file/d/1pZtx5bk8_M9U7UkoMKuwLHzD8iv8WYix/view?usp=sharing
+
+[![Image from Gyazo](https://i.gyazo.com/2bcca5cb9aa0df61fc5ec6a41b6fe853.png)](https://gyazo.com/2bcca5cb9aa0df61fc5ec6a41b6fe853)
+
