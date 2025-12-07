@@ -65,14 +65,99 @@ bundle exec rspec
 
 bundle exec rspec spec/requests
 
-ここまでで環境構築済みの内容
-* Rails アプリ作成
-* GitHub リポジトリ作成 & 初回 push
-* Home#index の実装 & root 設定
-* RuboCop 導入（Rails 8 標準）
-* dotenv 設定
-* 開発サーバー起動確認
-* RSpec 導入・動作確認
+7. Render 用の Gem 設定（PostgreSQL 使用）
+
+開発では SQLite、本番では PostgreSQL を利用するため Gemfile を調整：
+
+group :production do
+  gem "pg", "~> 1.5"
+end
+
+
+push して反映完了。
+
+8. 本番用 database.yml の設定（Rails 8 / Solid 構成）
+
+Rails 8 は SolidCache / SolidQueue / SolidCable のため
+production で複数の DB 接続が必要。
+
+以下を config/database.yml に追加：
+
+production:
+  primary:
+    url: <%= ENV["DATABASE_URL"] %>
+
+  cache:
+    url: <%= ENV["DATABASE_URL"] %>
+
+  queue:
+    url: <%= ENV["DATABASE_URL"] %>
+
+  cable:
+    url: <%= ENV["DATABASE_URL"] %>
+
+
+※ これを設定しないと以下のエラーが発生する：
+
+The `cable` database is not configured for the `production` environment.
+
+9. Render で Web Service を作成
+
+GitHub と Render を連携
+
+リポジトリ kampo_assist を選択
+
+デプロイ対象ブランチ: main
+
+設定：
+
+Build コマンド
+bundle install && bundle exec rake db:migrate
+
+Start コマンド
+bundle exec puma -C config/puma.rb
+
+10. Render の環境変数設定
+
+Render Dashboard → Environment Variables に設定：
+
+KEY	VALUE
+DATABASE_URL	Render が自動生成
+RAILS_ENV	production
+RACK_ENV	production
+SECRET_KEY_BASE	Render の Generate を利用
+11. デプロイとエラー対応
+
+最初のデプロイで発生した SolidCable エラー：
+
+The `cable` database is not configured…
+
+
+→ database.yml を修正して再デプロイ
+→ デプロイ成功
+
+12. 本番環境での動作確認
+
+Render のログにて以下を確認：
+
+アプリ起動成功
+
+/assets/* へのアクセスがログに記録
+
+実際の Web ページが閲覧できる
+
+ここまでで完了したセットアップ一覧
+・Rails プロジェクト作成
+・GitHub リポジトリ作成 & push
+・Home#index 実装
+・RuboCop（Rails 8 標準）
+・dotenv 設定
+・RSpec 導入
+・Render へデプロイ準備
+・PostgreSQL 化
+・database.yml 調整（Solid 系対応）
+・Render で環境変数設定
+・本番デプロイ成功
 
 This README would normally document whatever steps are necessary to get the
 application up and running.
