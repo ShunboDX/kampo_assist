@@ -27,7 +27,6 @@ test:
 production:
   primary:
     url: <%= ENV["DATABASE_URL"] %>
-
   cache:
     url: <%= ENV["DATABASE_URL"] %>
 
@@ -36,4 +35,3 @@ production:
 
   cable:
     url: <%= ENV["DATABASE_URL"] %>
-  
