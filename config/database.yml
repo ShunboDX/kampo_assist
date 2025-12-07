@@ -25,5 +25,15 @@ test:
 # is mounted as a persistent Docker volume in config/deploy.yml.
 # 本番環境は Render の PostgreSQL を利用する
 production:
-  url: <%= ENV["DATABASE_URL"] %>
+  primary:
+    url: <%= ENV["DATABASE_URL"] %>
+
+  cache:
+    url: <%= ENV["DATABASE_URL"] %>
+
+  queue:
+    url: <%= ENV["DATABASE_URL"] %>
+
+  cable:
+    url: <%= ENV["DATABASE_URL"] %>
   
