@@ -1,0 +1,15 @@
+<h1>漢方検索 ステップ2（仮）</h1>
+
+<p>選択された領域:</p>
+<ul>
+  <% @medical_areas.each do |area| %>
+    <li><%= area.name %></li>
+  <% end %>
+</ul>
+
+<p>選択された病名:</p>
+<ul>
+  <% @diseases.each do |disease| %>
+    <li><%= disease.name %></li>
+  <% end %>
+</ul>

@@ -3,4 +3,6 @@ class Disease < ApplicationRecord
 
   has_many :kampo_diseases, dependent: :destroy
   has_many :kampos, through: :kampo_diseases
+
+  validates :name, presence: true
 end
