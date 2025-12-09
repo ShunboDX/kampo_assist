@@ -1,0 +1,30 @@
+<!-- app/views/searches/step3.html.erb -->
+<h1>検索結果</h1>
+
+<p>選択された病名:</p>
+<ul>
+  <% @diseases.each do |d| %>
+    <li><%= d.name %></li>
+  <% end %>
+</ul>
+
+<p>選択された症状:</p>
+<ul>
+  <% @symptoms.each do |s| %>
+    <li><%= s.name %></li>
+  <% end %>
+</ul>
+
+<hr>
+
+<h2>候補漢方（スコア順）</h2>
+<ol>
+  <% @kampo_results.each do |result| %>
+    <li>
+      <strong><%= result[:kampo].name %></strong>
+      （合計スコア: <%= result[:total_score] %> /
+       病名: <%= result[:disease_score] %> /
+       症状: <%= result[:symptom_score] %>）
+    </li>
+  <% end %>
+</ol>

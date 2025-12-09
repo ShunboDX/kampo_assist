@@ -5,25 +5,25 @@
     <div class="search-step1-layout">
         <!-- 左：領域一覧（複数選択可） -->
         <div class="search-step1-areas">
-        <h2 class="h5 mb-3">領域を選択（複数可）</h2>
+            <h2 class="h5 mb-3">領域を選択（複数可）</h2>
 
-        <% selected_ids = Array(params[:medical_area_ids]) %>
+            <% selected_ids = Array(params[:medical_area_ids]) %>
 
-        <% @medical_areas.each do |area| %>
-            <div class="form-check mb-1">
-            <%= check_box_tag "medical_area_ids[]",
-                                area.id,
-                                selected_ids.include?(area.id.to_s),
-                                id: "medical_area_#{area.id}",
-                                class: "form-check-input" %>
-            <%= label_tag "medical_area_#{area.id}",
-                            area.name,
-                            class: "form-check-label" %>
+            <% @medical_areas.each do |area| %>
+                <div class="form-check mb-1">
+                <%= check_box_tag "medical_area_ids[]",
+                                    area.id,
+                                    selected_ids.include?(area.id.to_s),
+                                    id: "medical_area_#{area.id}",
+                                    class: "form-check-input" %>
+                <%= label_tag "medical_area_#{area.id}",
+                                area.name,
+                                class: "form-check-label" %>
+                </div>
+            <% end %>
+            <div class="mt-3">
+                <%= submit_tag "病名一覧を更新", class: "btn btn-secondary" %>
             </div>
-        <% end %>
-        <div class="mt-3">
-            <%= submit_tag "病名一覧を更新", class: "btn btn-secondary" %>
-        </div>
         </div>
     <% end %>
 

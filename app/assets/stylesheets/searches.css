@@ -22,3 +22,24 @@
 .search-step1-diseases {
   flex: 1;
 }
+
+.search-step2-container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+.search-step2-layout {
+  display: flex;
+  align-items: flex-start;
+  gap: 0;
+}
+
+.search-step2-areas {
+  width: 280px;
+  margin-right: 1rem;
+}
+
+.search-step2-symptoms {
+  flex: 1;
+}
