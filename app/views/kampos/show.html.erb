@@ -1,0 +1,34 @@
+<div class="kampo-show-container">
+  <h1 class="mb-2"><%= @kampo.name %></h1>
+  <% if @kampo.kana_name.present? %>
+    <p class="text-muted mb-4"><%= @kampo.kana_name %></p>
+  <% end %>
+
+  <section class="mb-4">
+    <h2 class="h5 mb-2">適応・よく使うパターン</h2>
+    <% if @kampo.note.present? %>
+      <p><%= simple_format(@kampo.note) %></p>
+    <% else %>
+      <p class="text-muted">適応に関する情報は未登録です。</p>
+    <% end %>
+  </section>
+
+  <section class="mb-4">
+    <h2 class="h5 mb-2">注意点・禁忌</h2>
+    <% if @kampo.detail.present? %>
+      <p><%= simple_format(@kampo.detail) %></p>
+    <% else %>
+      <p class="text-muted">注意点・禁忌に関する情報は未登録です。</p>
+    <% end %>
+  </section>
+
+  <div class="mt-4">
+    <%= link_to "検索結果に戻る",
+        results_search_path(
+          medical_area_ids: params[:medical_area_ids],
+          disease_ids:      params[:disease_ids],
+          symptom_ids:      params[:symptom_ids]
+        ),
+        class: "btn btn-secondary" %>
+  </div>
+</div>

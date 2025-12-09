@@ -63,9 +63,14 @@
     <% @results.each do |result| %>
       <li class="list-group-item">
         <h3 class="h5 mb-1">
-          <%= result.kampo.name %>
+          <%= link_to result.kampo.name,
+                kampo_path(
+                    result.kampo,
+                    medical_area_ids: params[:medical_area_ids],
+                    disease_ids:      params[:disease_ids],
+                    symptom_ids:      params[:symptom_ids]
+                ) %>
         </h3>
-
         <% if result.kampo.note.present? %>
           <p class="mb-1 text-muted">
             <%= truncate(result.kampo.note, length: 300) %>
