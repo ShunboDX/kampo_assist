@@ -12,5 +12,6 @@ Rails.application.routes.draw do
   resource :search, only: [] do
     get :step1
     get :step2
+    get :step3
   end
 end

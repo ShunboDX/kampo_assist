@@ -1,15 +1,89 @@
-<h1>漢方検索 ステップ2（仮）</h1>
+<div class="search-step2-container">
+  <h1>漢方検索 ステップ2：症状の選択</h1>
 
-<p>選択された領域:</p>
-<ul>
-  <% @medical_areas.each do |area| %>
-    <li><%= area.name %></li>
-  <% end %>
-</ul>
+  <!-- 選択された病名の確認用 -->
+  <div class="mb-3">
+    <p>選択された病名:</p>
+    <ul>
+      <% @diseases.each do |disease| %>
+        <li><%= disease.name %></li>
+      <% end %>
+    </ul>
+  </div>
 
-<p>選択された病名:</p>
-<ul>
-  <% @diseases.each do |disease| %>
-    <li><%= disease.name %></li>
-  <% end %>
-</ul>
+  <!-- ① 領域フォーム と ② 症状フォーム を横並びに配置 -->
+  <div class="search-step2-layout">
+    <!-- 左：領域（複数選択可） -->
+    <div class="search-step2-areas">
+      <%= form_with url: step2_search_path, method: :get, local: true do %>
+        <% @disease_ids.each do |id| %>
+          <%= hidden_field_tag "disease_ids[]", id %>
+        <% end %>
+
+        <h2 class="h5 mb-3">領域を選択（複数可）</h2>
+
+        <% selected_area_ids = Array(@medical_area_ids).map(&:to_s) %>
+
+        <% @medical_areas.each do |area| %>
+          <div class="form-check mb-1">
+            <%= check_box_tag "medical_area_ids[]",
+                              area.id,
+                              selected_area_ids.include?(area.id.to_s),
+                              id: "symptom_area_#{area.id}",
+                              class: "form-check-input" %>
+            <%= label_tag "symptom_area_#{area.id}",
+                          area.name,
+                          class: "form-check-label" %>
+          </div>
+        <% end %>
+
+        <div class="mt-3">
+          <%= submit_tag "症状一覧を更新", class: "btn btn-secondary" %>
+        </div>
+      <% end %>
+    </div>
+
+    <!-- 右：症状（複数選択可） -->
+    <div class="search-step2-symptoms">
+      <% if @symptoms.present? %>
+        <%= form_with url: step3_search_path, method: :get, local: true do %>
+          <!-- Step1 & Step2 の選択内容を全部引き継ぐ -->
+          <% @medical_area_ids.each do |id| %>
+            <%= hidden_field_tag "medical_area_ids[]", id %>
+          <% end %>
+          <% @disease_ids.each do |id| %>
+            <%= hidden_field_tag "disease_ids[]", id %>
+          <% end %>
+
+          <p class="mb-2">症状を選択してください（複数可）</p>
+
+          <% @symptoms.each do |symptom| %>
+            <div class="form-check mb-1">
+              <%= check_box_tag "symptom_ids[]",
+                                symptom.id,
+                                Array(params[:symptom_ids]).include?(symptom.id.to_s),
+                                id: "symptom_#{symptom.id}",
+                                class: "form-check-input" %>
+              <%= label_tag "symptom_#{symptom.id}",
+                            symptom.name,
+                            class: "form-check-label" %>
+            </div>
+          <% end %>
+
+          <div class="mt-3 d-flex gap-2">
+            <%= link_to "戻る",
+                step1_search_path(
+                  params.permit(medical_area_ids: [], disease_ids: []).slice(:medical_area_ids, :disease_ids)
+                ),
+                class: "btn btn-secondary" %>
+            <%= submit_tag "検索", class: "btn btn-primary" %>
+          </div>
+        <% end %>
+      <% else %>
+        <p class="text-muted">
+          左の領域を選択して「症状一覧を更新」を押してください。
+        </p>
+      <% end %>
+    </div>
+  </div>
+</div>
