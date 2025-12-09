@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
   get "searches/step1"
   get "searches/step2"
+  get "/search/results", to: "searches#results", as: :search_results
   # ====== Health Check ======
   get "up" => "rails/health#show", as: :rails_health_check
 
@@ -12,6 +13,6 @@ Rails.application.routes.draw do
   resource :search, only: [] do
     get :step1
     get :step2
-    get :step3
+    get :results
   end
 end

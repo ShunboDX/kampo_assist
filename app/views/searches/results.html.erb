@@ -1,0 +1,82 @@
+<h1>漢方検索 結果一覧</h1>
+<div class="mb-3 d-flex gap-2">
+  <% back_to_step1_params = params.permit(medical_area_ids: [], disease_ids: []) %>
+  <% back_to_step2_params = params.permit(medical_area_ids: [], disease_ids: [], symptom_ids: []) %>
+
+  <%= link_to "Step1に戻る",
+              step1_search_path(back_to_step1_params),
+              class: "btn btn-outline-secondary" %>
+
+  <%= link_to "Step2に戻る",
+              step2_search_path(back_to_step2_params),
+              class: "btn btn-secondary" %>
+</div>
+<!-- 条件の確認表示 -->
+<div class="mb-3">
+  <h2 class="h5">選択した条件</h2>
+
+  <p>
+    <strong>領域：</strong>
+    <% if @medical_areas.present? %>
+      <%= @medical_areas.map(&:name).join(" / ") %>
+    <% else %>
+      なし
+    <% end %>
+  </p>
+
+  <p>
+    <strong>病名：</strong>
+    <% if @diseases.present? %>
+      <%= @diseases.map(&:name).join(" / ") %>
+    <% else %>
+      なし
+    <% end %>
+  </p>
+
+  <p>
+    <strong>症状：</strong>
+    <% if @symptoms.present? %>
+      <%= @symptoms.map(&:name).join(" / ") %>
+    <% else %>
+      なし
+    <% end %>
+  </p>
+</div>
+
+<hr>
+
+<% if @no_condition %>
+  <!-- 条件が一切選ばれていないパターン -->
+  <div class="alert alert-warning">
+    条件が選択されていません。<%= link_to "Step1からやり直してください", step1_search_path %>。
+  </div>
+
+<% elsif @results.blank? %>
+  <!-- 条件はあるがヒット0件 -->
+  <p>条件に一致する漢方は見つかりませんでした。</p>
+
+<% else %>
+  <!-- ヒット件数 -->
+  <p><%= @results.size %>件ヒットしました。</p>
+
+  <ul class="list-group">
+    <% @results.each do |result| %>
+      <li class="list-group-item">
+        <h3 class="h5 mb-1">
+          <%= result.kampo.name %>
+        </h3>
+
+        <% if result.kampo.note.present? %>
+          <p class="mb-1 text-muted">
+            <%= truncate(result.kampo.note, length: 300) %>
+          </p>
+        <% end %>
+
+        <small>
+          合計スコア: <%= result.total_score %>
+          （病名: <%= result.disease_score %> / 症状: <%= result.symptom_score %>）
+        </small>
+      </li>
+    <% end %>
+  </ul>
+<% end %>
