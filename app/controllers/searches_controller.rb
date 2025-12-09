@@ -39,7 +39,7 @@ class SearchesController < ApplicationController
     @diseases = Disease.where(id: @disease_ids)
   end
 
-  def step3
+  def results
     medical_area_ids = Array(params[:medical_area_ids]).reject(&:blank?)
     disease_ids      = Array(params[:disease_ids]).reject(&:blank?)
     symptom_ids      = Array(params[:symptom_ids]).reject(&:blank?)
@@ -49,10 +49,16 @@ class SearchesController < ApplicationController
     @symptoms      = Symptom.where(id: symptom_ids)
 
     # --- ここからはサービスに委譲 ---
-    @kampo_results = KampoSearch.new(
-      disease_ids: disease_ids,
-      symptom_ids: symptom_ids
-      # limit: 20  # 必要になったらここで制限
-    ).call
+    if disease_ids.blank? && symptom_ids.blank?
+      # 条件が何も選ばれてないパターン
+      @no_condition = true
+      @results = []
+    else
+      @no_condition = false
+      @results = KampoSearch.new(
+        disease_ids: disease_ids,
+        symptom_ids: symptom_ids
+      ).call
+    end
   end
 end
