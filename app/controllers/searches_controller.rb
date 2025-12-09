@@ -35,7 +35,7 @@ class SearchesController < ApplicationController
       @symptoms = Symptom.none
     end
 
-    # 選択された病名／領域の表示用
+    # 選択された病名の表示用
     @diseases = Disease.where(id: @disease_ids)
   end
 
@@ -48,33 +48,11 @@ class SearchesController < ApplicationController
     @diseases      = Disease.where(id: disease_ids)
     @symptoms      = Symptom.where(id: symptom_ids)
 
-    # --- ここからスコア計算ロジック ---
-
-    # 選択された傷病・症状との関連をまとめて取得
-    disease_links = KampoDisease.where(disease_id: disease_ids)
-                                .group_by(&:kampo_id)
-    symptom_links = KampoSymptom.where(symptom_id: symptom_ids)
-                                .group_by(&:kampo_id)
-
-    # 「どれか一つでも関係がある漢方」を候補に
-    kampo_ids = (disease_links.keys + symptom_links.keys).uniq
-    @kampo_results = Kampo.where(id: kampo_ids).map do |kampo|
-      disease_score = Array(disease_links[kampo.id]).sum { |kd| kd.weight.to_i }
-      # 症状は全部1点扱い（weight があるならそれを使ってもOK）
-      symptom_score = Array(symptom_links[kampo.id]).size * 1
-
-      total_score = disease_score + symptom_score
-
-      {
-        kampo: kampo,
-        total_score: total_score,
-        disease_score: disease_score,
-        symptom_score: symptom_score
-      }
-    end
-
-    # スコアの高い順にソート
-    @kampo_results.sort_by! { |h| -h[:total_score] }
-  endseases = Disease.where(id: disease_ids)
+    # --- ここからはサービスに委譲 ---
+    @kampo_results = KampoSearch.new(
+      disease_ids: disease_ids,
+      symptom_ids: symptom_ids
+      # limit: 20  # 必要になったらここで制限
+    ).call
   end
 end
