@@ -1,0 +1,24 @@
+/* 全体の横幅を中央に寄せて制限する */
+.search-step1-container {
+  max-width: 1100px; /* ← 左右が近づくように幅制限 */
+  margin: 0 auto;    /* 中央寄せ */
+  padding: 0 1rem;
+}
+
+/* 左右を横並びに */
+.search-step1-layout {
+  display: flex;
+  align-items: flex-start;
+  gap: 0; /* 左右ぴったりにしたいなら 0 に */
+}
+
+/* 左（領域）の幅を固定 */
+.search-step1-areas {
+  width: 280px;    /* ← ここが左右間隔に効く！ */
+  margin-right: 1rem; /* 少しだけ余白（お好み） */
+}
+
+/* 右（病名）は残り全部使う */
+.search-step1-diseases {
+  flex: 1;
+}

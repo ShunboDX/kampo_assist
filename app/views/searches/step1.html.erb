@@ -1,0 +1,61 @@
+<div class="search-step1-container">
+    <h1>漢方検索 ステップ1：領域と病名の選択</h1>
+
+    <%= form_with url: step1_search_path, method: :get, local: true do %>
+    <div class="search-step1-layout">
+        <!-- 左：領域一覧（複数選択可） -->
+        <div class="search-step1-areas">
+        <h2 class="h5 mb-3">領域を選択（複数可）</h2>
+
+        <% selected_ids = Array(params[:medical_area_ids]) %>
+
+        <% @medical_areas.each do |area| %>
+            <div class="form-check mb-1">
+            <%= check_box_tag "medical_area_ids[]",
+                                area.id,
+                                selected_ids.include?(area.id.to_s),
+                                id: "medical_area_#{area.id}",
+                                class: "form-check-input" %>
+            <%= label_tag "medical_area_#{area.id}",
+                            area.name,
+                            class: "form-check-label" %>
+            </div>
+        <% end %>
+        <div class="mt-3">
+            <%= submit_tag "病名一覧を更新", class: "btn btn-secondary" %>
+        </div>
+        </div>
+    <% end %>
+
+    <hr>
+
+    <% if @diseases.present? %>
+    <%= form_with url: step2_search_path, method: :get, local: true do %>
+        <% Array(params[:medical_area_ids]).each do |area_id| %>
+        <%= hidden_field_tag "medical_area_ids[]", area_id %>
+        <% end %>
+
+        <div class="search-step1-diseases">
+        <h2 class="h5 mb-3">病名を選択してください（複数可）</h2>
+
+        <div class="d-flex flex-wrap gap-3">
+            <% @diseases.each do |disease| %>
+            <div class="form-check me-3 mb-2">
+                <%= check_box_tag "disease_ids[]",
+                                disease.id,
+                                Array(params[:disease_ids]).include?(disease.id.to_s),
+                                id: "disease_#{disease.id}",
+                                class: "form-check-input" %>
+                <%= label_tag "disease_#{disease.id}",
+                            disease.name,
+                            class: "form-check-label" %>
+            </div>
+            <% end %>
+        </div>
+        </div>
+
+        <%= submit_tag "症状を選ぶ（ステップ2へ）",
+                    class: "btn btn-primary" %>
+    <% end %>
+    <% end %>
+</div>
