@@ -1587,14 +1587,14 @@ kampo_links = {
       { name: "気管支喘息", weight: 5 },
       { name: "胆石", weight: 5 },
       { name: "胆嚢炎", weight: 5 },
-      { name: "不眠", weight: 5 },
+      { name: "不眠", weight: 5 }
     ],
     symptoms: [
       { name: "耳鳴", weight: 1 },
       { name: "肩こり", weight: 1 },
       { name: "疲労", weight: 1 },
       { name: "黄疸", weight: 1 },
-      { name: "陰萎", weight: 1 },
+      { name: "陰萎", weight: 1 }
     ]
   },
 
@@ -1740,7 +1740,7 @@ kampo_links = {
       { name: "胃腸炎", weight: 5 },
       { name: "腸炎", weight: 5 },
       { name: "不妊症", weight: 5 },
-      { name: "月経困難", weight: 5 },
+      { name: "月経困難", weight: 5 }
     ],
     symptoms: [
       { name: "月経痛", weight: 1 },
