@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   get "searches/step1"
   get "searches/step2"
   get "/search/results", to: "searches#results", as: :search_results
-  resources :kampos, only: [:show]
+  resources :kampos, only: [ :show ]
   # ====== Health Check ======
   get "up" => "rails/health#show", as: :rails_health_check
 
