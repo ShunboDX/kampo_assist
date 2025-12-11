@@ -86,7 +86,7 @@ MEDICAL_AREA_DATA = {
     diseases: %w[
       蕁麻疹 湿疹 角皮症 皮膚炎 化膿性皮膚疾患 肝斑 ざ瘡 掌蹠膿疱症
       白癬 水虫 火傷 凍傷 ベーチェット病 関節リウマチ 麻疹 水痘
-      角化症 乾癬
+      角化症 疣贅
     ],
     symptoms: %w[
       しもやけ 皮膚瘙痒 発疹 びらん 創傷 あせも しみ 手足のあれ
@@ -106,7 +106,7 @@ MEDICAL_AREA_DATA = {
 
   # 10. 歯科口腔外科
   "歯科口腔外科" => {
-    diseases: %w[口内炎 舌苔 歯髄炎 歯根膜炎],
+    diseases: %w[口内炎 舌苔 歯齦炎 歯根膜炎],
     symptoms: %w[抜歯後の疼痛 抜歯後の歯痛 歯牙痛 舌痛]
   },
 
@@ -131,7 +131,7 @@ MEDICAL_AREA_DATA = {
 
   # 13. 運動器
   "運動器" => {
-    diseases: %w[関節リウマチ 五十肩 頚肩腕症候群],
+    diseases: %w[関節リウマチ 五十肩 頸肩腕症候群],
     symptoms: %w[
       神経痛 肋間神経痛 関節痛 腰痛 筋肉痛 下肢痛 しびれ
       筋痙攣 知覚麻痺
@@ -309,8 +309,47 @@ kampos = [
   { name: "猪苓湯合四物湯", kana_name: "チョレイトウゴウシモツトウ", note: "皮膚が枯燥し，色つやの悪い体質で胃腸障害のない人の次の諸症：排尿困難，排尿痛，残尿感，頻尿　［医薬品カード］慢性膀胱炎，慢性尿道炎，膀胱神経症，慢性前立腺炎，慢性腎炎，上記疾患の急性症並びに前立腺肥大，尿路結石，特発性腎出血，ネフローゼ", detail: nil },
   { name: "通導散", kana_name: "ツウドウサン", note: "比較的体力があり下腹部に圧痛があって便秘しがちなものの次の諸症：月経不順，月経痛，更年期障害，腰痛，便秘，打ち身(打撲)，高血圧の随伴症状(頭痛，めまい，肩こり)　［医薬品カード］月経困難症，不妊症，子宮及び付属器の炎症，子宮筋腫，ヒステリー，不安神経症，痔核", detail: nil },
   { name: "桃核承気湯", kana_name: "トウカクジョウキトウ", note: "比較的体力があり，のぼせて便秘しがちなものの次の諸症：月経不順，月経困難症，月経時や産後の精神不安，腰痛，便秘，高血圧の随伴症状(頭痛，めまい，肩こり)　［医薬品カード］更年期障害，不安神経症，ヒステリー，高血圧症，子宮内膜炎，湿疹，痔核", detail: nil },
-  { name: "当帰建中湯", kana_name: "トウキケンチュウトウ", note: "疲労しやすく，血色のすぐれないものの次の諸症：月経痛，下腹部痛，痔，脱肛の痛み　［医薬品カード］慢性胃腸炎，反復性臍疝痛，産後の腹痛，月経困難症，開腹術後症候群，病後の体力低下，腰痛，骨盤腹膜炎，坐骨神経痛，遊走腎，潰瘍性大腸炎，性器出血，不妊症，鼻出血", detail: nil }
+  { name: "当帰建中湯", kana_name: "トウキケンチュウトウ", note: "疲労しやすく，血色のすぐれないものの次の諸症：月経痛，下腹部痛，痔，脱肛の痛み　［医薬品カード］慢性胃腸炎，反復性臍疝痛，産後の腹痛，月経困難症，開腹術後症候群，病後の体力低下，腰痛，骨盤腹膜炎，坐骨神経痛，遊走腎，潰瘍性大腸炎，性器出血，不妊症，鼻出血", detail: nil },
   # === 3部開始 ===
+  { name: "当帰四逆加呉茱萸生姜湯", kana_name: "トウキシギャクカゴシュユショウキョウトウ", note: "手足の冷えを感じ，下肢が冷えると下肢又は下腹部が痛くなりやすいものの次の諸症：しもやけ，頭痛，下腹部痛，腰痛", detail: nil },
+  { name: "当帰芍薬散", kana_name: "トウキシャクヤクサン", note: "筋肉が一体で軟弱で疲労しやすく，腰脚の冷えやすいものの次の諸症：貧血，倦怠感，更年期障害(頭重，頭痛，めまい，肩こり等)，月経不順，月経困難，不妊症，動悸，慢性腎炎，妊娠中の諸病(浮腫，習慣性流産，痔，腹痛)，脚気，半身不随，心臓弁膜症(以上ツムラのみ適応承認)．比較的体力が乏しく，冷え性で貧血の傾向があり疲労しやすく，時に下腹部痛，頭重，めまい，肩こり，耳鳴，動悸などを訴える次の諸症：月経不順，月経異常，月経痛，更年期障害，産前産後あるいは流産による障害(貧血，疲労倦怠，めまい，むくみ浮腫)，めまい，頭重，肩こり，腰痛，腰脚の冷え性，しもやけ，むくみ浮腫，しみ(以上クラシエのみ適応承認)", detail: nil },
+  { name: "当帰芍薬散加附子", kana_name: "トウキシャクヤクサンカブシ", note: "血色悪く貧血性で足腰が冷えやすく，頭痛，頭重で小便頻数頻尿を訴え，時にめまい，肩こり，耳鳴，動悸あるものの次の諸症：婦人の冷え性，月経痛，神経痛，慢性腎炎，更年期障害，妊婦中の障害，産後不良", detail: nil },
+  { name: "当帰湯", kana_name: "トウキトウ", note: "背中に寒冷を覚え，腹部膨満感や腹痛のあるもの　［医薬品カード］肋間神経痛，心臓神経症，過敏性大腸症候群，慢性膵炎，狭心症，慢性胃腸炎，胃・十二指腸潰瘍", detail: nil },
+  { name: "二朮湯", kana_name: "ニジュツトウ", note: "五十肩　［医薬品カード］頸肩腕症候群，上腕神経痛，肩こり", detail: nil },
+  { name: "二陳湯", kana_name: "ニチントウ", note: "悪心，嘔吐　［医薬品カード］急・慢性胃炎，悪阻，胃下垂症，胃アトニー症", detail: nil },
+  { name: "女神散67", kana_name: "ニョシンサン67", note: "のぼせとめまいのあるものの次の諸症：産前産後の神経症，月経不順，血の道症　［医薬品カード］更年期障害，神経症(いわゆる神経質を含む)，自律神経失調症(情緒不安を含む)", detail: nil },
+  { name: "人参湯32", kana_name: "ニンジントウ32", note: "体質虚弱の人，あるいは虚弱により体力低下した人の次の諸症：急性・慢性胃腸カタル，胃アトニー症，胃拡張，悪阻，萎縮腎(以上ツムラのみ適応承認)．手足等が冷えやすく，尿量が多いものの次の諸症：胃腸虚弱，胃アトニー，下痢，嘔吐，胃痛(以上クラシエのみ適応承認", detail: nil },
+  { name: "人参養栄湯", kana_name: "ニンジンヨウエイトウ", note: "病後の体力低下，疲労倦怠，食欲不振，寝汗，手足の冷え，貧血　［医薬品カード］慢性疾患及び術後・諸種重傷疾患及び諸種感染症(急性増悪期及び急性期を除く)による全身衰弱・体力低下，虚弱体質，慢性胃腸炎", detail: nil },
+  { name: "麦門冬湯29", kana_name: "バクモンドウトウ29", note: "痰の切れにくい咳，気管支炎，気管支喘息", detail: nil },
+  { name: "八味地黄丸", kana_name: "ハチミジオウガン", note: "疲労，倦怠感著しく，尿量減少又は頻尿，口渇し，手足に交互的に冷感と熱感のあるものの次の諸症：腎炎，糖尿病，陰萎，坐骨神経痛，腰痛，脚気，膀胱カタル，前立腺肥大，高血圧　［医薬品カード］慢性腎炎，浮腫，更年期障害，老人性湿疹，高齢者のかすみ目，五十肩，肩こり", detail: nil },
+  { name: "半夏厚朴湯16", kana_name: "ハンゲコウボクトウ16", note: "気分がふさいで，咽喉，食道異物感があり，時に動悸，めまい，嘔気等を伴う次の諸症：不安神経症，神経性胃炎，悪阻，咳，しわがれ声，神経性食道狭窄症，不眠症．※クラシエは神経性食道狭窄症，不眠症，適応未承認", detail: nil },
+  { name: "半夏瀉心湯", kana_name: "ハンゲシャシントウ", note: "みぞおちがつかえ胃部不快，時に悪心・嘔吐があり食欲不振で腹が鳴って軟便又は下痢の傾向のあるものの次の諸症：急・慢性胃腸カタル，発酵性下痢，消化不良，胃下垂，神経性胃炎，胃弱，二日酔い，げっぷ，胸やけ，口内炎，神経症", detail: nil },
+  { name: "半夏白朮天麻湯37", kana_name: "ハンゲビャクジュツテンマトウ37", note: "胃腸虚弱で下肢が冷え，めまい，頭痛などがある者　［医薬品カード］胃腸虚弱で，心窩部に振水音を認める場合", detail: nil },
+  { name: "白虎加人参湯", kana_name: "ビャッコカニンジントウ", note: "喉の渇きとほてりのあるもの", detail: nil },
+  { name: "茯苓飲69", kana_name: "ブクリョウイン69", note: "吐きけや胸やけがあり尿量が減少するものの次の諸症：胃炎，胃アトニー，溜飲（胃酸があがる）　［医薬品カード］急・慢性胃炎，胃下垂症，神経性胃炎", detail: nil },
+  { name: "茯苓飲合半夏厚朴湯116", kana_name: "ブクリョウインゴウハンゲコウボクトウ116", note: "気分がふさい(抑うつ)で，咽喉，食道異物感、食道違和感があり，時に動悸，めまい，嘔気，胸やけなどがあり，尿量の減少するものの次の諸症：不安神経症，神経性胃炎，つわり，溜飲，胃炎　［医薬品カード］咽・喉頭神経症，急・慢性胃炎，胃アトニー，胃下垂症，食道神経症，嗄声", detail: nil },
+  { name: "附子理中湯", kana_name: "ブシリチュウトウ", note: "胃腸虚弱で血色悪く，顔に生気なく，多尿で手足に冷感あり，下痢の傾向あり，しばしば吐き気，めまい，頭重，胃痛を訴えるものの次の諸症：慢性の胃腸カタル，胃アトニー症", detail: nil },
+  { name: "平胃散79", kana_name: "ヘイイサン79", note: "胃がもたれて消化不良の傾向のある次の諸症：急・慢性胃カタル，胃アトニー，消化不良，食欲不振　［医薬品カード］急・慢性胃炎，胃下垂症，急性腸炎", detail: nil },
+  { name: "防已黄耆湯20", kana_name: "ボウイオウギトウ20", note: "色白で筋肉軟らかく水ぶとりの体質で疲れやすく，汗が多く，尿量減少で下肢に浮腫を来し，膝関節の腫痛するものの次の諸症：腎炎，ネフローゼ，妊娠腎，陰嚢水腫，肥満症，関節炎，癰，癤，筋炎，浮腫，皮膚病，多汗症，月経不順(以上ツムラのみ適応承認)．色白で疲れやすく汗のかきやすい傾向のある次の諸症：肥満症(筋肉のしまりのない，いわゆる水ぶとり)，関節痛，むくみ浮腫 (以上クラシエのみ適応承認)", detail: nil },
+  { name: "防風通聖散62", kana_name: "ボウフウツウショウサン62", note: "腹部に皮下脂肪が多く，便秘がちなものの次の諸症：高血圧の随伴症状(どうき，肩こり，のぼせ)，肥満症，むくみ浮腫，便秘　［医薬品カード］常習性便秘", detail: nil },
+  { name: "補中益気湯41", kana_name: "ホチュウエッキトウ41", note: "消化機能が衰え，四肢倦怠感著しい虚弱体質者の次の諸症：夏やせ，病後の体力増強，結核症，食欲不振，胃下垂，感冒，痔，脱肛，子宮下垂，陰萎，半身不随，多汗症　［医薬品カード］感冒・慢性気管支炎(こじれて症状の長びくもの)，結核症(陳旧性・老人性結核)，内臓下垂症，脳卒中後遺症，痔核", detail: nil },
+  { name: "麻黄湯27", kana_name: "マオウトウ27", note: "悪寒，発熱，頭痛，腰痛，自然に汗が出ないものの次の諸症：感冒，インフルエンザ(初期のもの)，関節リウマチ，喘息，乳児の鼻閉塞，哺乳困難(以上ツムラのみ適応承認)．かぜのひきはじめで，寒けがして発熱，頭痛があり，身体のふしぶしが痛い場合の次の諸症：感冒，鼻かぜ(以上クラシエのみ適応承認)", detail: nil },
+  { name: "麻黄附子細辛湯127", kana_name: "マオウブシサイシントウ127", note: "悪寒，微熱，全身倦怠，低血圧で頭痛，めまいあり，四肢に疼痛冷感あるものの次の諸症：感冒，気管支炎　［医薬品カード］無気力感，頭痛，咳嗽，水様性鼻汁", detail: nil },
+  { name: "麻杏甘石湯55", kana_name: "マキョウカンセキトウ55", note: "小児ぜんそく，気管支喘息　［医薬品カード］喘息性気管支炎，感冒，気管支炎，肺炎，百日咳", detail: nil },
+  { name: "麻杏薏甘湯78", kana_name: "マキョウヨクカントウ78", note: "関節痛，神経痛，筋肉痛　［医薬品カード］疣贅，乾性脂漏，関節痛，筋肉リウマチ，関節リウマチ，進行性手掌角化症，汗疱状白癬，顔面白癬", detail: nil },
+  { name: "麻子仁丸126", kana_name: "マシニンガン126", note: "常習性便秘．その他，急性便秘等", detail: nil },
+  { name: "木防已湯36", kana_name: "モクボウイトウ36", note: "顔色がさえず，咳を伴う呼吸困難があり，心臓下部に緊張圧重感があるものの心臓，あるいは，腎臓に基づく疾患，浮腫，心臓性喘息", detail: nil },
+  { name: "ヨクイニンエキス", kana_name: "ヨクイニンエキス", note: "青年性扁平疣贅，尋常性疣贅", detail: nil },
+  { name: "薏苡仁湯52", kana_name: "ヨクイニントウ52", note: "関節痛，筋肉痛　［医薬品カード］　変形性関節症，関節リウマチ", detail: nil },
+  { name: "抑肝散54", kana_name: "ヨクカンサン54", note: "虚弱な体質で神経がたかぶるものの次の諸症：神経症，不眠症，小児夜なき，小児疳症　［医薬品カード］ヒステリー，更年期障害，チック病，眼瞼痙攣，脳出血後遺症", detail: nil },
+  { name: "抑肝散加陳皮半夏83", kana_name: "ヨクカンサンカチンピハンゲ83", note: "虚弱な体質で神経がたかぶるものの次の諸症：神経症，不眠症，小児夜なき，小児疳症　［医薬品カード］ヒステリー，更年期障害，チック病，眼瞼痙攣，脳出血後遺症", detail: nil },
+  { name: "六君子湯43", kana_name: "リックンシトウ43", note: "胃腸の弱いもので，食欲がなく，みぞおちがつかえ，疲れやすく，貧血性で手足が冷えやすいものの次の諸症：胃炎，胃アトニー，胃下垂，消化不良，食欲不振，胃痛，嘔吐", detail: nil },
+  { name: "立効散110", kana_name: "リッコウサン110", note: "抜歯後の疼痛，歯痛　［医薬品カード］歯牙痛，歯齦炎，歯根膜炎，舌痛，口内炎・舌咽神経痛，三叉神経痛", detail: nil },
+  { name: "竜胆瀉肝湯76", kana_name: "リュウタンシャカントウ76", note: "比較的体力があり，下腹部筋肉が緊張する傾向があるものの次の諸症：排尿痛，残尿感，尿の濁り，こしけ、帯下　［医薬品カード］尿道炎，膀胱炎，前立腺炎，陰部瘙痒(掻痒)感症，膀胱神経症，バルトリン腺炎，子宮内膜炎，トリコモナス腟炎，精巣炎，鼠径部リンパ腺炎，陰部湿疹", detail: nil },
+  { name: "苓甘姜味辛夏仁湯119", kana_name: "リョウカンキョウミシンゲニントウ119", note: "貧血，冷え症で喘鳴を伴う喀痰の多い咳嗽があるもの．気管支炎，気管支喘息，心臓衰弱，腎臓病　［医薬品カード］　①胃腸虚弱で，麻黄薬の服用により胃障害等を呈する場合　②疲労倦怠感，動悸，息切れ，浮腫などを伴う場合　③腹部が軟弱で，心窩部に振水音を認める場合", detail: nil },
+  { name: "苓姜朮甘湯118", kana_name: "リョウキョウジュツカントウ118", note: "腰に冷えと痛みがあって，尿量が多い次の諸症：腰痛，腰の冷え，夜尿症　［医薬品カード］神経痛(特に坐骨神経痛)，膀胱神経症，頻尿", detail: nil },
+  { name: "苓桂朮甘湯39", kana_name: "リョウケイジュツカントウ39", note: "めまい，ふらつきがあり，又は動悸があり尿量減少するものの次の諸症：神経質，ノイローゼ，めまい，動悸，息切れ，頭痛", detail: nil },
+  { name: "六味丸87", kana_name: "ロクミガン87", note: "疲れやすくて尿量減少又は多尿で，時に口渇があるものの次の諸症：排尿困難，頻尿，むくみ浮腫，掻痒　［医薬品カード］腎炎，ネフローゼ，腰痛，膀胱炎，膀胱神経症，気管支喘息，小児喘息，高血圧症，脳卒中後遺症，白内障，糖尿病，夜尿症，陰萎，前立腺肥大", detail: nil }
 ]
 
 kampos.each do |attrs|
@@ -1756,8 +1795,597 @@ kampo_links = {
       { name: "しもやけ", weight: 1 },
       { name: "頭痛", weight: 1 }
     ]
-  }
+  },
   # === 3部開始 ===
+
+  "当帰四逆加呉茱萸生姜湯" => {
+    diseases: [],
+    symptoms: [
+      { name: "冷え",         weight: 1 },
+      { name: "足腰の冷え",   weight: 1 },
+      { name: "下肢痛",       weight: 1 },
+      { name: "しもやけ",     weight: 1 },
+      { name: "頭痛",         weight: 1 },
+      { name: "下腹部痛",     weight: 1 },
+      { name: "腰痛",         weight: 1 }
+    ]
+  },
+
+  "当帰芍薬散" => {
+    diseases: [
+      { name: "高血圧",       weight: 5 },
+      { name: "更年期障害",   weight: 5 },
+      { name: "月経不順",     weight: 5 },
+      { name: "月経困難",     weight: 5 },
+      { name: "腎炎",         weight: 5 },
+      { name: "習慣性流産",   weight: 5 },
+      { name: "痔",           weight: 5 },
+      { name: "脚気",         weight: 5 },
+      { name: "心臓弁膜症",   weight: 5 }
+    ],
+    symptoms: [
+      { name: "倦怠",         weight: 1 },
+      { name: "動悸",         weight: 1 },
+      { name: "腹痛",         weight: 1 },
+      { name: "冷え",         weight: 1 },
+      { name: "貧血",         weight: 1 },
+      { name: "頭痛",         weight: 1 },
+      { name: "めまい",       weight: 1 },
+      { name: "耳鳴",         weight: 1 },
+      { name: "下腹部痛",     weight: 1 },
+      { name: "月経痛",       weight: 1 },
+      { name: "疲労",         weight: 1 },
+      { name: "浮腫",         weight: 1 },
+      { name: "頭重",         weight: 1 },
+      { name: "肩こり",       weight: 1 },
+      { name: "腰痛",         weight: 1 },
+      { name: "足腰の冷え",   weight: 1 },
+      { name: "しもやけ",     weight: 1 },
+      { name: "しみ",         weight: 1 }
+    ]
+  },
+
+  "当帰芍薬散加附子" => {
+    diseases: [
+      { name: "腎炎",       weight: 5 },
+      { name: "更年期障害", weight: 5 }
+    ],
+    symptoms: [
+      { name: "足腰の冷え", weight: 1 },
+      { name: "頭痛",       weight: 1 },
+      { name: "頭重",       weight: 1 },
+      { name: "めまい",     weight: 1 },
+      { name: "肩こり",     weight: 1 },
+      { name: "耳鳴",       weight: 1 },
+      { name: "動悸",       weight: 1 },
+      { name: "冷え",       weight: 1 },
+      { name: "月経痛",     weight: 1 },
+      { name: "神経痛",     weight: 1 }
+    ]
+  },
+
+  "当帰湯" => {
+    diseases: [
+      { name: "心臓神経症",         weight: 5 },
+      { name: "過敏性大腸症候群",   weight: 5 },
+      { name: "慢性膵炎",           weight: 5 },
+      { name: "狭心症",             weight: 5 },
+      { name: "胃腸炎",             weight: 5 },
+      { name: "潰瘍",               weight: 5 }
+    ],
+    symptoms: [
+      { name: "冷え",           weight: 1 },
+      { name: "腹部膨満感",     weight: 1 },
+      { name: "腹痛",           weight: 1 },
+      { name: "肋間神経痛",     weight: 1 }
+    ]
+  },
+
+  "二朮湯" => {
+    diseases: [
+      { name: "五十肩",         weight: 5 },
+      { name: "頸肩腕症候群",   weight: 5 }
+    ],
+    symptoms: [
+      { name: "神経痛",   weight: 1 },
+      { name: "肩こり",   weight: 1 }
+    ]
+  },
+
+  "二陳湯" => {
+    diseases: [
+      { name: "胃腸炎",   weight: 5 },
+      { name: "妊娠悪阻", weight: 5 },
+      { name: "胃下垂症", weight: 5 },
+      { name: "胃アトニー", weight: 5 }
+    ],
+    symptoms: [
+      { name: "悪心", weight: 1 },
+      { name: "嘔吐", weight: 1 }
+    ]
+  },
+
+  "女神散67" => {
+    diseases: [
+      { name: "神経症",             weight: 5 },
+      { name: "月経不順",           weight: 5 },
+      { name: "更年期障害",         weight: 5 },
+      { name: "自律神経失調",       weight: 5 }
+    ],
+    symptoms: [
+      { name: "のぼせ", weight: 1 },
+      { name: "めまい", weight: 1 }
+    ]
+  },
+
+  "人参湯32" => {
+    diseases: [
+      { name: "胃腸カタル", weight: 5 },
+      { name: "胃アトニー", weight: 5 },
+      { name: "妊娠悪阻",   weight: 5 }
+    ],
+    symptoms: [
+      { name: "虚弱",       weight: 1 },
+      { name: "足腰の冷え", weight: 1 },
+      { name: "多尿",       weight: 1 },
+      { name: "嘔吐",       weight: 1 },
+      { name: "下痢",       weight: 1 },
+      { name: "胃痛",       weight: 1 }
+    ]
+  },
+
+  "人参養栄湯" => {
+    diseases: [
+      { name: "胃腸炎", weight: 5 }
+    ],
+    symptoms: [
+      { name: "病後",       weight: 1 },
+      { name: "体力低下",   weight: 1 },
+      { name: "疲労",       weight: 1 },
+      { name: "倦怠",       weight: 1 },
+      { name: "食欲不振",   weight: 1 },
+      { name: "寝汗",       weight: 1 },
+      { name: "冷え",       weight: 1 },
+      { name: "貧血",       weight: 1 },
+      { name: "術後",       weight: 1 },
+      { name: "虚弱",       weight: 1 }
+    ]
+  },
+
+  "麦門冬湯29" => {
+    diseases: [
+      { name: "気管支炎",     weight: 5 },
+      { name: "気管支喘息",   weight: 5 }
+    ],
+    symptoms: [
+      { name: "咳",   weight: 1 },
+      { name: "痰",   weight: 1 }
+    ]
+  },
+
+  "八味地黄丸" => {
+    diseases: [
+      { name: "腎炎",         weight: 5 },
+      { name: "糖尿病",       weight: 5 },
+      { name: "脚気",         weight: 5 },
+      { name: "前立腺肥大",   weight: 5 },
+      { name: "高血圧",       weight: 5 },
+      { name: "更年期障害",   weight: 5 },
+      { name: "湿疹",         weight: 5 },
+      { name: "五十肩",       weight: 5 }
+    ],
+    symptoms: [
+      { name: "疲労",       weight: 1 },
+      { name: "倦怠",       weight: 1 },
+      { name: "尿量減少",   weight: 1 },
+      { name: "口渇",       weight: 1 },
+      { name: "陰萎",       weight: 1 },
+      { name: "腰痛",       weight: 1 },
+      { name: "浮腫",       weight: 1 },
+      { name: "かすみ目",   weight: 1 },
+      { name: "肩こり",     weight: 1 },
+      { name: "神経痛",       weight: 1 }
+    ]
+  },
+
+  "半夏厚朴湯16" => {
+    diseases: [
+      { name: "不安神経症",   weight: 5 },
+      { name: "胃炎",         weight: 5 },
+      { name: "妊娠悪阻",     weight: 5 },
+      { name: "不眠",         weight: 5 }
+    ],
+    symptoms: [
+      { name: "食道異物感", weight: 1 },
+      { name: "動悸",       weight: 1 },
+      { name: "めまい",     weight: 1 },
+      { name: "嘔吐",       weight: 1 },
+      { name: "咳",         weight: 1 }
+    ]
+  },
+
+  "半夏瀉心湯" => {
+    diseases: [
+      { name: "胃腸カタル",   weight: 5 },
+      { name: "胃炎",         weight: 5 },
+      { name: "口内炎",       weight: 5 },
+      { name: "神経症",       weight: 5 }
+    ],
+    symptoms: [
+      { name: "悪心",       weight: 1 },
+      { name: "下痢",   weight: 1 },
+      { name: "二日酔",       weight: 1 },
+      { name: "嘔吐",       weight: 1 },
+      { name: "食欲不振",   weight: 1 },
+      { name: "消化不良",   weight: 1 },
+      { name: "げっぷ",     weight: 1 },
+      { name: "胸やけ",     weight: 1 }
+    ]
+  },
+
+  "半夏白朮天麻湯37" => {
+    diseases: [],
+    symptoms: [
+      { name: "虚弱",   weight: 1 },
+      { name: "冷え",   weight: 1 },
+      { name: "めまい", weight: 1 },
+      { name: "頭痛",   weight: 1 }
+    ]
+  },
+
+  "白虎加人参湯" => {
+    diseases: [],
+    symptoms: [
+      { name: "口渇", weight: 1 },
+      { name: "手足のほてり", weight: 1 }
+    ]
+  },
+
+  "茯苓飲69" => {
+    diseases: [
+      { name: "胃炎", weight: 5 },
+      { name: "胃アトニー", weight: 5 },
+      { name: "胃下垂症", weight: 5 },
+      { name: "腸炎", weight: 5 }
+    ],
+    symptoms: [
+      { name: "吐き気", weight: 1 },
+      { name: "胸やけ", weight: 1 },
+      { name: "尿量減少", weight: 1 }
+    ]
+  },
+
+  "茯苓飲合半夏厚朴湯116" => {
+    diseases: [
+      { name: "不安神経症", weight: 5 },
+      { name: "胃炎", weight: 5 },
+      { name: "妊娠悪阻", weight: 5 },
+      { name: "胃アトニー", weight: 5 },
+      { name: "胃下垂症", weight: 5 }
+    ],
+    symptoms: [
+      { name: "抑うつ", weight: 1 },
+      { name: "食道異物感", weight: 1 },
+      { name: "食道違和感", weight: 1 },
+      { name: "動悸", weight: 1 },
+      { name: "めまい", weight: 1 },
+      { name: "胸やけ", weight: 1 },
+      { name: "尿量減少", weight: 1 }
+    ]
+  },
+
+  "附子理中湯" => {
+    diseases: [
+      { name: "胃腸カタル", weight: 5 },
+      { name: "胃アトニー", weight: 5 }
+    ],
+    symptoms: [
+      { name: "虚弱", weight: 1 },
+      { name: "冷え", weight: 1 },
+      { name: "下痢", weight: 1 },
+      { name: "吐き気", weight: 1 },
+      { name: "めまい", weight: 1 },
+      { name: "頭重", weight: 1 },
+      { name: "胃痛", weight: 1 }
+    ]
+  },
+
+  "平胃散79" => {
+    diseases: [
+      { name: "胃アトニー", weight: 5 },
+      { name: "胃腸炎", weight: 5 },
+      { name: "胃下垂症", weight: 5 },
+      { name: "腸炎", weight: 5 }
+    ],
+    symptoms: [
+      { name: "胃もたれ", weight: 1 },
+      { name: "消化不良", weight: 1 },
+      { name: "食欲不振", weight: 1 }
+    ]
+  },
+
+  "防已黄耆湯20" => {
+    diseases: [
+      { name: "腎炎", weight: 5 },
+      { name: "ネフローゼ", weight: 5 },
+      { name: "月経不順", weight: 5 }
+    ],
+    symptoms: [
+      { name: "多汗", weight: 1 },
+      { name: "尿量減少", weight: 1 },
+      { name: "浮腫", weight: 1 },
+      { name: "肥満", weight: 1 },
+      { name: "関節痛", weight: 1 }
+    ]
+  },
+
+  "防風通聖散62" => {
+    diseases: [
+      { name: "高血圧", weight: 5 }
+    ],
+    symptoms: [
+      { name: "便秘", weight: 1 },
+      { name: "動悸", weight: 1 },
+      { name: "肩こり", weight: 1 },
+      { name: "のぼせ", weight: 1 },
+      { name: "肥満", weight: 1 },
+      { name: "浮腫", weight: 1 }
+    ]
+  },
+
+  "補中益気湯41" => {
+    diseases: [
+      { name: "肺結核", weight: 5 },
+      { name: "胃下垂症", weight: 5 },
+      { name: "感冒", weight: 5 },
+      { name: "痔", weight: 5 },
+      { name: "気管支炎", weight: 5 },
+      { name: "脳卒中後遺症", weight: 5 }
+    ],
+    symptoms: [
+      { name: "倦怠", weight: 1 },
+      { name: "虚弱", weight: 1 },
+      { name: "夏痩せ", weight: 1 },
+      { name: "食欲不振", weight: 1 },
+      { name: "陰萎", weight: 1 },
+      { name: "多汗", weight: 1 }
+    ]
+  },
+
+  "麻黄湯27" => {
+    diseases: [
+      { name: "感冒", weight: 5 },
+      { name: "気管支炎", weight: 5 }
+    ],
+    symptoms: [
+      { name: "微熱", weight: 1 },
+      { name: "倦怠", weight: 1 },
+      { name: "頭痛", weight: 1 },
+      { name: "めまい", weight: 1 },
+      { name: "無気力", weight: 1 },
+      { name: "咳", weight: 1 },
+      { name: "鼻汁", weight: 1 }
+    ]
+  },
+
+  "麻黄附子細辛湯127" => {
+    diseases: [
+      { name: "感冒", weight: 5 },
+      { name: "気管支炎", weight: 5 }
+    ],
+    symptoms: [
+      { name: "微熱", weight: 1 },
+      { name: "倦怠", weight: 1 },
+      { name: "頭痛", weight: 1 },
+      { name: "めまい", weight: 1 },
+      { name: "無気力", weight: 1 },
+      { name: "咳", weight: 1 },
+      { name: "鼻汁", weight: 1 }
+    ]
+  },
+
+  "麻杏甘石湯55" => {
+    diseases: [
+      { name: "気管支喘息", weight: 5 },
+      { name: "気管支炎", weight: 5 },
+      { name: "感冒", weight: 5 },
+      { name: "肺炎", weight: 5 }
+    ],
+    symptoms: [
+      { name: "咳", weight: 1 }
+    ]
+  },
+
+  "麻杏薏甘湯78" => {
+    diseases: [
+      { name: "疣贅", weight: 5 },
+      { name: "関節リウマチ", weight: 5 },
+      { name: "角化症", weight: 5 },
+      { name: "白癬", weight: 5 }
+    ],
+    symptoms: [
+      { name: "関節痛", weight: 1 },
+      { name: "神経痛", weight: 1 },
+      { name: "筋肉痛", weight: 1 }
+    ]
+  },
+
+  "麻子仁丸126" => {
+    diseases: [],
+    symptoms: [
+      { name: "便秘", weight: 1 }
+    ]
+  },
+
+  "木防已湯36" => {
+    diseases: [],
+    symptoms: [
+      { name: "咳", weight: 1 },
+      { name: "浮腫", weight: 1 }
+    ]
+  },
+
+  "ヨクイニンエキス" => {
+    diseases: [
+      { name: "疣贅", weight: 5 }
+    ],
+    symptoms: []
+  },
+
+  "薏苡仁湯52" => {
+    diseases: [
+      { name: "関節リウマチ", weight: 5 }
+    ],
+    symptoms: [
+      { name: "関節痛", weight: 1 },
+      { name: "筋肉痛", weight: 1 }
+    ]
+  },
+
+  "抑肝散54" => {
+    diseases: [
+      { name: "不眠", weight: 5 },
+      { name: "神経症", weight: 5 },
+      { name: "ヒステリー", weight: 5 },
+      { name: "更年期障害", weight: 5 }
+    ],
+    symptoms: [
+      { name: "虚弱", weight: 1 },
+      { name: "眼瞼痙攣", weight: 1 }
+    ]
+  },
+
+  "抑肝散加陳皮半夏83" => {
+    diseases: [
+      { name: "不眠", weight: 5 },
+      { name: "神経症", weight: 5 },
+      { name: "ヒステリー", weight: 5 },
+      { name: "更年期障害", weight: 5 }
+    ],
+    symptoms: [
+      { name: "虚弱", weight: 1 },
+      { name: "眼瞼痙攣", weight: 1 }
+    ]
+  },
+
+  "六君子湯43" => {
+    diseases: [
+      { name: "胃炎", weight: 5 },
+      { name: "胃アトニー", weight: 5 },
+      { name: "胃下垂症", weight: 5 },
+      { name: "腸炎", weight: 5 }
+    ],
+    symptoms: [
+      { name: "食欲不振", weight: 1 },
+      { name: "疲労", weight: 1 },
+      { name: "足腰の冷え", weight: 1 },
+      { name: "貧血", weight: 1 },
+      { name: "消化不良", weight: 1 },
+      { name: "胃痛", weight: 1 },
+      { name: "嘔吐", weight: 1 }
+    ]
+  },
+
+  "立効散110" => {
+    diseases: [
+      { name: "歯齦炎", weight: 5 },
+      { name: "歯根膜炎", weight: 5 },
+      { name: "口内炎", weight: 5 },
+      { name: "舌苔", weight: 5 }
+    ],
+    symptoms: [
+      { name: "抜歯後の疼痛", weight: 1 },
+      { name: "抜歯後の歯痛", weight: 1 },
+      { name: "歯牙痛", weight: 1 },
+      { name: "舌痛", weight: 1 },
+      { name: "神経痛", weight: 1 }
+    ]
+  },
+
+  "竜胆瀉肝湯76" => {
+    diseases: [
+      { name: "尿道炎", weight: 5 },
+      { name: "膀胱炎", weight: 5 },
+      { name: "前立腺炎", weight: 5 },
+      { name: "膀胱神経症", weight: 5 },
+      { name: "子宮内膜炎", weight: 5 },
+      { name: "リンパ腺炎", weight: 5 },
+      { name: "湿疹", weight: 5 }
+    ],
+    symptoms: [
+      { name: "排尿痛", weight: 1 },
+      { name: "残尿感", weight: 1 },
+      { name: "皮膚瘙痒", weight: 1 }
+    ]
+  },
+
+  "苓甘姜味辛夏仁湯119" => {
+    diseases: [
+      { name: "気管支炎", weight: 5 },
+      { name: "気管支喘息", weight: 5 }
+    ],
+    symptoms: [
+      { name: "貧血", weight: 1 },
+      { name: "冷え", weight: 1 },
+      { name: "咳", weight: 1 },
+      { name: "痰", weight: 1 },
+      { name: "疲労", weight: 1 },
+      { name: "倦怠", weight: 1 },
+      { name: "動悸", weight: 1 },
+      { name: "息切れ", weight: 1 },
+      { name: "浮腫", weight: 1 }
+    ]
+  },
+
+  "苓姜朮甘湯118" => {
+    diseases: [
+      { name: "膀胱神経症", weight: 5 }
+    ],
+    symptoms: [
+      { name: "冷え", weight: 1 },
+      { name: "多尿", weight: 1 },
+      { name: "腰痛", weight: 1 },
+      { name: "神経痛", weight: 1 }
+    ]
+  },
+
+  "苓桂朮甘湯39" => {
+    diseases: [],
+    symptoms: [
+      { name: "めまい", weight: 1 },
+      { name: "ふらつき", weight: 1 },
+      { name: "動悸", weight: 1 },
+      { name: "尿量減少", weight: 1 },
+      { name: "ノイローゼ", weight: 1 },
+      { name: "神経質", weight: 1 },
+      { name: "頭痛", weight: 1 },
+      { name: "息切れ", weight: 1 }
+    ]
+  },
+
+  "六味丸87" => {
+    diseases: [
+      { name: "腎炎", weight: 5 },
+      { name: "ネフローゼ", weight: 5 },
+      { name: "膀胱炎", weight: 5 },
+      { name: "膀胱神経症", weight: 5 },
+      { name: "気管支喘息", weight: 5 },
+      { name: "高血圧", weight: 5 },
+      { name: "脳卒中後遺症", weight: 5 },
+      { name: "白内障", weight: 5 },
+      { name: "糖尿病", weight: 5 },
+      { name: "前立腺肥大", weight: 5 }
+    ],
+    symptoms: [
+      { name: "尿量減少", weight: 1 },
+      { name: "口渇", weight: 1 },
+      { name: "排尿困難", weight: 1 },
+      { name: "浮腫", weight: 1 },
+      { name: "皮膚瘙痒", weight: 1 },
+      { name: "腰痛", weight: 1 },
+      { name: "陰萎", weight: 1 }
+    ]
+  }
   # "〇〇湯" => {
   #   diseases: [...],
   #   symptoms: [...]
