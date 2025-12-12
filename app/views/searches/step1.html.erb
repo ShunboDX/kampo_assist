@@ -43,17 +43,17 @@
 
                     <h2 class="h5 mb-3">病名を選択してください（複数可）</h2>
 
-                    <div class="d-flex flex-wrap gap-3">
+                    <div class="disease-list">
                         <% @diseases.each do |disease| %>
-                            <div class="form-check me-3 mb-2">
-                                <%= check_box_tag "disease_ids[]",
-                                            disease.id,
-                                            Array(params[:disease_ids]).include?(disease.id.to_s),
-                                            id: "disease_#{disease.id}",
-                                            class: "form-check-input" %>
-                                <%= label_tag "disease_#{disease.id}",
-                                            disease.name,
-                                            class: "form-check-label" %>
+                            <div class="disease-item">
+                                <label class="disease-label">
+                                    <%= check_box_tag "disease_ids[]",
+                                                    disease.id,
+                                                    Array(params[:disease_ids]).include?(disease.id.to_s),
+                                                    id: "disease_#{disease.id}",
+                                                    class: "disease-checkbox" %>
+                                    <span><%= disease.name %></span>
+                                </label>
                             </div>
                         <% end %>
                     </div>
