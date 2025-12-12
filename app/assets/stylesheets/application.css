@@ -8,3 +8,21 @@
  *
  * Consider organizing styles into separate files for maintainability.
  */
+.top-hero {
+  background: linear-gradient(135deg, #ffffff 0%, #f5fbff 60%, #e3f2fd 100%);
+}
+
+.top-hero .text-primary {
+  color: #0d6efd !important; /* Bootstrapのprimaryブルー */
+}
+
+.top-hero-card {
+  border-radius: 0.75rem;
+}
+
+/* モバイルで少し余白ゆったりめに */
+@media (max-width: 767.98px) {
+  .top-hero {
+    padding-top: 1.5rem;
+  }
+}
