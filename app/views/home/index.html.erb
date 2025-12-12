@@ -1,2 +1,84 @@
-<h1>Kampo Assist MVP</h1>
-<p>漢方処方アシストツールです。</p>
+<div class="top-hero bg-light">
+  <div class="container py-5">
+    <div class="row align-items-center">
+      <!-- 左：キャッチコピー -->
+      <div class="col-md-7 mb-4 mb-md-0">
+        <h1 class="mb-3 text-primary fw-bold">
+          漢方処方アシストツール
+        </h1>
+        <p class="lead mb-4 text-muted">
+          症状・病名から、適応する漢方薬の候補を素早く絞り込むための<br>
+          医療従事者向けサポートアプリです。
+        </p>
+
+        <%= link_to "漢方検索を始める",
+                    step1_search_path,
+                    class: "btn btn-primary btn-lg px-4 me-2" %>
+      </div>
+
+      <!-- 右：イメージカード -->
+      <div class="col-md-5">
+        <div class="card shadow-sm border-0 top-hero-card">
+          <div class="card-body">
+            <h2 class="h5 text-primary mb-3">検索フロー（3ステップ）</h2>
+            <ol class="mb-3 text-muted small">
+              <li>領域・病名を選択（Step1）</li>
+              <li>症状を選択（Step2）</li>
+              <li>スコア付きで漢方候補を一覧表示</li>
+            </ol>
+            <p class="mb-0 text-muted small">
+              選択した病名・症状ごとにスコアリングを行い、<br>
+              候補となる漢方を優先度順に表示します。
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="my-5">
+
+<div id="about-app" class="container mb-5">
+  <div class="text-center mb-4">
+    <h2 class="h4 text-primary mb-2">このアプリでできること</h2>
+    <p class="text-muted">
+      漢方の選択に悩む場面で、候補出し・学習の両面をサポートします。
+    </p>
+  </div>
+
+  <div class="row g-4">
+    <div class="col-md-4">
+      <div class="card h-100 shadow-sm border-0">
+        <div class="card-body">
+          <h3 class="h6 text-primary mb-2">症状・病名からの絞り込み</h3>
+          <p class="small text-muted mb-0">
+            領域・病名・症状を選択することで、複数の観点から漢方候補をスコアリングし、優先度の高い順に表示します。
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card h-100 shadow-sm border-0">
+        <div class="card-body">
+          <h3 class="h6 text-primary mb-2">スコアの見える化</h3>
+          <p class="small text-muted mb-0">
+            病名スコア・症状スコアを別々に表示し、どの観点で候補に挙がっているかを一目で確認できます。
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4">
+      <div class="card h-100 shadow-sm border-0">
+        <div class="card-body">
+          <h3 class="h6 text-primary mb-2">漢方の詳細情報(未実装部分)</h3>
+          <p class="small text-muted mb-0">
+            各漢方の注意点やメモ（note / detail）を確認でき、処方検討や自己学習にも活用できます。
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
