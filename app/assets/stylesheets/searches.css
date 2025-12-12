@@ -43,3 +43,20 @@
 .search-step2-symptoms {
   flex: 1;
 }
+
+/* 病名・症状のチェックボックスをグリッド（1行20個）で表示 */
+.disease-list,
+.symptom-list {
+  display: grid;
+  grid-template-columns: repeat(20, minmax(0, 1fr));
+  column-gap: 0.75rem; /* 横の間隔 */
+  row-gap: 0.25rem;    /* 縦の間隔 */
+}
+
+/* スマホのときは列数を減らす（見やすさ優先） */
+@media (max-width: 768px) {
+  .disease-list,
+  .symptom-list {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
