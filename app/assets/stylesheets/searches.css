@@ -45,18 +45,56 @@
 }
 
 /* 病名・症状のチェックボックスをグリッド（1行20個）で表示 */
+/* 病名・症状のチェックボックスをタイル状に表示 */
+/* 病名・症状リストを「縦に並べて、下まで行ったら次の列」にする */
+/* 20項目で1列に収めるレイアウト */
+/* 1列20行で縦に並べて、21個目から次の列へ */
 .disease-list,
 .symptom-list {
   display: grid;
-  grid-template-columns: repeat(20, minmax(0, 1fr));
-  column-gap: 0.75rem; /* 横の間隔 */
-  row-gap: 0.25rem;    /* 縦の間隔 */
+  grid-auto-flow: column;               /* 縦に埋めてから次の列へ */
+  grid-template-rows: repeat(20, auto); /* 1列あたり最大20個 */
+  column-gap: 2rem;
+  row-gap: 0.25rem;
 }
 
-/* スマホのときは列数を減らす（見やすさ優先） */
+/* □ とテキストを横にピタッと並べる */
+.disease-label,
+.symptom-label {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  cursor: pointer;
+}
+
+/* ブラウザのデフォルト余白を消す */
+.disease-checkbox,
+.symptom-checkbox {
+  margin: 0;
+}
+
+/* スマホでは1列にする */
 @media (max-width: 768px) {
   .disease-list,
   .symptom-list {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    column-count: 1;
   }
+}
+
+.btn-area {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.btn-nav {
+  padding: 0.5rem 1.2rem;     /* ボタンの大きさ */
+  border-radius: 6px;         /* 角丸 */
+  font-weight: 600;
+  text-decoration: none;      /* リンク下線を消す */
+  display: inline-block;      /* ブロック化して押しやすい */
+}
+
+.btn-nav:hover {
+  opacity: 0.85;              /* ホバー時 */
 }

@@ -3,13 +3,15 @@
   <% back_to_step1_params = params.permit(medical_area_ids: [], disease_ids: []) %>
   <% back_to_step2_params = params.permit(medical_area_ids: [], disease_ids: [], symptom_ids: []) %>
 
-  <%= link_to "Step1に戻る",
-              step1_search_path(back_to_step1_params),
-              class: "btn btn-outline-secondary" %>
+  <div class="btn-area">
+    <%= link_to "Step1に戻る",
+                step1_search_path(back_to_step1_params),
+                class: "btn btn-outline-secondary btn-nav" %>
 
-  <%= link_to "Step2に戻る",
-              step2_search_path(back_to_step2_params),
-              class: "btn btn-secondary" %>
+    <%= link_to "Step2に戻る",
+                step2_search_path(back_to_step2_params),
+                class: "btn btn-secondary btn-nav" %>
+  </div>
 </div>
 <!-- 条件の確認表示 -->
 <div class="mb-3">
