@@ -10,6 +10,10 @@ Rails.application.routes.draw do
   get "home/index"
   root "home#index"
 
+  # ====== Static Pages (Legal) ======
+  get "terms",   to: "static_pages#terms"
+  get "privacy", to: "static_pages#privacy"
+
   # ====== Search Flow ======
   resource :search, only: [] do
     get :step1
