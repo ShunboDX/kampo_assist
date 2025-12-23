@@ -1,8 +1,4 @@
 Rails.application.routes.draw do
-  get "searches/step1"
-  get "searches/step2"
-  get "/search/results", to: "searches#results", as: :search_results
-  resources :kampos, only: [ :show ]
   # ====== Health Check ======
   get "up" => "rails/health#show", as: :rails_health_check
 
@@ -13,6 +9,7 @@ Rails.application.routes.draw do
   # ====== Static Pages (Legal) ======
   get "terms",   to: "static_pages#terms"
   get "privacy", to: "static_pages#privacy"
+  get "/how_to",  to: "static_pages#how_to",  as: :how_to
 
   # ====== Search Flow ======
   resource :search, only: [] do
@@ -20,4 +17,6 @@ Rails.application.routes.draw do
     get :step2
     get :results
   end
+
+  resources :kampos, only: [ :show ]
 end
