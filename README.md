@@ -110,6 +110,13 @@ https://kampoassist.com
 ## テスト・品質方針
 - テスト方針は [docs/test_policy.md](docs/test_policy.md) に記載しています
 
+## CI / 品質管理
+Pull Request 作成時に GitHub Actions により以下を自動実行しています。
+- Rubocop によるコードスタイルチェック
+- Rails / Gem のセキュリティスキャン（Brakeman / bundler-audit）
+- テスト（test / system test）
+※ RSpec 導入後は RSpec 実行へ移行予定
+
 ## 機能候補
 現状作ろうと思っている機能、案段階の機能をしっかりと固まっていなくても構わないのでMVPリリース時に作っていたいもの、本リリースまでに作っていたいものをそれぞれ分けて教えてください。
 
