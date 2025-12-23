@@ -1,0 +1,34 @@
+<div class="container py-5">
+  <h1 class="mb-4">使い方</h1>
+
+  <section class="mb-5">
+    <h2 class="h4 mb-3">漢方アシストとは</h2>
+    <p class="text-muted">
+      漢方アシストは、症状や病名から適応する漢方薬の候補を絞り込む
+      医療従事者向けサポートツールです。<br>
+      複数の観点（病名・症状）をもとにスコアリングし、優先度の高い順に表示します。
+    </p>
+  </section>
+
+  <section class="mb-5">
+    <h2 class="h4 mb-3">検索の流れ（3ステップ）</h2>
+    <ol class="text-muted">
+      <li class="mb-2">領域・病名を選択（Step1）</li>
+      <li class="mb-2">症状を選択（Step2）</li>
+      <li class="mb-2">結果を確認（スコア付きで候補表示）</li>
+    </ol>
+  </section>
+
+  <section class="mb-5">
+    <h2 class="h4 mb-3">注意事項</h2>
+    <p class="text-muted mb-0">
+      ※ 本アプリは診断や処方を行うものではありません。<br>
+      ※ 実際の処方判断は、必ず専門的な知見に基づいて行ってください。
+    </p>
+  </section>
+
+  <div class="mt-4">
+    <%= link_to "漢方検索を始める", step1_search_path, class: "btn btn-primary" %>
+    <%= link_to "トップへ戻る", root_path, class: "btn btn-outline-secondary ms-2" %>
+  </div>
+</div>
