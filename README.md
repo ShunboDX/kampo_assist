@@ -107,6 +107,9 @@ https://kampoassist.com
 4. 本サービスは、医学的内容の正確性を担保するため、甲状腺・糖尿病クリニック中の島　院長 井上 篤 医師による監修を受けております。
    症状・体質と漢方薬の対応関係、適応情報など、医療知識を要する部分については医療従事者のレビューを経て反映しています。
 
+## テスト・品質方針
+- テスト方針は [docs/test_policy.md](docs/test_policy.md) に記載しています
+
 ## 機能候補
 現状作ろうと思っている機能、案段階の機能をしっかりと固まっていなくても構わないのでMVPリリース時に作っていたいもの、本リリースまでに作っていたいものをそれぞれ分けて教えてください。
 
@@ -190,7 +193,7 @@ root "home#index"
  http://localhost:3000
 
 3. RuboCop（コード解析ツール）のセットアップ
-Rails 8 標準の rubocop-rails-omakase が自動導入されているため、 .rubocop.yml は既に存在しており、基本設定も完了済み。
+Rails 8 標準の rubocop-rails-omakase が自動導入されているため、.rubocop.yml は既に存在しており、基本設定も完了済み。
 RuboCop の動作確認：
 
 bundle exec rubocop
