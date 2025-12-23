@@ -8,7 +8,6 @@ on:
 jobs:
   scan_ruby:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v5
@@ -83,12 +82,24 @@ jobs:
         with:
           bundler-cache: true
 
+      - name: Setup DB
+        env:
+          RAILS_ENV: test
+        run: |
+          bin/rails db:prepare
+
       - name: Run tests
         env:
           RAILS_ENV: test
           # RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
           # REDIS_URL: redis://localhost:6379/0
-        run: bin/rails db:test:prepare test
+        run: bin/rails test
+      
+      - name: Run RSpec
+        env:
+          RAILS_ENV: test
+        run: |
+          bundle exec rspec
 
   system-test:
     runs-on: ubuntu-latest
@@ -113,7 +124,7 @@ jobs:
           RAILS_ENV: test
           # RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
           # REDIS_URL: redis://localhost:6379/0
-        run: bin/rails db:test:prepare test:system
+        run: run: bin/rails db:prepare test:system
 
       - name: Keep screenshots from failed system tests
         uses: actions/upload-artifact@v4
@@ -122,28 +133,3 @@ jobs:
           name: screenshots
           path: ${{ github.workspace }}/tmp/screenshots
           if-no-files-found: ignore
-
-  rspec:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v5
-
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          bundler-cache: true
-
-      - name: Setup DB
-        env:
-          RAILS_ENV: test
-        run: |
-          bin/rails db:prepare
-
-      - name: Run RSpec
-        env:
-          RAILS_ENV: test
-        run: |
-          bin/rspec
-
