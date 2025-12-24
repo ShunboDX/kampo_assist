@@ -117,6 +117,12 @@ Pull Request 作成時に GitHub Actions により以下を自動実行してい
 - テスト（test / system test）
 ※ RSpec 導入後は RSpec 実行へ移行予定
 
+## CI / Test
+本プロジェクトでは GitHub Actions を用いて、Pull Request 作成時に以下を自動実行しています。
+- RuboCop（コードスタイルチェック）
+- RSpec（自動テスト）
+- セキュリティスキャン（Brakeman / bundler-audit）
+
 ## 機能候補
 現状作ろうと思っている機能、案段階の機能をしっかりと固まっていなくても構わないのでMVPリリース時に作っていたいもの、本リリースまでに作っていたいものをそれぞれ分けて教えてください。
 
