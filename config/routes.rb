@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "user_sessions/new"
   get "users/new"
   # ====== Health Check ======
   get "up" => "rails/health#show", as: :rails_health_check
@@ -22,4 +23,5 @@ Rails.application.routes.draw do
   resources :kampos, only: [ :show ]
   # ====== Auth ======
   resources :users, only: %i[new create]
+  resource :user_session, only: %i[new create destroy]
 end
