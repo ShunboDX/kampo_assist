@@ -2,6 +2,7 @@
 
 <% if @user.errors.any? %>
   <div>
+    <p><strong>入力内容を確認してください</strong></p>
     <ul>
       <% @user.errors.full_messages.each do |message| %>
         <li><%= message %></li>
