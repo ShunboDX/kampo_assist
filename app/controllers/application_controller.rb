@@ -4,4 +4,10 @@ class ApplicationController < ActionController::Base
 
   # Changes to the importmap will invalidate the etag for HTML responses
   stale_when_importmap_changes
+
+  private
+
+  def not_authenticated
+    redirect_to new_user_session_path, alert: "ログインしてください"
+  end
 end

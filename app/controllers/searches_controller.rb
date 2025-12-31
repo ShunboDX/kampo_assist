@@ -1,4 +1,6 @@
 class SearchesController < ApplicationController
+  before_action :require_login, only: %i[step2 results]
+
   def step1
     @medical_areas = MedicalArea.all.order(:id)
 
