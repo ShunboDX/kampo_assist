@@ -10,7 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_12_29_045056) do
+ActiveRecord::Schema[8.1].define(version: 2026_01_01_011338) do
+  create_table "authorizations", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "email"
+    t.string "name"
+    t.string "provider", null: false
+    t.string "uid", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
+    t.index ["provider", "uid"], name: "index_authorizations_on_provider_and_uid", unique: true
+    t.index ["user_id"], name: "index_authorizations_on_user_id"
+  end
+
   create_table "diseases", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.integer "medical_area_id", null: false
@@ -72,6 +84,7 @@ ActiveRecord::Schema[8.1].define(version: 2025_12_29_045056) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "authorizations", "users"
   add_foreign_key "diseases", "medical_areas"
   add_foreign_key "kampo_diseases", "diseases"
   add_foreign_key "kampo_diseases", "kampos"
