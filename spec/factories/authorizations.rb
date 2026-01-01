@@ -1,9 +1,9 @@
 FactoryBot.define do
   factory :authorization do
-    user { nil }
-    provider { "MyString" }
-    uid { "MyString" }
-    email { "MyString" }
-    name { "MyString" }
+    association :user
+    provider { "google" }
+    uid { SecureRandom.hex(8) }
+    email { "oauth@example.com" }
+    name { "OAuth User" }
   end
 end
