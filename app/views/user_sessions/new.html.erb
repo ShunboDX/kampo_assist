@@ -21,3 +21,9 @@
     <%= submit_tag "ログイン" %>
   </div>
 <% end %>
+
+<hr>
+
+<%= form_with url: "/auth/google_oauth2", method: :post, data: { turbo: false } do %>
+  <%= submit_tag "Googleでログイン", class: "btn btn-outline-dark w-100 mt-3" %>
+<% end %>
