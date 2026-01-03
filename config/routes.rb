@@ -24,4 +24,8 @@ Rails.application.routes.draw do
   # ====== Auth ======
   resources :users, only: %i[new create]
   resource :user_session, only: %i[new create destroy]
+
+  # ====== Auth (OAuth / OmniAuth) ======
+  get "/auth/:provider/callback", to: "oauths#create"
+  get "/auth/failure",            to: "oauths#failure"
 end
