@@ -20,7 +20,11 @@ Rails.application.routes.draw do
     get :results
   end
 
-  resources :kampos, only: [ :show ]
+  # ====== Kampos ======
+  resources :kampos, only: [ :show ] do
+    # ====== Favorite ======
+    resource :favorite, only: [ :create, :destroy ]
+  end
   # ====== Auth ======
   resources :users, only: %i[new create]
   resource :user_session, only: %i[new create destroy]
