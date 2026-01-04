@@ -4,4 +4,7 @@ class Kampo < ApplicationRecord
 
   has_many :kampo_symptoms, dependent: :destroy
   has_many :symptoms, through: :kampo_symptoms
+
+  has_many :favorites, dependent: :destroy
+  has_many :favorited_by_users, through: :favorites, source: :user
 end
