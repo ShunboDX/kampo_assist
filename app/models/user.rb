@@ -2,6 +2,8 @@ class User < ApplicationRecord
   authenticates_with_sorcery!
 
   has_many :authorizations, dependent: :destroy
+  has_many :favorites, dependent: :destroy
+  has_many :favorite_kampos, through: :favorites, source: :kampo
 
   validates :email, presence: true, uniqueness: true
 
