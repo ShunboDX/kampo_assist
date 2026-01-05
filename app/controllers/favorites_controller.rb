@@ -1,6 +1,10 @@
 class FavoritesController < ApplicationController
   before_action :require_login
-  before_action :set_kampo
+  before_action :set_kampo, only: [ :create, :destroy ]
+
+  def index
+    @kampos = current_user.favorite_kampos.order(:id)
+  end
 
   def create
     begin

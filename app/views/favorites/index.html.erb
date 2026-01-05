@@ -1,0 +1,29 @@
+<div class="container py-3">
+  <div class="d-flex justify-content-between align-items-center mb-3">
+    <h1 class="h4 mb-0">お気に入り一覧</h1>
+  </div>
+
+  <% if @kampos.any? %>
+    <ul class="list-group">
+      <% @kampos.each do |kampo| %>
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <div>
+            <%= link_to kampo.name, kampo_path(kampo), class: "text-decoration-none" %>
+            <% if kampo.kana_name.present? %>
+              <small class="text-muted ms-2"><%= kampo.kana_name %></small>
+            <% end %>
+          </div>
+
+          <%= button_to "解除",
+                        kampo_favorite_path(kampo),
+                        method: :delete,
+                        class: "btn btn-sm btn-outline-secondary",
+                        form: { data: { controller: "submit-disable",
+                                        action: "turbo:submit-start->submit-disable#disable" } } %>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p class="text-muted">お気に入りはまだありません。</p>
+  <% end %>
+</div>

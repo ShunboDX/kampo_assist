@@ -25,6 +25,9 @@ Rails.application.routes.draw do
     # ====== Favorite ======
     resource :favorite, only: [ :create, :destroy ]
   end
+
+  resources :favorites, only: [ :index ]
+
   # ====== Auth ======
   resources :users, only: %i[new create]
   resource :user_session, only: %i[new create destroy]
