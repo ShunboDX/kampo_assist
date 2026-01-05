@@ -4,6 +4,25 @@
     <p class="text-muted mb-4"><%= @kampo.kana_name %></p>
   <% end %>
 
+  <%# ===== Favorite button ===== %>
+  <% if logged_in? %>
+    <div class="mb-4">
+      <% if @favorited %>
+        <%= button_to "お気に入り解除",
+                      kampo_favorite_path(@kampo),
+                      method: :delete,
+                      class: "btn btn-outline-secondary" %>
+      <% else %>
+        <%= button_to "お気に入りする",
+                      kampo_favorite_path(@kampo),
+                      method: :post,
+                      class: "btn btn-primary" %>
+      <% end %>
+    </div>
+  <% else %>
+    <p class="text-muted mb-4">お気に入りするにはログインが必要です。</p>
+  <% end %>
+
   <section class="mb-4">
     <h2 class="h5 mb-2">適応・よく使うパターン</h2>
     <% if @kampo.note.present? %>
