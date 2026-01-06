@@ -364,3 +364,8 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+### 検索履歴（SearchSession）
+- 過去の検索条件を保存し、再検索できる機能
+- 詳細な仕様は以下を参照  
+  - [SearchSession 仕様書](docs/search_session.md)
