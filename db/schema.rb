@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_01_04_025831) do
+ActiveRecord::Schema[8.1].define(version: 2026_01_07_020655) do
   create_table "authorizations", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "email"
@@ -77,6 +77,16 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_04_025831) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "search_sessions", force: :cascade do |t|
+    t.json "conditions", null: false
+    t.string "conditions_hash", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
+    t.index ["user_id", "conditions_hash"], name: "index_search_sessions_on_user_id_and_conditions_hash", unique: true
+    t.index ["user_id"], name: "index_search_sessions_on_user_id"
+  end
+
   create_table "symptoms", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.integer "medical_area_id", null: false
@@ -102,5 +112,6 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_04_025831) do
   add_foreign_key "kampo_diseases", "kampos"
   add_foreign_key "kampo_symptoms", "kampos"
   add_foreign_key "kampo_symptoms", "symptoms"
+  add_foreign_key "search_sessions", "users"
   add_foreign_key "symptoms", "medical_areas"
 end
