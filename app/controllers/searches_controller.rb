@@ -62,7 +62,7 @@ class SearchesController < ApplicationController
         symptom_ids: symptom_ids
       ).call
     end
-  
+
     # ★追加：results表示時に履歴保存（#160）
     save_search_session!(medical_area_ids:, disease_ids:, symptom_ids:)
   end
