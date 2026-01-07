@@ -62,5 +62,39 @@ class SearchesController < ApplicationController
         symptom_ids: symptom_ids
       ).call
     end
+  
+    # ★追加：results表示時に履歴保存（#160）
+    save_search_session!(medical_area_ids:, disease_ids:, symptom_ids:)
+  end
+
+  private
+
+  def save_search_session!(medical_area_ids:, disease_ids:, symptom_ids:)
+    # require_login してるので基本 current_user はいる想定だが念のため
+    return unless current_user
+
+    conditions = {
+      "medical_area_ids" => medical_area_ids,
+      "disease_ids"      => disease_ids,
+      "symptom_ids"      => symptom_ids
+    }.compact_blank
+
+    return if conditions.blank?
+
+    hash = SearchSession.generate_hash(conditions)
+
+    search_session = current_user.search_sessions.find_or_initialize_by(conditions_hash: hash)
+    search_session.conditions = conditions
+    search_session.save!
+
+    enforce_search_session_limit!(current_user, 100)
+  end
+
+  def enforce_search_session_limit!(user, limit)
+    over = user.search_sessions.count - limit
+    return if over <= 0
+
+    # 集約運用なので updated_at が古い順に消すと自然
+    user.search_sessions.order(updated_at: :asc).limit(over).delete_all
   end
 end
