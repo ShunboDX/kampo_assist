@@ -7,9 +7,9 @@ RSpec.describe "Re-search from SearchSession", type: :system do
     # まず履歴を作る
     ss = user.search_sessions.create!(
       conditions: {
-        "medical_area_ids" => ["1"],
-        "disease_ids"      => ["2"],
-        "symptom_ids"      => ["3"]
+        "medical_area_ids" => [ "1" ],
+        "disease_ids"      => [ "2" ],
+        "symptom_ids"      => [ "3" ]
       }
     )
 

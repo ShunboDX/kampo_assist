@@ -25,9 +25,9 @@ RSpec.describe "SearchSessions", type: :request do
     let!(:own_session) do
       user.search_sessions.create!(
         conditions: {
-          "medical_area_ids" => ["1"],
-          "disease_ids"      => ["2"],
-          "symptom_ids"      => ["3"]
+          "medical_area_ids" => [ "1" ],
+          "disease_ids"      => [ "2" ],
+          "symptom_ids"      => [ "3" ]
         }
       )
     end
@@ -41,7 +41,7 @@ RSpec.describe "SearchSessions", type: :request do
     it "returns 404 when accessing other user's search session" do
       other = create(:user, password: "password", password_confirmation: "password")
       other_session = other.search_sessions.create!(
-        conditions: { "disease_ids" => ["2"] }
+        conditions: { "disease_ids" => [ "2" ] }
       )
 
       login_as(user)

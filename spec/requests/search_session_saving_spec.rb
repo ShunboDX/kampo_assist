@@ -15,9 +15,9 @@ RSpec.describe "SearchSession saving", type: :request do
 
     expect {
       get results_search_path, params: {
-        medical_area_ids: ["1"],
-        disease_ids: ["2"],
-        symptom_ids: ["3"]
+        medical_area_ids: [ "1" ],
+        disease_ids: [ "2" ],
+        symptom_ids: [ "3" ]
       }
     }.to change { user.search_sessions.count }.by(1)
   end
