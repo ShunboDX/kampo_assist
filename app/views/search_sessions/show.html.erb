@@ -1,0 +1,79 @@
+<h1>検索履歴 詳細</h1>
+
+<div class="mb-3">
+  <%= link_to "一覧へ戻る", search_sessions_path, class: "btn btn-outline-secondary" %>
+</div>
+
+<div class="card">
+  <div class="card-body">
+    <p class="text-muted mb-2">
+      検索日時：<%= @search_session.created_at %>
+    </p>
+
+    <hr>
+
+    <h2 class="h5">検索条件</h2>
+
+    <p>
+      <strong>領域：</strong>
+      <% names = @search_session.medical_area_names_all %>
+      <%= names.present? ? names.join(" / ") : "なし" %>
+    </p>
+
+    <p>
+      <strong>病名：</strong>
+      <% names = @search_session.disease_names_all %>
+      <%= names.present? ? names.join(" / ") : "なし" %>
+    </p>
+
+    <p>
+      <strong>症状：</strong>
+      <% names = @search_session.symptom_names_all %>
+      <%= names.present? ? names.join(" / ") : "なし" %>
+    </p>
+
+    <hr>
+
+    <details class="mt-2">
+      <summary class="text-muted">保存されている条件（JSON）を表示</summary>
+      <pre class="mt-2"><%= JSON.pretty_generate(@search_session.conditions) %></pre>
+    </details>
+  </div>
+</div>
+
+<hr class="my-4">
+
+<h2 class="h5">この条件で出た漢方</h2>
+
+<% if @results.blank? %>
+  <p>条件に一致する漢方は見つかりませんでした。</p>
+<% else %>
+  <p><%= @results.size %>件ヒットしました。</p>
+
+  <ul class="list-group">
+    <% @results.each do |result| %>
+      <li class="list-group-item">
+        <h3 class="h6 mb-1">
+          <%= link_to result.kampo.name,
+                      kampo_path(
+                        result.kampo,
+                        medical_area_ids: @search_session.conditions["medical_area_ids"],
+                        disease_ids:      @search_session.conditions["disease_ids"],
+                        symptom_ids:      @search_session.conditions["symptom_ids"]
+                      ) %>
+        </h3>
+
+        <% if result.kampo.note.present? %>
+          <p class="mb-1 text-muted">
+            <%= truncate(result.kampo.note, length: 200) %>
+          </p>
+        <% end %>
+
+        <small>
+          合計スコア: <%= result.total_score %>
+          （病名: <%= result.disease_score %> / 症状: <%= result.symptom_score %>）
+        </small>
+      </li>
+    <% end %>
+  </ul>
+<% end %>

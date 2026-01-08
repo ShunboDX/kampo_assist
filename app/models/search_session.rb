@@ -42,7 +42,7 @@ class SearchSession < ApplicationRecord
     KampoSearch.new(disease_ids: disease_ids, symptom_ids: symptom_ids).call.size
   end
 
-   # 追加：表示用メソッド（一覧向け）
+  # 追加：表示用メソッド（一覧向け）
   def medical_area_names(limit: 3)
     ids = Array(conditions["medical_area_ids"]).reject(&:blank?)
     return [] if ids.blank?
@@ -59,6 +59,24 @@ class SearchSession < ApplicationRecord
     ids = Array(conditions["symptom_ids"]).reject(&:blank?)
     return [] if ids.blank?
     Symptom.where(id: ids).limit(limit).pluck(:name)
+  end
+
+  def medical_area_names_all
+    ids = Array(conditions["medical_area_ids"]).reject(&:blank?)
+    return [] if ids.blank?
+    MedicalArea.where(id: ids).pluck(:name)
+  end
+
+  def disease_names_all
+    ids = Array(conditions["disease_ids"]).reject(&:blank?)
+    return [] if ids.blank?
+    Disease.where(id: ids).pluck(:name)
+  end
+
+  def symptom_names_all
+    ids = Array(conditions["symptom_ids"]).reject(&:blank?)
+    return [] if ids.blank?
+    Symptom.where(id: ids).pluck(:name)
   end
 
   private
