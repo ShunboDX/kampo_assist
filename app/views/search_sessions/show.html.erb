@@ -2,6 +2,9 @@
 
 <div class="mb-3">
   <%= link_to "一覧へ戻る", search_sessions_path, class: "btn btn-outline-secondary" %>
+  <%= link_to "この条件で再検索",
+              results_search_path(@search_session.conditions),
+              class: "btn btn-primary" %>
 </div>
 
 <div class="card">
