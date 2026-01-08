@@ -61,6 +61,24 @@ class SearchSession < ApplicationRecord
     Symptom.where(id: ids).limit(limit).pluck(:name)
   end
 
+  def medical_area_names_all
+    ids = Array(conditions["medical_area_ids"]).reject(&:blank?)
+    return [] if ids.blank?
+    MedicalArea.where(id: ids).pluck(:name)
+  end
+
+  def disease_names_all
+    ids = Array(conditions["disease_ids"]).reject(&:blank?)
+    return [] if ids.blank?
+    Disease.where(id: ids).pluck(:name)
+  end
+
+  def symptom_names_all
+    ids = Array(conditions["symptom_ids"]).reject(&:blank?)
+    return [] if ids.blank?
+    Symptom.where(id: ids).pluck(:name)
+  end
+
   private
 
   def normalize_conditions!

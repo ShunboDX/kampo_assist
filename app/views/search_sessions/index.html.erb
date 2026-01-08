@@ -19,23 +19,6 @@
                     <strong>漢方例:</strong> <%= names.join(" / ") %>
                 </div>
             <% end %>
-
-            <div class="mt-1 text-muted small">
-                <div class="mt-1">
-                    <strong>領域：</strong>
-                    <%= ss.medical_area_names.join(" / ").presence || "なし" %>
-                </div>
-
-                <div class="mt-1">
-                    <strong>病名：</strong>
-                    <%= ss.disease_names.join(" / ").presence || "なし" %>
-                </div>
-
-                <div class="mt-1">
-                    <strong>症状：</strong>
-                    <%= ss.symptom_names.join(" / ").presence || "なし" %>
-                </div>
-            </div>
         </div>
         <div>
           <%= link_to "詳細へ", search_session_path(ss), class: "btn btn-sm btn-outline-primary" %>
