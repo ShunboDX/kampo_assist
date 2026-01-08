@@ -1,0 +1,46 @@
+<h1>検索履歴</h1>
+
+<% if @search_sessions.blank? %>
+  <div class="alert alert-info">
+    検索履歴はまだありません。
+  </div>
+<% else %>
+  <ul class="list-group">
+    <% @search_sessions.each do |ss| %>
+      <li class="list-group-item d-flex justify-content-between align-items-center">
+        <div>
+            <div class="mt-1">
+                <strong>ヒット件数:</strong> <%= ss.result_count %>件
+            </div>
+
+            <% names = ss.result_kampo_names(limit: 3) %>
+            <% if names.present? %>
+                <div class="mt-1">
+                    <strong>漢方例:</strong> <%= names.join(" / ") %>
+                </div>
+            <% end %>
+
+            <div class="mt-1 text-muted small">
+                <div class="mt-1">
+                    <strong>領域：</strong>
+                    <%= ss.medical_area_names.join(" / ").presence || "なし" %>
+                </div>
+
+                <div class="mt-1">
+                    <strong>病名：</strong>
+                    <%= ss.disease_names.join(" / ").presence || "なし" %>
+                </div>
+
+                <div class="mt-1">
+                    <strong>症状：</strong>
+                    <%= ss.symptom_names.join(" / ").presence || "なし" %>
+                </div>
+            </div>
+        </div>
+        <div>
+          <%= link_to "詳細へ", search_session_path(ss), class: "btn btn-sm btn-outline-primary" %>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+<% end %>

@@ -23,6 +23,44 @@ class SearchSession < ApplicationRecord
     Digest::SHA256.hexdigest(normalized.to_json)
   end
 
+  def result_kampo_names(limit: 3)
+    disease_ids = Array(conditions["disease_ids"]).reject(&:blank?)
+    symptom_ids = Array(conditions["symptom_ids"]).reject(&:blank?)
+
+    return [] if disease_ids.blank? && symptom_ids.blank?
+
+    results = KampoSearch.new(disease_ids: disease_ids, symptom_ids: symptom_ids).call
+    results.first(limit).map { |r| r.kampo.name }
+  end
+
+  def result_count
+    disease_ids = Array(conditions["disease_ids"]).reject(&:blank?)
+    symptom_ids = Array(conditions["symptom_ids"]).reject(&:blank?)
+
+    return 0 if disease_ids.blank? && symptom_ids.blank?
+
+    KampoSearch.new(disease_ids: disease_ids, symptom_ids: symptom_ids).call.size
+  end
+
+   # 追加：表示用メソッド（一覧向け）
+  def medical_area_names(limit: 3)
+    ids = Array(conditions["medical_area_ids"]).reject(&:blank?)
+    return [] if ids.blank?
+    MedicalArea.where(id: ids).limit(limit).pluck(:name)
+  end
+
+  def disease_names(limit: 3)
+    ids = Array(conditions["disease_ids"]).reject(&:blank?)
+    return [] if ids.blank?
+    Disease.where(id: ids).limit(limit).pluck(:name)
+  end
+
+  def symptom_names(limit: 3)
+    ids = Array(conditions["symptom_ids"]).reject(&:blank?)
+    return [] if ids.blank?
+    Symptom.where(id: ids).limit(limit).pluck(:name)
+  end
+
   private
 
   def normalize_conditions!
