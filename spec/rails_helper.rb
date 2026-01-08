@@ -38,6 +38,9 @@ RSpec.configure do |config|
   config.include FactoryBot::Syntax::Methods
   config.include Sorcery::TestHelpers::Rails::Request, type: :request
 
+  config.include LoginHelper, type: :request
+  config.include LoginHelper, type: :system
+
   # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
   config.fixture_paths = [
     Rails.root.join('spec/fixtures')
