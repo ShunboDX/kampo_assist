@@ -13,6 +13,15 @@
                 class: "btn btn-secondary btn-nav" %>
   </div>
 </div>
+
+<!-- ★ここ：ログイン誘導（未ログイン時のみ） -->
+<% if @show_login_prompt %>
+  <div class="alert alert-info">
+    ログインすると検索履歴を保存でき、あとから同じ条件で再検索できます。
+    <%= link_to "ログインする", login_path, class: "btn btn-sm btn-primary ms-2" %>
+  </div>
+<% end %>
+
 <!-- 条件の確認表示 -->
 <div class="mb-3">
   <h2 class="h5">選択した条件</h2>
