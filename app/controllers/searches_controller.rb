@@ -1,5 +1,5 @@
 class SearchesController < ApplicationController
-  before_action :require_login, only: %i[step2 results]
+  before_action :require_login, only: %i[step2]
 
   def step1
     @medical_areas = MedicalArea.all.order(:id)
@@ -62,6 +62,9 @@ class SearchesController < ApplicationController
         symptom_ids: symptom_ids
       ).call
     end
+  
+    # ★追加：未ログインならログイン誘導を表示する
+    @show_login_prompt = !logged_in?
 
     # ★追加：results表示時に履歴保存（#160）
     save_search_session!(medical_area_ids:, disease_ids:, symptom_ids:)
