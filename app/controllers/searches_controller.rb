@@ -62,7 +62,7 @@ class SearchesController < ApplicationController
         symptom_ids: symptom_ids
       ).call
     end
-  
+
     # ★追加：未ログインならログイン誘導を表示する
     @show_login_prompt = !logged_in?
 
