@@ -5,6 +5,7 @@ class User < ApplicationRecord
   has_many :favorites, dependent: :destroy
   has_many :favorite_kampos, through: :favorites, source: :kampo
   has_many :search_sessions, dependent: :destroy
+  has_many :case_notes, dependent: :destroy
 
   validates :email, presence: true, uniqueness: true
 
