@@ -3,7 +3,7 @@ class SearchesController < ApplicationController
 
   def step1
     @medical_areas = MedicalArea
-                   .where.not(name: ["全身症候", "血液"])
+                   .where.not(name: [ "全身症候", "血液" ])
                    .order(:id)
 
     # 複数領域に対応（"-", nil 対策で Array() + reject）
