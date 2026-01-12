@@ -2,7 +2,9 @@ class SearchesController < ApplicationController
   before_action :require_login, only: %i[step2]
 
   def step1
-    @medical_areas = MedicalArea.all.order(:id)
+    @medical_areas = MedicalArea
+                   .where.not(name: [ "全身症候", "血液" ])
+                   .order(:id)
 
     # 複数領域に対応（"-", nil 対策で Array() + reject）
     medical_area_ids = Array(params[:medical_area_ids]).reject(&:blank?)
