@@ -3,7 +3,7 @@ class SearchesController < ApplicationController
 
   def step1
     @medical_areas = MedicalArea
-                   .where.not(name: [ "全身症候", "血液" ])
+                   .where.not(name: [ "全身症候" ])
                    .order(:id)
 
     # 複数領域に対応（"-", nil 対策で Array() + reject）
@@ -29,10 +29,12 @@ class SearchesController < ApplicationController
     @disease_ids      = Array(params[:disease_ids]).reject(&:blank?)
 
     # 左カラム：領域一覧（全部表示してOK）
-    @medical_areas = MedicalArea.order(
-      Arel.sql("CASE WHEN name = '全身症候' THEN 0 ELSE 1 END"),
-      :id
-    )
+    @medical_areas = MedicalArea
+      .where.not(name: [ "血液" ])
+      .order(
+        Arel.sql("CASE WHEN name = '全身症候' THEN 0 ELSE 1 END"),
+        :id
+      )
 
     # 右カラム：症状一覧（選択された領域だけ絞る）
     if @medical_area_ids.present?
