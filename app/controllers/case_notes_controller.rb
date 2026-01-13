@@ -1,6 +1,6 @@
 class CaseNotesController < ApplicationController
   before_action :require_login
-  before_action :set_case_note, only: [:edit, :update, :destroy]
+  before_action :set_case_note, only: [ :edit, :update, :destroy ]
 
   def index
     @case_notes = current_user.case_notes.order(created_at: :desc)
