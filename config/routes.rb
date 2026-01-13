@@ -36,7 +36,7 @@ Rails.application.routes.draw do
   resources :search_sessions, only: %i[index show]
 
   # ====== case note ======
-  resources :case_notes, only: [ :index, :new, :create ]
+  resources :case_notes, only: [ :index, :new, :create, :edit, :update, :destroy ]
 
   # ====== Auth (OAuth / OmniAuth) ======
   get "/auth/:provider/callback", to: "oauths#create"

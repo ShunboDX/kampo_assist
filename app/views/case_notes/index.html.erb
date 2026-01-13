@@ -10,6 +10,13 @@
         <small>
           （<%= l(note.created_at, format: :short) rescue note.created_at.to_s %>）
         </small>
+
+        <p>
+          <%= link_to "編集", edit_case_note_path(note) %>
+          <%= button_to "削除", case_note_path(note),
+                        method: :delete,
+                        data: { turbo_confirm: "削除しますか？" } %>
+        </p>
       </li>
     <% end %>
   </ul>
