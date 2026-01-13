@@ -7,4 +7,6 @@ class Kampo < ApplicationRecord
 
   has_many :favorites, dependent: :destroy
   has_many :favorited_by_users, through: :favorites, source: :user
+
+  has_many :case_notes, dependent: :nullify
 end

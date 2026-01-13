@@ -74,13 +74,19 @@ class SearchesController < ApplicationController
     @show_login_prompt = !logged_in?
 
     # ★追加：results表示時に履歴保存（#160）
-    save_search_session!(medical_area_ids:, disease_ids:, symptom_ids:)
+    @search_session = save_search_session!(medical_area_ids:, disease_ids:, symptom_ids:)
+
+    if logged_in? && @search_session.present?
+      @search_case_note = current_user.case_notes.find_or_initialize_by(
+        search_session_id: @search_session.id,
+        kampo_id: nil
+      )
+    end
   end
 
   private
 
   def save_search_session!(medical_area_ids:, disease_ids:, symptom_ids:)
-    # require_login してるので基本 current_user はいる想定だが念のため
     return unless current_user
 
     conditions = {
@@ -98,6 +104,8 @@ class SearchesController < ApplicationController
     search_session.save!
 
     enforce_search_session_limit!(current_user, 100)
+
+    search_session
   end
 
   def enforce_search_session_limit!(user, limit)
