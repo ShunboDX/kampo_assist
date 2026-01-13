@@ -7,7 +7,10 @@ class CaseNotesController < ApplicationController
   end
 
   def new
-    @case_note = current_user.case_notes.build
+    @case_note = current_user.case_notes.build(
+        kampo_id: params[:kampo_id],
+        search_session_id: params[:search_session_id]
+    )
   end
 
   def create
@@ -43,6 +46,6 @@ class CaseNotesController < ApplicationController
   end
 
   def case_note_params
-    params.require(:case_note).permit(:body)
+    params.require(:case_note).permit(:body, :kampo_id, :search_session_id)
   end
 end

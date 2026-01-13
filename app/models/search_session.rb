@@ -1,5 +1,6 @@
 class SearchSession < ApplicationRecord
   belongs_to :user
+  has_many :case_notes, dependent: :destroy
 
   validates :conditions, presence: true
   validates :conditions_hash, presence: true

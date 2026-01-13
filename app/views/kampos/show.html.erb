@@ -27,6 +27,30 @@
     <% end %>
   </section>
 
+  <section class="mb-4">
+    <h2 class="h5 mb-2">この検索結果での自分のメモ</h2>
+
+    <% if current_user && params[:search_session_id].present? %>
+      <% if @case_note.present? %>
+        <p><%= simple_format(h(@case_note.body)) %></p>
+
+        <div class="d-flex gap-2">
+          <%= link_to "メモを編集", edit_case_note_path(@case_note), class: "btn btn-outline-secondary btn-sm" %>
+        </div>
+      <% else %>
+        <p class="text-muted">この検索結果でのメモはまだありません。</p>
+
+        <%= link_to "メモを書く",
+                    new_case_note_path(kampo_id: @kampo.id, search_session_id: params[:search_session_id]),
+                    class: "btn btn-primary btn-sm" %>
+      <% end %>
+    <% elsif current_user %>
+      <p class="text-muted">検索結果から詳細を開いた場合に、この漢方へのメモを表示できます。</p>
+    <% else %>
+      <p class="text-muted">メモを見るにはログインが必要です。</p>
+    <% end %>
+  </section>
+
   <div class="mt-4">
     <%= link_to "検索結果に戻る",
         results_search_path(
