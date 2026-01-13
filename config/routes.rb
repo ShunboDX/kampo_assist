@@ -35,6 +35,9 @@ Rails.application.routes.draw do
   # ====== Search History ======
   resources :search_sessions, only: %i[index show]
 
+  # ====== case note ======
+  resources :case_notes, only: [:index]
+
   # ====== Auth (OAuth / OmniAuth) ======
   get "/auth/:provider/callback", to: "oauths#create"
   get "/auth/failure",            to: "oauths#failure"

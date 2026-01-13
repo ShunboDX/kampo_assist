@@ -1,0 +1,16 @@
+<h1>症例メモ一覧</h1>
+
+<% if @case_notes.any? %>
+  <ul>
+    <% @case_notes.each do |note| %>
+      <li>
+        <%= simple_format(h(note.body)) %>
+        <small>
+          （<%= l(note.created_at, format: :short) rescue note.created_at.to_s %>）
+        </small>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>まだ症例メモがありません。</p>
+<% end %>
