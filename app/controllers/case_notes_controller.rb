@@ -39,7 +39,7 @@ class CaseNotesController < ApplicationController
   private
 
   def set_case_note
-    @case_note = CaseNote.find(params[:id])
+   @case_note = current_user.case_notes.find(params[:id])
   end
 
   def case_note_params
