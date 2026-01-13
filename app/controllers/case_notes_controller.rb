@@ -28,7 +28,7 @@ class CaseNotesController < ApplicationController
 
   def update
     if @case_note.update(case_note_params)
-      redirect_to case_notes_path, notice: "症例メモを更新しました"
+      redirect_to(safe_return_to || case_notes_path, notice: "症例メモを更新しました")
     else
       render :edit, status: :unprocessable_entity
     end
@@ -47,5 +47,10 @@ class CaseNotesController < ApplicationController
 
   def case_note_params
     params.require(:case_note).permit(:body, :kampo_id, :search_session_id)
+  end
+
+  def safe_return_to
+    rt = params[:return_to].to_s
+    rt.start_with?("/") ? rt : nil
   end
 end
