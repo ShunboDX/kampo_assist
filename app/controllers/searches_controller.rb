@@ -75,8 +75,7 @@ class SearchesController < ApplicationController
 
     # ★追加：results表示時に履歴保存（#160）
     @search_session = save_search_session!(medical_area_ids:, disease_ids:, symptom_ids:)
-  
-    
+
     if logged_in? && @search_session.present?
       @search_case_note = current_user.case_notes.find_or_initialize_by(
         search_session_id: @search_session.id,
