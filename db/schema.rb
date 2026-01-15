@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_01_13_061823) do
+ActiveRecord::Schema[8.1].define(version: 2026_01_15_030717) do
   create_table "authorizations", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "email"
@@ -111,9 +111,11 @@ ActiveRecord::Schema[8.1].define(version: 2026_01_13_061823) do
     t.datetime "created_at", null: false
     t.string "crypted_password"
     t.string "email", null: false
+    t.integer "role", default: 0, null: false
     t.string "salt"
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["role"], name: "index_users_on_role"
   end
 
   add_foreign_key "authorizations", "users"
