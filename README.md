@@ -369,3 +369,59 @@ Things you may want to cover:
 - 過去の検索条件を保存し、再検索できる機能
 - 詳細な仕様は以下を参照  
   - [SearchSession 仕様書](docs/search_session.md)
+
+## 管理者ユーザー（Admin）の作成方法
+
+本アプリでは、管理画面（`/admin`）へのアクセスは  
+**admin 権限を持つユーザーのみ**許可されています。
+
+### 前提
+- 事前にユーザー登録が完了していること
+
+---
+
+### 方法①：Railsコンソールから付与（推奨）
+
+開発環境または本番環境で Rails コンソールを起動します。
+
+bash
+bin/rails c
+
+管理者にしたいユーザーを取得し、role を admin に変更します。
+
+user = User.find_by!(email: "admin@example.com")
+user.update!(role: :admin)
+確認：
+
+user.admin_user? # => true
+
+方法②：管理者ユーザーを新規作成する場合
+User.create!(
+  email: "admin@example.com",
+  password: "password",
+  password_confirmation: "password",
+  role: :admin
+)
+
+注意点
+
+role のデフォルトは user です
+
+一般ユーザーは /admin 配下にアクセスできません（403）
+
+管理者権限の付与は Railsコンソール経由でのみ行ってください
+
+
+---
+
+## ③ README編集後の確認
+- `/admin` に adminユーザーで入れる
+- 一般ユーザーでは 403 になる
+- README を読めば **第三者でも再現できる**
+
+---
+
+## ④ コミット
+```bash
+git add README.md
+git commit -m "docs: add admin user creation and role assignment steps"
