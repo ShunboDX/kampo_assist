@@ -2,6 +2,11 @@ class User < ApplicationRecord
   enum :role, { user: 0, admin: 1 }
   authenticates_with_sorcery!
 
+  # === Admin check ===
+  def admin_user?
+    admin?
+  end
+
   has_many :authorizations, dependent: :destroy
   has_many :favorites, dependent: :destroy
   has_many :favorite_kampos, through: :favorites, source: :kampo
