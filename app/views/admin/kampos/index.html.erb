@@ -1,0 +1,23 @@
+<h1>漢方一覧（Admin）</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>漢方名</th>
+      <th>かな</th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @kampos.each do |kampo| %>
+      <tr>
+        <td><%= kampo.id %></td>
+        <td><%= kampo.name %></td>
+        <td><%= kampo.kana_name %></td>
+        <td><%= link_to "編集", edit_admin_kampo_path(kampo) %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
