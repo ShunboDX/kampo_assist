@@ -35,14 +35,27 @@
   </div>
 
   <div>
-    <%= f.label :note, "note" %><br>
-    <%= f.text_area :note, rows: 8 %>
+    <%= f.label :note, "note（概要・適応など）" %><br>
+    <%= f.text_area :note, rows: 6, placeholder: "例：虚証で冷え性・貧血傾向のある患者に用いる" %>
   </div>
 
   <div>
-    <%= f.label :detail, "detail" %><br>
-    <%= f.text_area :detail, rows: 10 %>
+    <%= f.label :detail, "detail（禁忌・併用注意）" %><br>
+    <%= f.text_area :detail,
+          rows: 12,
+          placeholder: <<~TEXT
+          【禁忌】
+          ・
+
+          【併用注意】
+          ・
+          TEXT
+    %>
+    <p class="form-help">
+      ※ 禁忌・併用注意はこの形式で記載してください
+    </p>
   </div>
+
 
   <div>
     <%= f.submit "更新する" %>
