@@ -11,4 +11,3 @@ module Admin
     end
   end
 end
-git commit -m "feat: add admin namespace"
