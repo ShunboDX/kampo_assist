@@ -46,6 +46,6 @@ Rails.application.routes.draw do
   # ====== Admin ======
   namespace :admin do
     root "dashboard#index"
-    resources :kampos, only: %i[index edit] # editは導線のために先に生やす
+    resources :kampos, only: %i[index edit update] # editは導線のために先に生やす
   end
 end
