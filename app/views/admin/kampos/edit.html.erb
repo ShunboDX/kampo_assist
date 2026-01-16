@@ -1,0 +1,42 @@
+<h1>漢方編集（Admin）</h1>
+
+<p>
+  <%= link_to "一覧に戻る", admin_kampos_path %>
+</p>
+
+<%= form_with model: [:admin, @kampo], local: true do |f| %>
+  <% if @kampo.errors.any? %>
+    <div>
+      <h2><%= @kampo.errors.count %>件のエラーがあります</h2>
+      <ul>
+        <% @kampo.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= f.label :name, "漢方名" %><br>
+    <%= f.text_field :name %>
+  </div>
+
+  <div>
+    <%= f.label :kana_name, "かな" %><br>
+    <%= f.text_field :kana_name %>
+  </div>
+
+  <div>
+    <%= f.label :note, "note" %><br>
+    <%= f.text_area :note, rows: 8 %>
+  </div>
+
+  <div>
+    <%= f.label :detail, "detail" %><br>
+    <%= f.text_area :detail, rows: 10 %>
+  </div>
+
+  <div>
+    <%= f.submit "更新する" %>
+  </div>
+<% end %>
