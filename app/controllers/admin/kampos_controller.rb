@@ -1,7 +1,16 @@
 module Admin
   class KamposController < BaseController
     def index
+      @q = params[:q].to_s.strip
       @kampos = Kampo.order(:id)
+      return if @q.blank?
+
+      escaped = ActiveRecord::Base.sanitize_sql_like(@q)
+
+      @kampos = @kampos.where(
+        "name LIKE :q OR kana_name LIKE :q",
+        q: "%#{escaped}%"
+      )
     end
 
     def edit

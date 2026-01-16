@@ -1,5 +1,17 @@
 <h1>漢方一覧（Admin）</h1>
 
+<%= form_with url: admin_kampos_path, method: :get, local: true do |f| %>
+  <%= f.label :q, "検索（漢方名 / かな）" %>
+  <%= f.text_field :q, value: @q, placeholder: "例：当帰 / とうき" %>
+  <%= f.submit "検索" %>
+
+  <% if @q.present? %>
+    <%= link_to "クリア", admin_kampos_path %>
+  <% end %>
+<% end %>
+
+<hr>
+
 <table>
   <thead>
     <tr>
