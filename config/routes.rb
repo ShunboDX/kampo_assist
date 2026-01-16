@@ -42,4 +42,9 @@ Rails.application.routes.draw do
   # ====== Auth (OAuth / OmniAuth) ======
   get "/auth/:provider/callback", to: "oauths#create"
   get "/auth/failure",            to: "oauths#failure"
+
+  # ====== Admin ======
+  namespace :admin do
+    root "dashboard#index"
+  end
 end
