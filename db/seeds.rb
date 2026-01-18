@@ -2429,4 +2429,3 @@ kampo_links.each do |kampo_name, links|
 end
 
 load Rails.root.join("db", "seeds", "kampo_details.rb")
-

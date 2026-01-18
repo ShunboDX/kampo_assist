@@ -27,4 +27,3 @@ end
 
 puts "== Kampo details imported =="
 puts "updated: #{updated}, not_found: #{not_found}"
-
