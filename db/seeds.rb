@@ -356,7 +356,6 @@ kampos.each do |attrs|
   Kampo.find_or_create_by!(name: attrs[:name]) do |kampo|
     kampo.kana_name = attrs[:kana_name]
     kampo.note      = attrs[:note]
-    kampo.detail    = attrs[:detail]
   end
 end
 
@@ -2428,3 +2427,6 @@ kampo_links.each do |kampo_name, links|
     end
   end
 end
+
+load Rails.root.join("db", "seeds", "kampo_details.rb")
+
