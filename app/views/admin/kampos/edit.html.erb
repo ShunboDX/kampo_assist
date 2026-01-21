@@ -40,22 +40,26 @@
   </div>
 
   <div>
-    <%= f.label :detail, "detail（禁忌・併用注意）" %><br>
+    <%= f.label :detail, "detail（禁忌・慎重投与・併用注意）" %><br>
+
     <%= f.text_area :detail,
           rows: 12,
           placeholder: <<~TEXT
           【禁忌】
           ・
 
+          【慎重投与】
+          ・
+
           【併用注意】
           ・
           TEXT
     %>
+
     <p class="form-help">
-      ※ 禁忌・併用注意はこの形式で記載してください
+      ※ 禁忌・慎重投与・併用注意はこの形式で記載してください（未登録の場合は空のまま保存してください）
     </p>
   </div>
-
 
   <div>
     <%= f.submit "更新する" %>

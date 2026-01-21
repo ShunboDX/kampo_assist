@@ -20,10 +20,13 @@
 
   <section class="mb-4">
     <h2 class="h5 mb-2">注意点・禁忌</h2>
-    <% if @kampo.detail.present? %>
-      <p><%= simple_format(@kampo.detail) %></p>
+
+    <% is_blank = detail_effectively_blank?(@kampo.detail) %>
+
+    <% if is_blank %>
+      <p class="text-muted is-default-text">特記事項無し</p>
     <% else %>
-      <p class="text-muted">注意点・禁忌に関する情報は未登録です。</p>
+      <p><%= simple_format(@kampo.detail) %></p>
     <% end %>
   </section>
 
