@@ -23,11 +23,13 @@
 
     <% is_blank = detail_effectively_blank?(@kampo.detail) %>
 
-    <% if is_blank %>
-      <p class="text-muted is-default-text">特記事項無し</p>
-    <% else %>
-      <p><%= simple_format(@kampo.detail) %></p>
-    <% end %>
+    <div class="kampo-detail">
+      <%= simple_format(
+            @kampo.detail
+              .gsub(/【(禁忌|慎重投与|併用注意)】/, '<span class="detail-heading">【\1】</span>')
+              .html_safe
+          ) %>
+    </div>
   </section>
 
   <section class="mb-4">
