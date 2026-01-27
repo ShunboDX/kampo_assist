@@ -1,87 +1,101 @@
 <% content_for :title, "漢方処方アシストツール" %>
 <% content_for :description, "症状・病名から適応する漢方薬候補を素早く絞り込む医療従事者向けサポートアプリです。" %>
 
-<div class="top-hero bg-light">
-  <div class="container py-5">
-    <div class="row align-items-center">
-      <!-- 左：キャッチコピー -->
-      <div class="col-md-7 mb-4 mb-md-0">
-        <h1 class="mb-3 text-primary fw-bold">
-          漢方処方アシストツール
-        </h1>
-        <p class="lead mb-4 text-muted">
-          症状・病名から、適応する漢方薬の候補を素早く絞り込むための<br>
-          医療従事者向けサポートアプリです。
+<section class="bg-[#FAFCFB]">
+  <div class="mx-auto max-w-6xl px-4 py-16 md:py-24 grid md:grid-cols-2 gap-10 items-center">
+    <!-- Left -->
+    <div>
+      <p class="inline-flex items-center gap-2 text-sm font-semibold text-emerald-800">
+        <span class="h-2 w-2 rounded-full bg-emerald-700"></span>
+        医療従事者向け漢方支援ツール
+      </p>
+
+      <h1 class="mt-4 text-3xl md:text-5xl font-bold tracking-tight text-emerald-950 leading-tight">
+        症状から最適な漢方を、<br class="hidden md:block" />
+        データで導く。
+      </h1>
+
+      <p class="mt-6 text-base md:text-lg text-slate-600 leading-relaxed">
+        症状・病名から、適応する漢方薬の候補をスコアリングして比較できます。
+        迷いを減らし、判断の納得感を支援します。
+      </p>
+
+      <div class="mt-8 flex flex-wrap items-center gap-3">
+        <%= link_to "検索を開始 →", step1_search_path,
+          class: "inline-flex items-center justify-center rounded-xl bg-emerald-700 px-6 py-3 font-semibold text-white hover:bg-emerald-800 transition shadow-sm" %>
+
+        <%= link_to "使い方", how_to_path,
+          class: "inline-flex items-center justify-center rounded-xl border border-slate-200 bg-white px-6 py-3 font-semibold text-slate-700 hover:bg-slate-50 transition" %>
+      </div>
+
+      <div class="mt-8 flex flex-wrap gap-2">
+        <span class="rounded-full bg-emerald-50 px-3 py-1 text-sm text-emerald-900 border border-emerald-100">スコアで比較</span>
+        <span class="rounded-full bg-emerald-50 px-3 py-1 text-sm text-emerald-900 border border-emerald-100">検索フロー（Step1→2→結果）</span>
+        <span class="rounded-full bg-emerald-50 px-3 py-1 text-sm text-emerald-900 border border-emerald-100">医療現場の意思決定支援</span>
+      </div>
+    </div>
+
+    <!-- Right: Flow card -->
+    <div class="hidden md:block">
+      <div class="rounded-2xl border border-emerald-100 bg-white p-6 shadow-sm">
+        <h2 class="text-sm font-semibold text-slate-800">検索フロー（3ステップ）</h2>
+
+        <ol class="mt-4 space-y-3 text-sm text-slate-600">
+          <li class="flex gap-3">
+            <span class="flex h-6 w-6 items-center justify-center rounded-lg bg-emerald-50 border border-emerald-100 text-emerald-800 font-semibold">1</span>
+            <span>領域・病名を選択（Step1）</span>
+          </li>
+          <li class="flex gap-3">
+            <span class="flex h-6 w-6 items-center justify-center rounded-lg bg-emerald-50 border border-emerald-100 text-emerald-800 font-semibold">2</span>
+            <span>症状を選択（Step2）</span>
+          </li>
+          <li class="flex gap-3">
+            <span class="flex h-6 w-6 items-center justify-center rounded-lg bg-emerald-50 border border-emerald-100 text-emerald-800 font-semibold">3</span>
+            <span>スコア付きで候補を一覧表示</span>
+          </li>
+        </ol>
+
+        <div class="mt-6 rounded-xl bg-[#E6F2EC] p-4">
+          <p class="text-xs font-semibold text-emerald-900">ポイント</p>
+          <p class="mt-1 text-sm text-emerald-950/80">
+            選択した病名・症状ごとにスコアリングを行い、候補となる漢方を優先度順に表示します。
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bg-white border-t">
+  <div class="mx-auto max-w-6xl px-4 py-12 md:py-16">
+    <div class="text-center">
+      <h2 class="text-xl md:text-2xl font-bold text-slate-900">このアプリでできること</h2>
+      <p class="mt-2 text-slate-600">
+        漢方の選択に悩む場面で、候補出し・学習の両面をサポートします。
+      </p>
+    </div>
+
+    <div class="mt-8 grid md:grid-cols-3 gap-4">
+      <div class="rounded-2xl border p-6 shadow-sm bg-white">
+        <h3 class="text-sm font-semibold text-emerald-900">症状・病名からの絞り込み</h3>
+        <p class="mt-2 text-sm text-slate-600">
+          領域・病名・症状を選択することで、複数の観点から漢方候補をスコアリングし、優先度の高い順に表示します。
         </p>
-
-        <%= link_to "漢方検索を始める",
-                    step1_search_path,
-                    class: "btn btn-primary btn-lg px-4 me-2" %>
       </div>
 
-      <!-- 右：イメージカード -->
-      <div class="col-md-5">
-        <div class="card shadow-sm border-0 top-hero-card">
-          <div class="card-body">
-            <h2 class="h5 text-primary mb-3">検索フロー（3ステップ）</h2>
-            <ol class="mb-3 text-muted small">
-              <li>領域・病名を選択（Step1）</li>
-              <li>症状を選択（Step2）</li>
-              <li>スコア付きで漢方候補を一覧表示</li>
-            </ol>
-            <p class="mb-0 text-muted small">
-              選択した病名・症状ごとにスコアリングを行い、<br>
-              候補となる漢方を優先度順に表示します。
-            </p>
-          </div>
-        </div>
+      <div class="rounded-2xl border p-6 shadow-sm bg-white">
+        <h3 class="text-sm font-semibold text-emerald-900">スコアの見える化</h3>
+        <p class="mt-2 text-sm text-slate-600">
+          病名スコア・症状スコアを別々に表示し、どの観点で候補に挙がっているかを一目で確認できます。
+        </p>
+      </div>
+
+      <div class="rounded-2xl border p-6 shadow-sm bg-white">
+        <h3 class="text-sm font-semibold text-emerald-900">漢方の詳細情報</h3>
+        <p class="mt-2 text-sm text-slate-600">
+          各漢方の注意点やメモ（note / detail）を確認でき、処方検討や自己学習にも活用できます。
+        </p>
       </div>
     </div>
   </div>
-</div>
-
-<hr class="my-5">
-
-<div id="about-app" class="container mb-5">
-  <div class="text-center mb-4">
-    <h2 class="h4 text-primary mb-2">このアプリでできること</h2>
-    <p class="text-muted">
-      漢方の選択に悩む場面で、候補出し・学習の両面をサポートします。
-    </p>
-  </div>
-
-  <div class="row g-4">
-    <div class="col-md-4">
-      <div class="card h-100 shadow-sm border-0">
-        <div class="card-body">
-          <h3 class="h6 text-primary mb-2">症状・病名からの絞り込み</h3>
-          <p class="small text-muted mb-0">
-            領域・病名・症状を選択することで、複数の観点から漢方候補をスコアリングし、優先度の高い順に表示します。
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-md-4">
-      <div class="card h-100 shadow-sm border-0">
-        <div class="card-body">
-          <h3 class="h6 text-primary mb-2">スコアの見える化</h3>
-          <p class="small text-muted mb-0">
-            病名スコア・症状スコアを別々に表示し、どの観点で候補に挙がっているかを一目で確認できます。
-          </p>
-        </div>
-      </div>
-    </div>
-
-    <div class="col-md-4">
-      <div class="card h-100 shadow-sm border-0">
-        <div class="card-body">
-          <h3 class="h6 text-primary mb-2">漢方の詳細情報(未実装部分)</h3>
-          <p class="small text-muted mb-0">
-            各漢方の注意点やメモ（note / detail）を確認でき、処方検討や自己学習にも活用できます。
-          </p>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+</section>
