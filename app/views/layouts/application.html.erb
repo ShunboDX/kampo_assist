@@ -45,37 +45,63 @@
     <%= javascript_importmap_tags %>
   </head>
 
-
-  <body>
-    <header>
-      <nav>
-        <% if current_user %>
-          <span>ログイン中</span> |
-          <%= link_to "お気に入り", favorites_path %> |
-          <%= button_to "ログアウト", user_session_path, method: :delete %>
-        <% else %>
-          <%= link_to "ログイン", new_user_session_path %> |
-          <%= link_to "新規登録", new_user_path %>
+  <body class="bg-[#FAFCFB] text-slate-900">
+    <header class="border-b bg-white/80 backdrop-blur">
+      <div class="mx-auto max-w-6xl px-4 py-4 flex items-center justify-between">
+        <%= link_to root_path, class: "font-semibold text-lg text-emerald-950" do %>
+          漢方アシスト
         <% end %>
-      </nav>
+
+        <nav class="flex items-center gap-6 text-sm">
+          <%= link_to "使い方", how_to_path, class: "text-slate-600 hover:text-slate-900" %>
+
+          <% if current_user %>
+            <%= link_to "検索履歴", search_sessions_path,
+              class: "text-slate-600 hover:text-slate-900" %>
+
+            <%= link_to "お気に入り", favorites_path,
+              class: "text-slate-600 hover:text-slate-900" %>
+
+            <%= button_to "ログアウト", user_session_path, method: :delete,
+              class: "inline-flex items-center rounded-lg bg-white border border-slate-200 px-3 py-2 font-semibold text-slate-700 hover:bg-slate-50 transition" %>
+          <% else %>
+            <%= link_to "ログイン", new_user_session_path, class: "text-slate-600 hover:text-slate-900" %>
+
+            <%= link_to "新規登録", new_user_path,
+              class: "inline-flex items-center rounded-lg bg-emerald-700 px-3 py-2 font-semibold text-white hover:bg-emerald-800 transition" %>
+          <% end %>
+
+          <%= link_to "検索を開始", step1_search_path,
+            class: "hidden sm:inline-flex items-center rounded-lg bg-emerald-700 px-4 py-2 font-semibold text-white hover:bg-emerald-800 transition" %>
+        </nav>
+      </div>
     </header>
-  
-    <% if flash[:notice] %>
-      <p class="flash notice"><%= flash[:notice] %></p>
-    <% end %>
 
-    <% if flash[:alert] %>
-      <p class="flash alert"><%= flash[:alert] %></p>
-    <% end %>
+    <main class="mx-auto max-w-6xl px-4 py-3">
+      <% if flash[:notice] %>
+        <div class="mb-4 rounded-xl border border-emerald-100 bg-emerald-50 px-4 py-3 text-emerald-900">
+          <%= flash[:notice] %>
+        </div>
+      <% end %>
 
-    <%= yield %>
+      <% if flash[:alert] %>
+        <div class="mb-4 rounded-xl border border-rose-100 bg-rose-50 px-4 py-3 text-rose-900">
+          <%= flash[:alert] %>
+        </div>
+      <% end %>
 
-    <footer>
-      <nav>
-        <%= link_to "使い方", how_to_path %> |
-        <%= link_to "利用規約", terms_path %> |
-        <%= link_to "プライバシーポリシー", privacy_path %>
-      </nav>
+      <%= yield %>
+    </main>
+
+    <footer class="border-t bg-white">
+      <div class="mx-auto max-w-6xl px-4 py-8 text-sm text-slate-600 flex flex-col sm:flex-row gap-3 sm:items-center sm:justify-between">
+        <p>© <%= Time.current.year %> 漢方アシスト</p>
+        <nav class="flex gap-4">
+          <%= link_to "使い方", how_to_path, class: "hover:text-slate-900" %>
+          <%= link_to "利用規約", terms_path, class: "hover:text-slate-900" %>
+          <%= link_to "プライバシーポリシー", privacy_path, class: "hover:text-slate-900" %>
+        </nav>
+      </div>
     </footer>
   </body>
 </html>
