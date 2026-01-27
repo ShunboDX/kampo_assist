@@ -1,0 +1,29 @@
+{
+  "name": "kampo_assist",
+  "version": "1.0.0",
+  "description": "医療従事者が、患者の症状や体質・既往歴などを入力することで、候補となる漢方薬をある程度まで自動で絞り込んでくれる「漢方処方支援アプリ」です。最終的な処方判断は医療従事者が行う前提で、その前段階の「候補出し・整理」をサポートします。",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "build": "postcss style.css -o dist.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ShunboDX/kampo_assist.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/ShunboDX/kampo_assist/issues"
+  },
+  "homepage": "https://github.com/ShunboDX/kampo_assist#readme",
+  "devDependencies": {
+    "postcss-cli": "^11.0.1"
+  }
+}
