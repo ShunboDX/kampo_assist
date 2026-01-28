@@ -1,68 +1,10 @@
 <div class="kampo-show-container">
-  <h1 class="mb-2"><%= @kampo.name %></h1>
-  <% if @kampo.kana_name.present? %>
-    <p class="text-muted mb-4"><%= @kampo.kana_name %></p>
-  <% end %>
+  <%= render "kampos/show/header", kampo: @kampo %>
+  <%= render "kampos/show/favorite", kampo: @kampo, favorited: @favorited %>
 
-  <%# ===== Favorite button ===== %>
-  <%= turbo_frame_tag "favorite_kampo_#{@kampo.id}" do %>
-    <%= render "favorite_button", kampo: @kampo, favorited: @favorited %>
-  <% end %>
+  <%= render "kampos/show/section_note", kampo: @kampo %>
+  <%= render "kampos/show/section_detail", kampo: @kampo %>
+  <%= render "kampos/show/section_case_note", kampo: @kampo, case_note: @case_note %>
 
-  <section class="mb-4">
-    <h2 class="h5 mb-2">適応・よく使うパターン</h2>
-    <% if @kampo.note.present? %>
-      <p><%= simple_format(@kampo.note) %></p>
-    <% else %>
-      <p class="text-muted">適応に関する情報は未登録です。</p>
-    <% end %>
-  </section>
-
-  <section class="mb-4">
-    <h2 class="h5 mb-2">注意点・禁忌</h2>
-
-    <% is_blank = detail_effectively_blank?(@kampo.detail) %>
-
-    <div class="kampo-detail">
-      <%= simple_format(
-            @kampo.detail
-              .gsub(/【(禁忌|慎重投与|併用注意)】/, '<span class="detail-heading">【\1】</span>')
-              .html_safe
-          ) %>
-    </div>
-  </section>
-
-  <section class="mb-4">
-    <h2 class="h5 mb-2">この検索結果での自分のメモ</h2>
-
-    <% if current_user && params[:search_session_id].present? %>
-      <% if @case_note.present? %>
-        <p><%= simple_format(h(@case_note.body)) %></p>
-
-        <div class="d-flex gap-2">
-          <%= link_to "メモを編集", edit_case_note_path(@case_note), class: "btn btn-outline-secondary btn-sm" %>
-        </div>
-      <% else %>
-        <p class="text-muted">この検索結果でのメモはまだありません。</p>
-
-        <%= link_to "メモを書く",
-                    new_case_note_path(kampo_id: @kampo.id, search_session_id: params[:search_session_id]),
-                    class: "btn btn-primary btn-sm" %>
-      <% end %>
-    <% elsif current_user %>
-      <p class="text-muted">検索結果から詳細を開いた場合に、この漢方へのメモを表示できます。</p>
-    <% else %>
-      <p class="text-muted">メモを見るにはログインが必要です。</p>
-    <% end %>
-  </section>
-
-  <div class="mt-4">
-    <%= link_to "検索結果に戻る",
-        results_search_path(
-          medical_area_ids: params[:medical_area_ids],
-          disease_ids:      params[:disease_ids],
-          symptom_ids:      params[:symptom_ids]
-        ),
-        class: "btn btn-secondary" %>
-  </div>
+  <%= render "kampos/show/back_to_results" %>
 </div>
