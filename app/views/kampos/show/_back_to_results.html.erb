@@ -1,0 +1,9 @@
+<div class="mt-4">
+  <%= link_to "検索結果に戻る",
+      results_search_path(
+        medical_area_ids: params[:medical_area_ids],
+        disease_ids:      params[:disease_ids],
+        symptom_ids:      params[:symptom_ids]
+      ),
+      class: "btn btn-secondary" %>
+</div>

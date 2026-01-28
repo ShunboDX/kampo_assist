@@ -1,0 +1,17 @@
+<section class="mb-4">
+  <h2 class="h5 mb-2">注意点・禁忌</h2>
+
+  <% is_blank = detail_effectively_blank?(kampo.detail) %>
+
+  <% if is_blank %>
+    <p class="text-muted is-default-text">特記事項無し</p>
+  <% else %>
+    <div class="kampo-detail">
+      <%= simple_format(
+            kampo.detail.to_s
+              .gsub(/【(禁忌|慎重投与|併用注意)】/, '<span class="detail-heading">【\1】</span>')
+              .html_safe
+          ) %>
+    </div>
+  <% end %>
+</section>
