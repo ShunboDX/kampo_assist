@@ -36,3 +36,50 @@
   background-color: #f8f9fa;
 }
 
+/* ========== DetailUX: 注意情報の視認性向上 (#185) ========== */
+/* 注意点・禁忌 全体の枠（カード風） */
+.kampo-detail-box {
+  padding: 0.75rem 1rem;
+  border: 1px solid #dee2e6;
+  border-radius: 0.75rem;
+  background: #fff;
+}
+
+/* 本文の読みやすさ */
+.kampo-detail {
+  line-height: 1.7;
+  word-break: break-word; /* 長い単語やURL対策 */
+}
+
+/* 段落の余白を適度に */
+.kampo-detail p {
+  margin: 0 0 0.75rem 0;
+}
+
+/* 箇条書きっぽい行（・）を読みやすく */
+.kampo-detail p:has(.detail-heading) {
+  margin-top: 0.25rem;
+}
+
+/* 見出し（#182で付けたspan）をさらに見出しっぽく */
+.detail-heading {
+  display: inline-flex;
+  align-items: center;
+  font-weight: 700;
+  padding: 0.2rem 0.6rem;
+  border-radius: 9999px;
+  border: 1px solid #ced4da;
+  background: #f8f9fa;
+  margin: 0.25rem 0;
+}
+
+/* 見出しの直後の本文が詰まらないように */
+.detail-heading + br {
+  display: block;
+  margin-bottom: 0.25rem;
+}
+
+/* 未登録表示（特記事項無し）を“薄く” */
+.is-default-text {
+  font-style: italic;
+}
