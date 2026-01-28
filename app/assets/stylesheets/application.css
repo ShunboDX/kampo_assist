@@ -83,3 +83,102 @@
 .is-default-text {
   font-style: italic;
 }
+
+/* Stepper (image-like) */
+.stepper {
+  --accent: #ff7a00;      /* オレンジ */
+  --muted: #cfd6dd;       /* グレー */
+  --bg: #ffffff;
+  --dot: 10px;
+  --stroke: 2px;
+  margin: 0;
+}
+
+.stepper__list {
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  gap: 0;
+  padding: 0;
+  margin: 0;
+  position: relative;
+}
+
+/* つなぐ線（全体のグレー） */
+.stepper__list::before {
+  content: "";
+  position: absolute;
+  left: calc(var(--dot) / 2);
+  right: calc(var(--dot) / 2);
+  top: calc(var(--dot) / 2);
+  height: var(--stroke);
+  background: var(--muted);
+}
+
+/* “完了分だけ”オレンジの線を重ねる */
+.stepper__list::after {
+  content: "";
+  position: absolute;
+  left: calc(var(--dot) / 2);
+  top: calc(var(--dot) / 2);
+  height: var(--stroke);
+  background: var(--accent);
+  width: var(--progress, 0%);
+}
+
+.stepper__item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 60px;
+  padding-top: 0;
+  z-index: 1; /* 線の上に出す */
+}
+
+.stepper__dot {
+  width: var(--dot);
+  height: var(--dot);
+  border-radius: 999px;
+  background: var(--bg);
+  border: var(--stroke) solid var(--muted);
+  box-sizing: border-box;
+}
+
+.stepper__label {
+  margin-top: 8px;
+  font-size: 12px;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+  user-select: none;
+}
+
+/* 完了：塗りつぶし */
+.stepper__item.is-complete .stepper__dot {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+.stepper__item.is-complete .stepper__label {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* 現在：枠だけオレンジ */
+.stepper__item.is-current .stepper__dot {
+  border-color: var(--accent);
+  background: var(--bg);
+}
+.stepper__item.is-current .stepper__label {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+/* これから：グレーのまま（デフォルト） */
+.stepper__item.is-upcoming .stepper__dot { }
+.stepper__item.is-upcoming .stepper__label { }
+
+/* スマホで詰まるとき */
+@media (max-width: 480px) {
+  .stepper__item { min-width: 40px; }
+  .stepper__label { font-size: 11px; }
+}
