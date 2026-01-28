@@ -1,0 +1,26 @@
+<%# app/views/shared/_step_indicator.html.erb %>
+<%# locals: current: 1..steps.size , steps: ["STEP 1", "STEP 2", ...] %>
+<% steps ||= ["STEP 1", "STEP 2", "RESULTS"] %>
+<% current ||= 1 %>
+
+<nav class="stepper" aria-label="Search steps">
+  <ol class="stepper__list">
+    <% steps.each_with_index do |label, i| %>
+      <% idx = i + 1 %>
+      <% state =
+        if idx < current
+          "is-complete"
+        elsif idx == current
+          "is-current"
+        else
+          "is-upcoming"
+        end
+      %>
+
+      <li class="stepper__item <%= state %>">
+        <span class="stepper__dot" aria-hidden="true"></span>
+        <span class="stepper__label"><%= label %></span>
+      </li>
+    <% end %>
+  </ol>
+</nav>

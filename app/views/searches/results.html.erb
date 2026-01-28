@@ -1,4 +1,12 @@
 <h1>漢方検索 結果一覧</h1>
+
+<% steps = ["STEP 1", "STEP 2", "RESULTS"] %>
+<% current = 3 %>
+<% progress = ((current - 1).to_f / (steps.size - 1) * 100).round %>
+<div class="mb-3" style="--progress: <%= progress %>%;">
+  <%= render "shared/step_indicator", steps: steps, current: current %>
+</div>
+
 <div class="mb-3 d-flex gap-2">
   <% back_to_step1_params = params.permit(medical_area_ids: [], disease_ids: []) %>
   <% back_to_step2_params = params.permit(medical_area_ids: [], disease_ids: [], symptom_ids: []) %>

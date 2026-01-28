@@ -1,6 +1,14 @@
 <div class="search-step2-container">
   <h1>漢方検索 ステップ2：症状の選択</h1>
 
+  <% steps = ["STEP 1", "STEP 2", "RESULTS"] %>
+  <% current = 2 %>
+  <% progress = ((current - 1).to_f / (steps.size - 1) * 100).round %>
+
+  <div class="mb-3" style="--progress: <%= progress %>%;">
+    <%= render "shared/step_indicator", steps: steps, current: current %>
+  </div>
+
   <!-- 選択された病名の確認用 -->
   <div class="mb-3">
   <p>
