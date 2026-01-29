@@ -182,3 +182,14 @@
   .stepper__item { min-width: 40px; }
   .stepper__label { font-size: 11px; }
 }
+
+.stepper__item.is-current .stepper__dot {
+  border-color: var(--accent);
+  background: #fff;
+  transform: scale(1.3);
+}
+
+.stepper__item.is-current .stepper__label {
+  color: var(--accent);
+  font-weight: 800;
+}
