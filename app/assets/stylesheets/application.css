@@ -7,7 +7,9 @@
  * depending on specificity.
  *
  * Consider organizing styles into separate files for maintainability.
- */
+
+/* ========== Legacy (Bootstrap era) ========== */
+/* TODO: Tailwind化後に削除予定 */
 .top-hero {
   background: linear-gradient(135deg, #ffffff 0%, #f5fbff 60%, #e3f2fd 100%);
 }
