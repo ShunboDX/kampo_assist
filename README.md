@@ -425,3 +425,8 @@ role のデフォルトは user です
 ```bash
 git add README.md
 git commit -m "docs: add admin user creation and role assignment steps"
+
+UI / デザイン方針（Tailwind CSS）
+本アプリでは、Tailwind CSS を用いて UI を設計しています。  
+共通レイアウト・余白・文字サイズなどの設計基準は、以下のドキュメントにまとめています。
+[UI Design Guidelines](docs/ui-design-guidelines.md)
