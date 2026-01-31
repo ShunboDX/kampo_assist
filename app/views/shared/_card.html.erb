@@ -1,0 +1,13 @@
+<%# locals: title (String), subtitle (String optional) %>
+<section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+  <% if local_assigns[:title].present? %>
+    <header class="mb-4">
+      <h2 class="text-sm font-semibold text-slate-900"><%= title %></h2>
+      <% if local_assigns[:subtitle].present? %>
+        <p class="mt-1 text-sm text-slate-600"><%= subtitle %></p>
+      <% end %>
+    </header>
+  <% end %>
+
+  <%= yield %>
+</section>

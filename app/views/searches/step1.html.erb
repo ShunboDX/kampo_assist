@@ -1,76 +1,112 @@
-<div class="search-step1-container">
-    <h1>漢方検索 ステップ1：領域と病名の選択</h1>
+<div class="space-y-6">
+  <h1 class="text-2xl md:text-3xl font-bold tracking-tight text-slate-900">
+    漢方検索 ステップ1：領域と病名の選択
+  </h1>
 
-    <% steps = ["STEP1:傷病選択", "STEP2:症状選択", "検索結果"] %>
-    <% current = search_step_current %>
-    <% progress = ((current - 1).to_f / (steps.size - 1) * 100).round %>
+  <% steps = ["STEP1:傷病選択", "STEP2:症状選択", "検索結果"] %>
+  <% current = search_step_current %>
+  <% progress = ((current - 1).to_f / (steps.size - 1) * 100).round %>
 
-    <div class="mb-3" style="--progress: <%= progress %>%;">
+  <div class="mb-3" style="--progress: <%= progress %>%;">
     <%= render "shared/step_indicator", steps: steps, current: current %>
+  </div>
+
+  <div class="grid gap-6 md:grid-cols-2">
+    <!-- 左カラム：領域（カード＋右下アクション） -->
+    <div class="space-y-4">
+      <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+        <header class="mb-4">
+          <h2 class="text-sm font-semibold text-slate-900">領域を選択（複数可）</h2>
+          <p class="mt-1 text-sm text-slate-600">選択すると、右側に関連する病名が表示されます。</p>
+        </header>
+
+        <%= form_with url: step1_search_path,
+                      method: :get,
+                      local: true,
+                      html: { data: { controller: "auto-submit" } } do %>
+
+          <% selected_ids = Array(params[:medical_area_ids]) %>
+
+          <div class="grid grid-cols-2 md:grid-cols-3 gap-2">
+            <% @medical_areas.each do |area| %>
+              <label class="flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-3 py-2 hover:bg-slate-50 transition cursor-pointer">
+                <%= check_box_tag "medical_area_ids[]",
+                                  area.id,
+                                  selected_ids.include?(area.id.to_s),
+                                  id: "medical_area_#{area.id}",
+                                  class: "h-4 w-4 rounded border-slate-300 text-emerald-700 focus:ring-emerald-600",
+                                  data: { action: "change->auto-submit#submit" } %>
+
+                <span class="text-sm text-slate-800 leading-snug">
+                  <%= area.name %>
+                </span>
+              </label>
+            <% end %>
+          </div>
+        <% end %>
+      </section>
+
+      <div class="flex justify-end gap-4 mt-3">
+        <%= link_to "病名を選ばず次へ",
+            step2_search_path(medical_area_ids: Array(params[:medical_area_ids])),
+            class: "inline-flex items-center justify-center rounded-xl
+                    border border-slate-300 bg-white
+                    px-6 py-3 font-semibold text-slate-700
+                    hover:bg-slate-50 transition" %>
+      </div>
     </div>
 
-    <div class="search-step1-layout">
+    <!-- 右カラム：病名（フォームで包む→カード外右下にsubmit） -->
+    <div class="space-y-4">
+      <% if @diseases.present? %>
+        <%= form_with url: step2_search_path, method: :get, local: true do %>
+          <% Array(params[:medical_area_ids]).each do |area_id| %>
+            <%= hidden_field_tag "medical_area_ids[]", area_id %>
+          <% end %>
 
-        <div class="search-step1-areas">
-            <%= form_with url: step1_search_path,
-                    method: :get,
-                    local: true,
-                    html: { data: { controller: "auto-submit" } } do %>
-                <div class="search-step1-layout">
-                    <!-- 左：領域一覧（複数選択可） -->
-                    <div class="search-step1-areas">
-                        <h2 class="h5 mb-3">領域を選択（複数可）</h2>
+          <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+            <header class="mb-4">
+              <h2 class="text-sm font-semibold text-slate-900">病名を選択（複数可）</h2>
+              <p class="mt-1 text-sm text-slate-600">該当する病名を選んで、Step2（症状選択）へ進みます。</p>
+            </header>
 
-                        <% selected_ids = Array(params[:medical_area_ids]) %>
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-2 max-h-[520px] overflow-y-auto pr-1">
+              <% @diseases.each do |disease| %>
+                <label class="flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-3 py-2 hover:bg-slate-50 transition cursor-pointer">
+                  <%= check_box_tag "disease_ids[]",
+                                    disease.id,
+                                    Array(params[:disease_ids]).include?(disease.id.to_s),
+                                    id: "disease_#{disease.id}",
+                                    class: "h-4 w-4 rounded border-slate-300 text-emerald-700 focus:ring-emerald-600" %>
 
-                        <% @medical_areas.each do |area| %>
-                            <div class="form-check mb-1">
-                                <%= check_box_tag "medical_area_ids[]",
-                                                    area.id,
-                                                    selected_ids.include?(area.id.to_s),
-                                                    id: "medical_area_#{area.id}",
-                                                    class: "form-check-input",
-                                                    data: { action: "change->auto-submit#submit" } %>
-                                <%= label_tag "medical_area_#{area.id}",
-                                                area.name,
-                                                class: "form-check-label" %>
-                            </div>
-                        <% end %>
+                  <span class="text-sm text-slate-800 leading-snug">
+                    <%= disease.name %>
+                  </span>
+                </label>
+              <% end %>
+            </div>
+          </section>
 
-                    </div>
-                </div>
-            <% end %>
-        </div>
+          <div class="flex justify-end gap-4 mt-3">
+            <%= submit_tag " 症状を選ぶ（ステップ2へ）",
+                class: "inline-flex items-center justify-center rounded-2xl
+                        bg-emerald-700 px-10 py-4
+                        text-lg font-bold text-white
+                        hover:bg-emerald-800 transition shadow-md" %>
+          </div>
+        <% end %>
+      <% else %>
+        <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+          <header class="mb-4">
+            <h2 class="text-sm font-semibold text-slate-900">病名を選択（複数可）</h2>
+            <p class="mt-1 text-sm text-slate-600">該当する病名を選んで、Step2（症状選択）へ進みます。</p>
+          </header>
 
-        <div class="search-step1-diseases">
-            <% if @diseases.present? %>
-                <%= form_with url: step2_search_path, method: :get, local: true do %>
-                    <% Array(params[:medical_area_ids]).each do |area_id| %>
-                        <%= hidden_field_tag "medical_area_ids[]", area_id %>
-                    <% end %>
-
-                    <h2 class="h5 mb-3">病名を選択してください（複数可）</h2>
-
-                    <div class="disease-list">
-                        <% @diseases.each do |disease| %>
-                            <div class="disease-item">
-                                <label class="disease-label">
-                                    <%= check_box_tag "disease_ids[]",
-                                                    disease.id,
-                                                    Array(params[:disease_ids]).include?(disease.id.to_s),
-                                                    id: "disease_#{disease.id}",
-                                                    class: "disease-checkbox" %>
-                                    <span><%= disease.name %></span>
-                                </label>
-                            </div>
-                        <% end %>
-                    </div>
-                
-                    <%= submit_tag "症状を選ぶ（ステップ2へ）",
-                                class: "btn btn-primary" %>
-                <% end %>
-            <% end %>
-        </div>
+          <div class="rounded-xl border border-slate-200 bg-slate-50 px-4 py-6 text-sm text-slate-600">
+            まずは左側で領域を選択してください。
+          </div>
+        </section>
+      <% end %>
     </div>
-    <%= link_to "病名を選ばず次へ", step2_search_path, class: "btn btn-outline-secondary" %>
+  </div>
 </div>
