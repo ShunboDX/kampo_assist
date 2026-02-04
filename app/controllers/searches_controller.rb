@@ -59,15 +59,13 @@ class SearchesController < ApplicationController
 
     # --- ここからはサービスに委譲 ---
     if disease_ids.blank? && symptom_ids.blank?
-      # 条件が何も選ばれてないパターン
       @no_condition = true
-      @results = []
+      @results = Kaminari.paginate_array([]).page(params[:page]).per(5)
     else
       @no_condition = false
-      @results = KampoSearch.new(
-        disease_ids: disease_ids,
-        symptom_ids: symptom_ids
-      ).call
+      raw_results = KampoSearch.new(disease_ids:, symptom_ids:).call
+
+      @results = Kaminari.paginate_array(raw_results).page(params[:page]).per(5)
     end
 
     # ★追加：未ログインならログイン誘導を表示する

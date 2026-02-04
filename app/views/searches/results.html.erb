@@ -94,11 +94,13 @@
 
 <% elsif @results.blank? %>
   <!-- 条件はあるがヒット0件 -->
-  <p>条件に一致する漢方は見つかりませんでした。</p>
+  <div class="alert alert-warning">
+    条件に一致する漢方は見つかりませんでした。
+  </div>
 
 <% else %>
   <!-- ヒット件数 -->
-  <p><%= @results.size %>件ヒットしました。</p>
+  <p><%= @results.total_count %>件ヒットしました。</p>
 
   <ul class="list-group">
     <% @results.each do |result| %>
@@ -126,4 +128,8 @@
       </li>
     <% end %>
   </ul>
+
+  <div class="mt-6 flex justify-center">
+    <%= paginate @results %>
+  </div>
 <% end %>
