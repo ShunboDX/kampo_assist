@@ -1,34 +1,95 @@
-<div class="container py-5">
-  <h1 class="mb-4">使い方</h1>
+<div class="bg-white">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12 space-y-12">
+    <!-- ヘッダー -->
+    <header class="space-y-4">
+      <h1 class="text-2xl md:text-3xl font-extrabold tracking-tight text-slate-900">
+        使い方
+      </h1>
+      <p class="text-base text-slate-600 leading-relaxed">
+        漢方アシストの基本的な使い方をご案内します。
+      </p>
+    </header>
 
-  <section class="mb-5">
-    <h2 class="h4 mb-3">漢方アシストとは</h2>
-    <p class="text-muted">
-      漢方アシストは、症状や病名から適応する漢方薬の候補を絞り込む
-      医療従事者向けサポートツールです。<br>
-      複数の観点（病名・症状）をもとにスコアリングし、優先度の高い順に表示します。
-    </p>
-  </section>
+    <!-- 漢方アシストとは -->
+    <section class="space-y-4">
+      <h2 class="text-lg font-bold text-slate-900">
+        漢方アシストとは
+      </h2>
 
-  <section class="mb-5">
-    <h2 class="h4 mb-3">検索の流れ（3ステップ）</h2>
-    <ol class="text-muted">
-      <li class="mb-2">領域・病名を選択（Step1）</li>
-      <li class="mb-2">症状を選択（Step2）</li>
-      <li class="mb-2">結果を確認（スコア付きで候補表示）</li>
-    </ol>
-  </section>
+      <p class="text-slate-700 leading-relaxed">
+        漢方アシストは、症状や病名から適応する漢方薬の候補を絞り込む
+        医療従事者向けサポートツールです。
+      </p>
 
-  <section class="mb-5">
-    <h2 class="h4 mb-3">注意事項</h2>
-    <p class="text-muted mb-0">
-      ※ 本アプリは診断や処方を行うものではありません。<br>
-      ※ 実際の処方判断は、必ず専門的な知見に基づいて行ってください。
-    </p>
-  </section>
+      <p class="text-slate-700 leading-relaxed">
+        複数の観点（病名・症状）をもとにスコアリングし、
+        優先度の高い順に候補を表示します。
+      </p>
+    </section>
 
-  <div class="mt-4">
-    <%= link_to "漢方検索を始める", step1_search_path, class: "btn btn-primary" %>
-    <%= link_to "トップへ戻る", root_path, class: "btn btn-outline-secondary ms-2" %>
+    <!-- 検索の流れ -->
+    <section class="space-y-5">
+      <h2 class="text-lg font-bold text-slate-900">
+        検索の流れ（3ステップ）
+      </h2>
+
+      <ol class="space-y-4">
+        <li class="flex items-start gap-4">
+          <span class="mt-0.5 text-sm font-extrabold text-emerald-700">
+            1.
+          </span>
+          <p class="text-slate-700 leading-relaxed">
+            <span class="font-semibold text-slate-900">領域・病名を選択</span>（Step1）
+          </p>
+        </li>
+
+        <li class="flex items-start gap-4">
+          <span class="mt-0.5 text-sm font-extrabold text-emerald-700">
+            2.
+          </span>
+          <p class="text-slate-700 leading-relaxed">
+            <span class="font-semibold text-slate-900">症状を選択</span>（Step2）
+          </p>
+        </li>
+
+        <li class="flex items-start gap-4">
+          <span class="mt-0.5 text-sm font-extrabold text-emerald-700">
+            3.
+          </span>
+          <p class="text-slate-700 leading-relaxed">
+            <span class="font-semibold text-slate-900">結果を確認</span>
+            （スコア付きで候補表示）
+          </p>
+        </li>
+      </ol>
+    </section>
+
+    <!-- 注意事項 -->
+    <section class="space-y-3">
+      <h2 class="text-lg font-bold text-slate-900">
+        注意事項
+      </h2>
+
+      <p class="text-sm text-slate-600 leading-relaxed">
+        ※  本アプリは診断や処方を行うものではありません。
+      </p>
+      <p class="text-sm text-slate-600 leading-relaxed">
+        ※  実際の処方判断は、必ず専門的な知見に基づいて行ってください。
+      </p>
+    </section>
+
+    <!-- CTA -->
+    <div class="pt-6 flex flex-wrap items-center gap-6">
+      <%= link_to "漢方検索を始める",
+          step1_search_path,
+          class: "inline-flex items-center justify-center
+                  border-b-2 border-emerald-700
+                  pb-1 text-base font-bold text-emerald-700
+                  hover:text-emerald-800 hover:border-emerald-800 transition" %>
+
+      <%= link_to "トップへ戻る",
+          root_path,
+          class: "text-base font-semibold text-slate-600 hover:text-slate-900 transition" %>
+    </div>
   </div>
 </div>
