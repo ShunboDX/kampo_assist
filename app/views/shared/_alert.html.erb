@@ -1,0 +1,32 @@
+<%# app/views/shared/_alert.html.erb %>
+<%# locals: kind: :notice | :info | :warning | :danger, title: nil, body: (string/erb) %>
+
+<%
+  kind  = (local_assigns[:kind]  || :info)
+  title = local_assigns[:title] # 渡されてなければ nil
+  body  = (local_assigns[:body]  || "")
+
+  styles =
+    case kind.to_sym
+    when :notice
+      "border-emerald-200 bg-emerald-50 text-emerald-900"
+    when :info
+      "border-sky-200 bg-sky-50 text-sky-900"
+    when :warning
+      "border-amber-200 bg-amber-50 text-amber-900"
+    when :danger
+      "border-rose-200 bg-rose-50 text-rose-900"
+    else
+      "border-slate-200 bg-slate-50 text-slate-900"
+    end
+%>
+
+<div class="rounded-2xl border px-4 py-3 <%= styles %>">
+  <% if title.present? %>
+    <p class="text-sm font-semibold"><%= title %></p>
+  <% end %>
+
+  <div class="text-sm leading-relaxed">
+    <%= body %>
+  </div>
+</div>
