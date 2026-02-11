@@ -1,9 +1,12 @@
-<div class="mt-4">
-  <%= link_to "検索結果に戻る",
+<div class="mt-8">
+  <%= link_to "← 検索結果に戻る",
       results_search_path(
         medical_area_ids: params[:medical_area_ids],
         disease_ids:      params[:disease_ids],
         symptom_ids:      params[:symptom_ids]
       ),
-      class: "btn btn-secondary" %>
+      class: "inline-flex items-center justify-center rounded-xl
+              border border-slate-300 bg-white
+              px-4 py-2 text-sm font-semibold text-slate-700
+              hover:bg-slate-50 transition" %>
 </div>

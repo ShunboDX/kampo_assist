@@ -1,3 +1,5 @@
-<%= turbo_frame_tag "favorite_kampo_#{kampo.id}" do %>
-  <%= render "kampos/favorite_button", kampo: kampo, favorited: favorited %>
-<% end %>
+<div class="mt-4">
+  <%= turbo_frame_tag "favorite_kampo_#{kampo.id}" do %>
+    <%= render "kampos/favorite_button", kampo: kampo, favorited: favorited %>
+  <% end %>
+</div>

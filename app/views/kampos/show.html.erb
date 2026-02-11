@@ -1,10 +1,17 @@
-<div class="kampo-show-container">
-  <%= render "kampos/show/header", kampo: @kampo %>
-  <%= render "kampos/show/favorite", kampo: @kampo, favorited: @favorited %>
+<div class="bg-slate-50">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
+    <%= render "kampos/show/header", kampo: @kampo %>
 
-  <%= render "kampos/show/section_note", kampo: @kampo %>
-  <%= render "kampos/show/section_detail", kampo: @kampo %>
-  <%= render "kampos/show/section_case_note", kampo: @kampo, case_note: @case_note %>
+    <%= render "kampos/show/favorite",
+          kampo: @kampo,
+          favorited: @favorited %>
 
-  <%= render "kampos/show/back_to_results" %>
+    <%= render "kampos/show/section_note", kampo: @kampo %>
+    <%= render "kampos/show/section_detail", kampo: @kampo %>
+    <%= render "kampos/show/section_case_note",
+          kampo: @kampo,
+          case_note: @case_note %>
+
+    <%= render "kampos/show/back_to_results" %>
+  </div>
 </div>

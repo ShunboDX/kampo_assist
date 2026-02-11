@@ -1,10 +1,17 @@
-#app/views/kampos/show/_section_case_note.html.erb
-<section class="mb-4">
-  <h2 class="h5 mb-2">適応・よく使うパターン</h2>
+<section class="space-y-3">
+  <h2 class="text-sm font-semibold text-slate-900">
+    適応・よく使うパターン
+  </h2>
 
   <% if kampo.note.present? %>
-    <p><%= simple_format(kampo.note) %></p>
+    <div class="rounded-2xl border border-slate-200 bg-white shadow-sm p-5 md:p-6">
+      <div class="text-sm text-slate-700 leading-relaxed">
+        <%= simple_format(kampo.note) %>
+      </div>
+    </div>
   <% else %>
-    <p class="text-muted">適応に関する情報は未登録です。</p>
+    <p class="text-sm text-slate-600">
+      適応に関する情報は未登録です。
+    </p>
   <% end %>
 </section>
