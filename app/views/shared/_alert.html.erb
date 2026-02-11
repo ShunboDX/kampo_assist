@@ -1,6 +1,11 @@
+<%# app/views/shared/_alert.html.erb %>
 <%# locals: kind: :notice | :info | :warning | :danger, title: nil, body: (string/erb) %>
+
 <%
-  kind ||= :info
+  kind  = (local_assigns[:kind]  || :info)
+  title = local_assigns[:title] # 渡されてなければ nil
+  body  = (local_assigns[:body]  || "")
+
   styles =
     case kind.to_sym
     when :notice
