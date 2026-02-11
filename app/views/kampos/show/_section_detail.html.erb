@@ -1,19 +1,33 @@
-<section class="mb-4">
-  <h2 class="h5 mb-2">注意点・禁忌</h2>
+<section class="space-y-3">
+  <div class="flex items-baseline justify-between gap-3">
+    <h2 class="text-sm font-semibold text-slate-900">
+      注意点・禁忌
+    </h2>
+    <p class="text-xs text-slate-500">
+      ※ 重要な注意情報が含まれる場合があります
+    </p>
+  </div>
 
   <% is_blank = detail_effectively_blank?(kampo.detail) %>
 
   <% if is_blank %>
-    <p class="text-muted is-default-text">特記事項無し</p>
+    <p class="text-sm text-slate-600">
+      特記事項無し
+    </p>
   <% else %>
-    <div class="kampo-detail-box">
-        <div class="kampo-detail">
-            <%= simple_format(
+    <div class="rounded-2xl border border-amber-200 bg-amber-50/50">
+      <div class="p-5 md:p-6 text-sm text-slate-800 leading-relaxed">
+        <div class="[&_.detail-heading]:font-extrabold [&_.detail-heading]:text-slate-900
+                    [&_p]:my-2 [&_ul]:my-2 [&_ol]:my-2
+                    [&_li]:my-1">
+          <%= simple_format(
                 kampo.detail.to_s
-                    .gsub(/【(禁忌|慎重投与|併用注意)】/, '<span class="detail-heading">【\1】</span>')
+                    .gsub(/【(禁忌|慎重投与|併用注意)】/,
+                          '<span class="detail-heading">【\1】</span>')
                     .html_safe
-                ) %>
+              ) %>
         </div>
+      </div>
     </div>
   <% end %>
 </section>

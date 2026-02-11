@@ -1,19 +1,33 @@
+<%# locals: kampo:, favorited: %>
+
 <% if logged_in? %>
   <% if favorited %>
     <%= button_to "お気に入り解除",
-                  kampo_favorite_path(kampo),
-                  method: :delete,
-                  class: "btn btn-outline-secondary",
-                  form: { data: { controller: "submit-disable",
-                                  action: "turbo:submit-start->submit-disable#disable" } } %>
+          kampo_favorite_path(kampo),
+          method: :delete,
+          class: "inline-flex items-center justify-center rounded-xl
+                  border border-slate-300 bg-white
+                  px-5 py-3 text-sm font-semibold text-slate-700
+                  hover:bg-slate-50 transition",
+          form: { data: { controller: "submit-disable",
+                          action: "turbo:submit-start->submit-disable#disable" } } %>
   <% else %>
     <%= button_to "お気に入りする",
-                  kampo_favorite_path(kampo),
-                  method: :post,
-                  class: "btn btn-primary",
-                  form: { data: { controller: "submit-disable",
-                                  action: "turbo:submit-start->submit-disable#disable" } } %>
+          kampo_favorite_path(kampo),
+          method: :post,
+          class: "inline-flex items-center justify-center rounded-xl
+                  bg-emerald-700 px-5 py-3
+                  text-sm font-bold text-white
+                  hover:bg-emerald-800 transition",
+          form: { data: { controller: "submit-disable",
+                          action: "turbo:submit-start->submit-disable#disable" } } %>
   <% end %>
 <% else %>
-  <p class="text-muted mb-4">お気に入りするにはログインが必要です。</p>
+  <p class="text-sm text-slate-600">
+    お気に入りするには
+    <%= link_to "ログイン",
+        new_user_session_path,
+        class: "font-semibold text-emerald-700 hover:underline" %>
+    が必要です。
+  </p>
 <% end %>

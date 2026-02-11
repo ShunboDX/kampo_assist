@@ -1,23 +1,47 @@
-<section class="mb-4">
-  <h2 class="h5 mb-2">この検索結果での自分のメモ</h2>
+<section class="space-y-3">
+  <h2 class="text-sm font-semibold text-slate-900">
+    この検索結果での自分のメモ
+  </h2>
 
   <% if current_user && params[:search_session_id].present? %>
     <% if case_note.present? %>
-      <p><%= simple_format(h(case_note.body)) %></p>
+      <div class="rounded-2xl border border-slate-200 bg-white shadow-sm p-5 md:p-6">
+        <div class="text-sm text-slate-700 leading-relaxed">
+          <%= simple_format(h(case_note.body)) %>
+        </div>
 
-      <div class="d-flex gap-2">
-        <%= link_to "メモを編集", edit_case_note_path(case_note), class: "btn btn-outline-secondary btn-sm" %>
+        <div class="mt-4 flex gap-3">
+          <%= link_to "メモを編集",
+              edit_case_note_path(case_note),
+              class: "inline-flex items-center justify-center rounded-xl
+                      border border-slate-300 bg-white
+                      px-4 py-2 text-sm font-semibold text-slate-700
+                      hover:bg-slate-50 transition" %>
+        </div>
       </div>
     <% else %>
-      <p class="text-muted">この検索結果でのメモはまだありません。</p>
+      <p class="text-sm text-slate-600">
+        この検索結果でのメモはまだありません。
+      </p>
 
       <%= link_to "メモを書く",
-                  new_case_note_path(kampo_id: kampo.id, search_session_id: params[:search_session_id]),
-                  class: "btn btn-primary btn-sm" %>
+          new_case_note_path(kampo_id: kampo.id, search_session_id: params[:search_session_id]),
+          class: "inline-flex items-center justify-center rounded-xl
+                  bg-emerald-700 px-4 py-2 text-sm font-bold text-white
+                  hover:bg-emerald-800 transition" %>
     <% end %>
+
   <% elsif current_user %>
-    <p class="text-muted">検索結果から詳細を開いた場合に、この漢方へのメモを表示できます。</p>
+    <p class="text-sm text-slate-600">
+      検索結果から詳細を開いた場合に、この漢方へのメモを表示できます。
+    </p>
   <% else %>
-    <p class="text-muted">メモを見るにはログインが必要です。</p>
+    <p class="text-sm text-slate-600">
+      メモを見るには
+      <%= link_to "ログイン",
+          new_user_session_path,
+          class: "font-semibold text-emerald-700 hover:underline" %>
+      が必要です。
+    </p>
   <% end %>
 </section>
