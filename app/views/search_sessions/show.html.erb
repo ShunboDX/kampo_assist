@@ -1,82 +1,220 @@
-<h1>検索履歴 詳細</h1>
+<div class="bg-slate-50">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6">
+    <header class="space-y-3">
+      <h1 class="text-2xl md:text-3xl font-extrabold tracking-tight text-slate-900">
+        検索履歴 詳細
+      </h1>
 
-<div class="mb-3">
-  <%= link_to "一覧へ戻る", search_sessions_path, class: "btn btn-outline-secondary" %>
-  <%= link_to "この条件で再検索",
-              results_search_path(@search_session.conditions),
-              class: "btn btn-primary" %>
-</div>
+      <div class="flex flex-wrap items-center gap-3">
+        <%= link_to "← 一覧へ戻る",
+            search_sessions_path,
+            class: "inline-flex items-center justify-center rounded-xl
+                    border border-slate-300 bg-white
+                    px-4 py-2 text-sm font-semibold text-slate-700
+                    hover:bg-slate-50 transition" %>
 
-<div class="card">
-  <div class="card-body">
-    <p class="text-muted mb-2">
-      検索日時：<%= @search_session.created_at %>
-    </p>
+        <%= link_to "この条件で再検索",
+            results_search_path(@search_session.conditions),
+            class: "inline-flex items-center justify-center rounded-xl
+                    bg-emerald-700 px-4 py-2 text-sm font-semibold text-white
+                    hover:bg-emerald-800 transition" %>
+      </div>
+    </header>
 
-    <hr>
+    <!-- 検索条件カード -->
+    <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm space-y-4 mt-4">
+      <div class="flex flex-wrap items-center justify-between gap-3">
+        <h2 class="text-sm font-semibold text-slate-900">検索条件</h2>
+        <p class="text-xs text-slate-500">
+          検索日時：<%= @search_session.created_at.strftime("%Y/%m/%d %H:%M") %>
+        </p>
+      </div>
 
-    <h2 class="h5">検索条件</h2>
+      <% chip_class = "inline-flex items-center rounded-full bg-slate-100 px-2 py-1 text-xs font-semibold text-slate-700" %>
+      <% none_class = "inline-flex items-center rounded-full bg-slate-50 px-2 py-1 text-xs font-semibold text-slate-500 border border-slate-200" %>
 
-    <p>
-      <strong>領域：</strong>
-      <% names = @search_session.medical_area_names_all %>
-      <%= names.present? ? names.join(" / ") : "なし" %>
-    </p>
+      <div class="space-y-3 text-sm">
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="font-semibold text-slate-900">領域：</span>
+          <% names = @search_session.medical_area_names_all %>
+          <% if names.present? %>
+            <% names.each do |name| %>
+              <span class="<%= chip_class %>"><%= name %></span>
+            <% end %>
+          <% else %>
+            <span class="<%= none_class %>">なし</span>
+          <% end %>
+        </div>
 
-    <p>
-      <strong>病名：</strong>
-      <% names = @search_session.disease_names_all %>
-      <%= names.present? ? names.join(" / ") : "なし" %>
-    </p>
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="font-semibold text-slate-900">病名：</span>
+          <% names = @search_session.disease_names_all %>
+          <% if names.present? %>
+            <% names.each do |name| %>
+              <span class="<%= chip_class %>"><%= name %></span>
+            <% end %>
+          <% else %>
+            <span class="<%= none_class %>">なし</span>
+          <% end %>
+        </div>
 
-    <p>
-      <strong>症状：</strong>
-      <% names = @search_session.symptom_names_all %>
-      <%= names.present? ? names.join(" / ") : "なし" %>
-    </p>
+        <div class="flex flex-wrap items-center gap-2">
+          <span class="font-semibold text-slate-900">症状：</span>
+          <% names = @search_session.symptom_names_all %>
+          <% if names.present? %>
+            <% names.each do |name| %>
+              <span class="<%= chip_class %>"><%= name %></span>
+            <% end %>
+          <% else %>
+            <span class="<%= none_class %>">なし</span>
+          <% end %>
+        </div>
+      </div>
 
-    <hr>
+      <details class="rounded-xl border border-slate-200 bg-slate-50 p-4">
+        <summary class="cursor-pointer text-sm font-semibold text-slate-700">
+          保存されている条件（JSON）を表示
+        </summary>
+        <pre class="mt-3 overflow-x-auto text-xs text-slate-700"><%= JSON.pretty_generate(@search_session.conditions) %></pre>
+      </details>
+    </section>
 
-    <details class="mt-2">
-      <summary class="text-muted">保存されている条件（JSON）を表示</summary>
-      <pre class="mt-2"><%= JSON.pretty_generate(@search_session.conditions) %></pre>
-    </details>
-  </div>
-</div>
+    <!-- この条件で出た漢方 -->
+    <section class="rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden mt-4">
+      <div class="px-6 py-4 border-b border-slate-200 flex flex-wrap items-center justify-between gap-3">
+        <h2 class="text-sm font-semibold text-slate-900 mt-10">
+          この条件で出た漢方
+        </h2>
 
-<hr class="my-4">
+        <% if @results.blank? %>
+          <div class="mt-3 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+            <p class="text-slate-700 font-semibold">条件に一致する漢方は見つかりませんでした。</p>
+            <p class="mt-2 text-sm text-slate-600">条件を変えて再検索してみてください。</p>
+          </div>
+        <% else %>
+          <div class="mt-3 flex items-center justify-between">
+            <p class="text-sm text-slate-700">
+              <span class="font-extrabold text-slate-900"><%= @results.size %></span> 件ヒットしました
+            </p>
+          </div>
 
-<h2 class="h5">この条件で出た漢方</h2>
+          <section class="mt-4 space-y-3">
+            <ul class="grid gap-4 lg:grid-cols-2">
+              <% @results.each_with_index do |result, i| %>
+                <% rank = i + 1 %>
 
-<% if @results.blank? %>
-  <p>条件に一致する漢方は見つかりませんでした。</p>
-<% else %>
-  <p><%= @results.size %>件ヒットしました。</p>
+                <li class="relative rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden hover:shadow-md transition">
+                  <!-- ランク丸 -->
+                  <span class="absolute top-3 left-3 h-8 w-8 rounded-full
+                              bg-slate-900 text-white text-sm font-extrabold
+                              flex items-center justify-center shadow">
+                    <%= rank %>
+                  </span>
 
-  <ul class="list-group">
-    <% @results.each do |result| %>
-      <li class="list-group-item">
-        <h3 class="h6 mb-1">
-          <%= link_to result.kampo.name,
-                      kampo_path(
-                        result.kampo,
-                        medical_area_ids: @search_session.conditions["medical_area_ids"],
-                        disease_ids:      @search_session.conditions["disease_ids"],
-                        symptom_ids:      @search_session.conditions["symptom_ids"]
-                      ) %>
-        </h3>
+                  <div class="grid grid-cols-[1fr_120px]">
+                    <div class="p-6 pl-14">
+                      <h4 class="text-base font-bold text-slate-900">
+                        <%= link_to result.kampo.name,
+                            kampo_path(
+                              result.kampo,
+                              medical_area_ids: @search_session.conditions["medical_area_ids"],
+                              disease_ids:      @search_session.conditions["disease_ids"],
+                              symptom_ids:      @search_session.conditions["symptom_ids"]
+                            ),
+                            class: "hover:underline" %>
+                      </h4>
 
-        <% if result.kampo.note.present? %>
-          <p class="mb-1 text-muted">
-            <%= truncate(result.kampo.note, length: 200) %>
-          </p>
+                      <% if result.kampo.note.present? %>
+                        <p class="mt-2 text-sm text-slate-600 leading-relaxed">
+                          <%= truncate(result.kampo.note, length: 160) %>
+                        </p>
+                      <% end %>
+
+                      <p class="mt-2 text-sm text-slate-600">
+                        病名 <span class="font-semibold text-slate-900"><%= result.disease_score %></span> /
+                        症状 <span class="font-semibold text-slate-900"><%= result.symptom_score %></span>
+                      </p>
+
+                      <div class="mt-3 flex justify-end">
+                        <%= link_to "詳細 →",
+                              kampo_path(
+                                result.kampo,
+                                medical_area_ids: @search_session.conditions["medical_area_ids"],
+                                disease_ids:      @search_session.conditions["disease_ids"],
+                                symptom_ids:      @search_session.conditions["symptom_ids"]
+                              ),
+                              class: "inline-flex items-center justify-center rounded-xl
+                                      border border-slate-300 bg-white
+                                      px-4 py-2 text-sm font-semibold text-slate-700
+                                      hover:bg-slate-50 transition" %>
+                      </div>
+                    </div>
+
+                    <div class="flex flex-col justify-center items-center
+                                bg-emerald-50 border-l border-emerald-200
+                                px-3 py-6 text-center">
+                      <p class="text-[11px] font-semibold text-emerald-800 tracking-wide">
+                        スコア
+                      </p>
+                      <p class="mt-1 text-3xl font-extrabold text-emerald-700 leading-none">
+                        <%= result.total_score %>
+                      </p>
+                    </div>
+                  </div>
+                </li>
+              <% end %>
+            </ul>
+          </section>
         <% end %>
 
-        <small>
-          合計スコア: <%= result.total_score %>
-          （病名: <%= result.disease_score %> / 症状: <%= result.symptom_score %>）
-        </small>
-      </li>
-    <% end %>
-  </ul>
-<% end %>
+      <% if @results.blank? %>
+        <div class="p-6">
+          <p class="text-slate-700 font-semibold">条件に一致する漢方は見つかりませんでした。</p>
+          <p class="mt-2 text-sm text-slate-600">条件を変えて再検索してみてください。</p>
+        </div>
+      <% else %>
+        <ul class="divide-y divide-slate-200">
+          <% @results.each do |result| %>
+            <li class="p-6 hover:bg-slate-50 transition">
+              <div class="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
+                <div class="min-w-0">
+                  <h3 class="text-base font-bold text-slate-900">
+                    <%= link_to result.kampo.name,
+                        kampo_path(
+                          result.kampo,
+                          medical_area_ids: @search_session.conditions["medical_area_ids"],
+                          disease_ids:      @search_session.conditions["disease_ids"],
+                          symptom_ids:      @search_session.conditions["symptom_ids"]
+                        ),
+                        class: "hover:underline" %>
+                  </h3>
+
+                  <% if result.kampo.note.present? %>
+                    <p class="mt-2 text-sm text-slate-600">
+                      <%= truncate(result.kampo.note, length: 200) %>
+                    </p>
+                  <% end %>
+
+                  <p class="mt-3 text-sm text-slate-700">
+                    病名 <span class="font-semibold text-slate-900"><%= result.disease_score %></span>
+                    /
+                    症状 <span class="font-semibold text-slate-900"><%= result.symptom_score %></span>
+                  </p>
+                </div>
+
+                <div class="shrink-0">
+                  <div class="rounded-2xl border border-emerald-200 bg-emerald-50 px-5 py-4 text-center min-w-[140px]">
+                    <p class="text-[11px] font-semibold text-emerald-800 tracking-wide">合計スコア</p>
+                    <p class="mt-1 text-3xl font-extrabold text-emerald-700 leading-none">
+                      <%= result.total_score %>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
+    </section>
+  </div>
+</div>
