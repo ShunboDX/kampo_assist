@@ -133,6 +133,12 @@
 
       <!-- ✅ ジャンプ先 -->
       <div id="results" class="scroll-mt-24"></div>
+    <%# 1ページ目だけ「1位候補」を出す %>
+    <% is_first_page = (@results.current_page == 1) %>
+
+    <% if is_first_page %>
+      <% top  = @results.first %>
+      <% rest = @results.drop(1) %>
 
       <!-- 1段目：1位 -->
       <section class="rounded-2xl border border-emerald-200 bg-white shadow-sm overflow-hidden">
@@ -192,10 +198,14 @@
         </div>
       </section>
 
+    <% else %>
+      <%# 2ページ目以降は「1位候補カード」を出さない %>
+      <% rest = @results %>
+    <% end %>
 
-    <!-- 2段目：残り（スケッチの②の領域） -->
+    <!-- 2段目：残り -->
     <% if rest.present? %>
-      <section class="space-y-3">
+      <section class="space-y-3 <%= is_first_page ? "mt-6" : "" %>">
         <h3 class="text-sm font-semibold text-slate-900">
           その他の候補
         </h3>
@@ -212,9 +222,7 @@
                 <%= rank %>
               </span>
 
-              <!-- 左右2カラム -->
               <div class="grid grid-cols-[1fr_120px]">
-                <!-- 左：情報 -->
                 <div class="p-5 pl-14">
                   <h4 class="text-base font-bold text-slate-900">
                     <%= link_to result.kampo.name,
@@ -234,7 +242,7 @@
                   </p>
 
                   <div class="mt-3 flex justify-end">
-                    <%= link_to "詳細 →",
+                    <%= suggest_to link_to "詳細 →",
                           kampo_path(
                             result.kampo,
                             search_session_id: @search_session&.id,
@@ -249,7 +257,6 @@
                   </div>
                 </div>
 
-                <!-- 右：スコア帯 -->
                 <div class="flex flex-col justify-center items-center
                             bg-emerald-50 border-l border-emerald-200
                             px-3 py-6 text-center">
