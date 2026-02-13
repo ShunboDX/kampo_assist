@@ -100,36 +100,11 @@
 }
 
 /* ===== Stepper: Responsive ===== */
-
-/* SP: 縦並び */
-.stepper__list {
-  display: flex;
-  gap: 8px;
-  flex-direction: column;
-}
-
 /* PC: 横並び（sm=640px相当） */
 @media (min-width: 640px) {
   .stepper__list {
     flex-direction: row;
     gap: 12px;
-  }
-}
-
-/* ラベル：SPは短縮、PCはフル */
-.stepper__label--full {
-  display: none;
-}
-.stepper__label--short {
-  display: inline;
-}
-
-@media (min-width: 640px) {
-  .stepper__label--full {
-    display: inline;
-  }
-  .stepper__label--short {
-    display: none;
   }
 }
 
