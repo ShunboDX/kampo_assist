@@ -195,3 +195,28 @@
   color: var(--accent);
   font-weight: 800;
 }
+
+/* PR③: ResultLayout（横スクロール防止・文字サイズ調整） */
+.result-layout {
+  max-width: 100%;
+  overflow-x: hidden; /* 横スクロールの根本を遮断 */
+}
+
+/* 子要素が原因で横にはみ出るのを防ぐ */
+.result-layout * {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+/* スマホで読みやすい文字サイズを“下地”として統一 */
+.result-layout {
+  font-size: 14px;   /* text-sm 相当 */
+  line-height: 1.7;  /* leading-relaxed 相当 */
+}
+
+@media (min-width: 640px) {
+  .result-layout {
+    font-size: 16px; /* text-base 相当 */
+  }
+}
