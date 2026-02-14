@@ -29,7 +29,7 @@
 
           <div class="grid grid-cols-2 md:grid-cols-3 gap-2">
             <% @medical_areas.each do |area| %>
-              <label class="flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-3 py-2 hover:bg-slate-50 transition cursor-pointer">
+              <label class="flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-3 hover:bg-slate-50 transition cursor-pointer">
                 <%= check_box_tag "medical_area_ids[]",
                                   area.id,
                                   selected_ids.include?(area.id.to_s),
@@ -37,7 +37,7 @@
                                   class: "h-4 w-4 rounded border-slate-300 text-emerald-700 focus:ring-emerald-600",
                                   data: { action: "change->auto-submit#submit" } %>
 
-                <span class="text-sm text-slate-800 leading-snug">
+                <span class="text-sm text-slate-800 leading-relaxed">
                   <%= area.name %>
                 </span>
               </label>
@@ -46,10 +46,10 @@
         <% end %>
       </section>
 
-      <div class="flex justify-end gap-4 mt-3">
+      <div class="flex flex-col sm:flex-row sm:justify-end gap-3 mt-4">
         <%= link_to "病名を選ばず次へ",
             step2_search_path(medical_area_ids: Array(params[:medical_area_ids])),
-            class: "inline-flex items-center justify-center rounded-xl
+            class: "w-full sm:w-auto inline-flex items-center justify-center rounded-xl
                     border border-slate-300 bg-white
                     px-6 py-3 font-semibold text-slate-700
                     hover:bg-slate-50 transition" %>
@@ -70,16 +70,18 @@
               <p class="mt-1 text-sm text-slate-600">該当する病名を選んで、Step2（症状選択）へ進みます。</p>
             </header>
 
-            <div class="grid grid-cols-2 md:grid-cols-3 gap-2 max-h-[520px] overflow-y-auto overflow-x-hidden pr-1">
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-2
+                        max-h-[60vh] sm:max-h-[520px]
+                        overflow-y-auto overflow-x-hidden overscroll-contain pr-1">
               <% @diseases.each do |disease| %>
-                <label class="flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-3 py-2 hover:bg-slate-50 transition cursor-pointer">
+                <label class="flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-3 hover:bg-slate-50 transition cursor-pointer">
                   <%= check_box_tag "disease_ids[]",
                                     disease.id,
                                     Array(params[:disease_ids]).include?(disease.id.to_s),
                                     id: "disease_#{disease.id}",
                                     class: "h-4 w-4 rounded border-slate-300 text-emerald-700 focus:ring-emerald-600" %>
 
-                  <span class="text-sm text-slate-800 leading-snug">
+                  <span class="text-sm text-slate-800 leading-relaxed">
                     <%= disease.name %>
                   </span>
                 </label>
@@ -87,11 +89,11 @@
             </div>
           </section>
 
-          <div class="flex justify-end gap-4 mt-3">
-            <%= submit_tag " 症状を選ぶ（ステップ2へ）",
-                class: "inline-flex items-center justify-center rounded-2xl
-                        bg-emerald-700 px-10 py-4
-                        text-lg font-bold text-white
+          <div class="flex flex-col sm:flex-row sm:justify-end gap-3 mt-4">
+            <%= submit_tag "症状を選ぶ（ステップ2へ）",
+                class: "w-full sm:w-auto inline-flex items-center justify-center rounded-2xl
+                        bg-emerald-700 px-6 sm:px-10 py-4
+                        text-base sm:text-lg font-bold text-white
                         hover:bg-emerald-800 transition shadow-md" %>
           </div>
         <% end %>
