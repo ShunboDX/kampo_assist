@@ -1,0 +1,41 @@
+/* 詳細画面：横スクロール防止 & 可読性 */
+.detail-layout {
+  max-width: 100%;
+  overflow-x: hidden;
+  font-size: 14px;
+  line-height: 1.75;
+}
+
+@media (min-width: 640px) {
+  .detail-layout {
+    font-size: 16px;
+  }
+}
+
+.detail-layout * {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+/* テーブル対策（あれば） */
+.detail-layout table {
+  width: 100%;
+  table-layout: fixed;
+}
+
+.detail-layout td,
+.detail-layout th {
+  word-break: break-word;
+}
+
+.detail-layout {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.detail-layout * {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
