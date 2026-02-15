@@ -1,35 +1,33 @@
-<div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10 min-w-0 detail-layout">
-  <section class="space-y-3">
-    <div class="flex items-baseline justify-between gap-3">
-      <h2 class="text-sm font-semibold text-slate-900">
-        注意点・禁忌
-      </h2>
-      <p class="text-xs text-slate-500">
-        ※ 重要な注意情報が含まれる場合があります
-      </p>
-    </div>
+<section class="space-y-3">
+  <div class="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-1 sm:gap-3">
+    <h2 class="text-sm font-semibold text-slate-900">
+      注意点・禁忌
+    </h2>
+    <p class="text-xs text-slate-500">
+      ※ 重要な注意情報が含まれる場合があります
+    </p>
+  </div>
 
-    <% is_blank = detail_effectively_blank?(kampo.detail) %>
+  <% is_blank = detail_effectively_blank?(kampo.detail) %>
 
-    <% if is_blank %>
-      <p class="text-sm text-slate-600">
-        特記事項無し
-      </p>
-    <% else %>
-      <div class="rounded-2xl border border-amber-200 bg-amber-50/50">
-        <div class="p-5 md:p-6 text-sm text-slate-800 leading-relaxed break-words">
-          <div class="[&_.detail-heading]:font-extrabold [&_.detail-heading]:text-slate-900
-                      [&_p]:my-2 [&_ul]:my-2 [&_ol]:my-2
-                      [&_li]:my-1">
-            <%= simple_format(
-                  kampo.detail.to_s
-                      .gsub(/【(禁忌|慎重投与|併用注意)】/,
-                            '<span class="detail-heading">【\1】</span>')
-                      .html_safe
-                ) %>
-          </div>
+  <% if is_blank %>
+    <p class="text-sm text-slate-600">
+      特記事項無し
+    </p>
+  <% else %>
+    <div class="rounded-2xl border border-amber-200 bg-amber-50/50">
+      <div class="p-5 sm:p-6 text-sm sm:text-base text-slate-800 leading-relaxed break-words">
+        <div class="[&_.detail-heading]:font-extrabold [&_.detail-heading]:text-slate-900
+                    [&_p]:my-2 [&_ul]:my-2 [&_ol]:my-2
+                    [&_li]:my-1">
+          <%= simple_format(
+                kampo.detail.to_s
+                    .gsub(/【(禁忌|慎重投与|併用注意)】/,
+                          '<span class="detail-heading">【\1】</span>')
+                    .html_safe
+              ) %>
         </div>
       </div>
-    <% end %>
-  </section>
-</div>
+    </div>
+  <% end %>
+</section>
