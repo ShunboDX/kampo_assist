@@ -88,14 +88,15 @@
               <%= f.text_area :body,
                               name: "case_note[body]",
                               value: @search_case_note&.body,
-                              rows: 3,
+                              rows: 4,
                               placeholder: "例）禁忌チェック必須。\nまずは1位から詳細確認。",
-                              class: "w-full rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm
+                              class: "w-full rounded-xl border border-slate-300 bg-white px-3 py-2
+                                      text-sm sm:text-base leading-relaxed resize-y
                                       focus:border-emerald-600 focus:ring-2 focus:ring-emerald-200" %>
 
-              <div class="flex justify-end">
+              <div class="flex flex-col sm:flex-row sm:justify-end gap-3">
                 <%= f.submit "保存",
-                    class: "inline-flex items-center justify-center rounded-xl
+                    class: "w-full sm:w-auto inline-flex items-center justify-center rounded-xl
                             bg-emerald-700 px-5 py-3 text-sm font-bold text-white
                             hover:bg-emerald-800 transition" %>
               </div>
@@ -107,7 +108,7 @@
           </p>
           <div class="mt-3">
             <%= link_to "ログインする", new_user_session_path,
-                class: "inline-flex items-center justify-center rounded-xl
+                class: "w-full sm:w-auto inline-flex items-center justify-center rounded-xl
                         bg-sky-700 px-5 py-3 font-semibold text-white
                         hover:bg-sky-800 transition" %>
           </div>
