@@ -1,4 +1,4 @@
-<div class="space-y-6 result-layout">
+<div class="space-y-6 result-layout min-w-0 break-words overflow-x-hidden">
   <h1 class="text-2xl md:text-3xl font-bold tracking-tight text-slate-900">
     漢方検索 ステップ1：領域と病名の選択
   </h1>
@@ -34,7 +34,7 @@
                                   area.id,
                                   selected_ids.include?(area.id.to_s),
                                   id: "medical_area_#{area.id}",
-                                  class: "h-4 w-4 rounded border-slate-300 text-emerald-700 focus:ring-emerald-600",
+                                  class: "h-4 w-4 shrink-0 rounded border-slate-300 text-emerald-700 focus:ring-emerald-600",
                                   data: { action: "change->auto-submit#submit" } %>
 
                 <span class="text-sm text-slate-800 leading-relaxed">
@@ -71,7 +71,7 @@
             </header>
 
             <div class="grid grid-cols-2 md:grid-cols-3 gap-2
-                        max-h-[60vh] sm:max-h-[520px]
+                        max-h-[55vh] sm:max-h-[520px]
                         overflow-y-auto overflow-x-hidden overscroll-contain pr-1">
               <% @diseases.each do |disease| %>
                 <label class="flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-3 hover:bg-slate-50 transition cursor-pointer">
@@ -79,7 +79,7 @@
                                     disease.id,
                                     Array(params[:disease_ids]).include?(disease.id.to_s),
                                     id: "disease_#{disease.id}",
-                                    class: "h-4 w-4 rounded border-slate-300 text-emerald-700 focus:ring-emerald-600" %>
+                                    class: "h-4 w-4 shrink-0 rounded border-slate-300 text-emerald-700 focus:ring-emerald-600" %>
 
                   <span class="text-sm text-slate-800 leading-relaxed">
                     <%= disease.name %>
