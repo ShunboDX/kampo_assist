@@ -1,3 +1,14 @@
-<%= turbo_frame_tag "search_step_frame" do %>
-  <%= render "searches/step2_content" %>
-<% end %>
+<div data-controller="turbo-loading">
+  <!-- ローディング（frameの外） -->
+  <div data-turbo-loading-target="overlay"
+       class="hidden fixed inset-0 z-50 grid place-items-center bg-white/60 backdrop-blur-sm">
+    <div class="flex items-center gap-3 rounded-2xl bg-white px-5 py-4 shadow-lg border border-slate-200">
+      <div class="h-5 w-5 animate-spin rounded-full border-2 border-slate-300 border-t-slate-900"></div>
+      <p class="text-sm font-semibold text-slate-700">読み込み中…</p>
+    </div>
+  </div>
+
+  <%= turbo_frame_tag "search_step_frame" do %>
+    <%= render "searches/step2_content" %>
+  <% end %>
+</div>
