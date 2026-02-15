@@ -1,0 +1,315 @@
+<div class="bg-slate-50">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-6 min-w-0 break-words overflow-x-hidden">
+    <header class="space-y-3">
+      <h1 class="text-2xl md:text-3xl font-bold tracking-tight text-slate-900">
+        漢方検索 結果一覧
+      </h1>
+
+      <% steps = ["STEP1:傷病選択", "STEP2:症状選択", "検索結果"] %>
+      <% current = search_step_current %>
+      <% progress = ((current - 1).to_f / (steps.size - 1) * 100).round %>
+
+      <div class="mb-1" style="--progress: <%= progress %>%;">
+        <%= render "shared/step_indicator", steps: steps, current: current %>
+      </div>
+
+      <% back_to_step1_params = params.permit(medical_area_ids: [], disease_ids: []) %>
+      <% back_to_step2_params = params.permit(medical_area_ids: [], disease_ids: [], symptom_ids: []) %>
+
+      <div class="flex flex-col sm:flex-row sm:flex-wrap items-stretch sm:items-center gap-3 sm:gap-4 mb-6">
+        <%= link_to "← Step2に戻る",
+            step2_search_path(back_to_step2_params),
+            data: { turbo_frame: "search_step_frame" },
+            class: "w-full sm:w-auto inline-flex items-center justify-center rounded-xl
+                    border border-slate-300 bg-white
+                    px-4 py-2 text-sm font-semibold text-slate-700
+                    hover:bg-slate-50 transition" %>
+
+        <%= link_to "Step1に戻る",
+            step1_search_path(back_to_step1_params),
+            data: { turbo_frame: "search_step_frame" },
+            class: "w-full sm:w-auto inline-flex items-center justify-center rounded-xl
+                    border border-slate-300 bg-white
+                    px-4 py-2 text-sm font-semibold text-slate-700
+                    hover:bg-slate-50 transition" %>
+      </div>
+    </header>
+
+    <!-- 条件 + メモ（横並び） -->
+    <div class="grid gap-4 md:grid-cols-2 mt-3">
+      <!-- 選択した条件 -->
+      <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+        <h2 class="mb-3 text-sm font-semibold text-slate-900">選択した条件</h2>
+
+        <% chip_class = "inline-flex items-center rounded-full bg-slate-100 px-2 py-1 text-xs font-semibold text-slate-700" %>
+        <% none_class = "inline-flex items-center rounded-full bg-slate-50 px-2 py-1 text-xs font-semibold text-slate-500 border border-slate-200" %>
+
+        <div class="space-y-3 text-sm">
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="font-semibold text-slate-900">領域：</span>
+            <% if @medical_areas.present? %>
+              <% @medical_areas.each do |ma| %>
+                <span class="<%= chip_class %>"><%= ma.name %></span>
+              <% end %>
+            <% else %>
+              <span class="<%= none_class %>">なし</span>
+            <% end %>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="font-semibold text-slate-900">病名：</span>
+            <% if @diseases.present? %>
+              <% @diseases.each do |d| %>
+                <span class="<%= chip_class %>"><%= d.name %></span>
+              <% end %>
+            <% else %>
+              <span class="<%= none_class %>">なし</span>
+            <% end %>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-2">
+            <span class="font-semibold text-slate-900">症状：</span>
+            <% if @symptoms.present? %>
+              <% @symptoms.each do |s| %>
+                <span class="<%= chip_class %>"><%= s.name %></span>
+              <% end %>
+            <% else %>
+              <span class="<%= none_class %>">なし</span>
+            <% end %>
+          </div>
+        </div>
+      </section>
+
+      <!-- この検索のメモ -->
+      <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+        <h2 class="mb-2 text-sm font-semibold text-slate-900">この検索のメモ</h2>
+
+        <% if logged_in? && @search_session.present? %>
+          <%= form_with url: search_case_note_path, method: :patch do |f| %>
+            <%= hidden_field_tag :search_session_id, @search_session.id %>
+            <%= hidden_field_tag :return_to, request.fullpath %>
+
+            <div class="mt-2 space-y-3">
+              <%= f.text_area :body,
+                              name: "case_note[body]",
+                              value: @search_case_note&.body,
+                              rows: 4,
+                              placeholder: "例）禁忌チェック必須。\nまずは1位から詳細確認。",
+                              class: "w-full rounded-xl border border-slate-300 bg-white px-3 py-2
+                                      text-sm sm:text-base leading-relaxed resize-y
+                                      focus:border-emerald-600 focus:ring-2 focus:ring-emerald-200" %>
+
+              <div class="flex flex-col sm:flex-row sm:justify-end gap-3">
+                <%= f.submit "保存",
+                    class: "w-full sm:w-auto inline-flex items-center justify-center rounded-xl
+                            bg-emerald-700 px-5 py-3 text-sm font-bold text-white
+                            hover:bg-emerald-800 transition" %>
+              </div>
+            </div>
+          <% end %>
+        <% else %>
+          <p class="text-sm text-slate-600">
+            ログインすると、この検索条件にメモを保存できます。
+          </p>
+          <div class="mt-3">
+            <%= link_to "ログインする", new_user_session_path,
+                class: "w-full sm:w-auto inline-flex items-center justify-center rounded-xl
+                        bg-sky-700 px-5 py-3 font-semibold text-white
+                        hover:bg-sky-800 transition" %>
+          </div>
+        <% end %>
+      </section>
+    </div>
+
+  <%# --- 0件 / 未選択 は先に分岐 --- %>
+    <% if @no_condition %>
+      <%= render "shared/alert",
+            kind: :warning,
+            body: safe_join([
+              "条件が選択されていません。".html_safe,
+              " ",
+              link_to("Step1からやり直してください",
+                        step1_search_path,
+                        data: { turbo_frame: "search_step_frame" },
+                        class: "underline font-semibold")
+            ]) %>
+
+    <% elsif @results.blank? %>
+      <%= render "shared/alert",
+            kind: :warning,
+            body: "条件に一致する漢方は見つかりませんでした。" %>
+
+      <% else %>
+        <% top = @results.first %>
+        <% rest = @results.drop(1) %>
+
+        <!-- 検索結果ヘッダー（ボタン＋件数＋下線） -->
+        <div class="mt-8 space-y-2">
+          <div class="flex items-center gap-4">
+            <a href="#results"
+              class="inline-flex items-center rounded-full
+                    border border-emerald-600
+                    px-4 py-2 text-sm font-semibold
+                    text-emerald-700
+                    hover:bg-emerald-50 transition">
+              検索結果
+            </a>
+
+            <p class="text-sm text-slate-700">
+              <span class="font-semibold text-slate-900"><%= @results.total_count %></span>
+              件の漢方候補が見つかりました
+            </p>
+          </div>
+          <div class="border-b border-slate-200 mt-3"></div>
+        </div>
+
+        <!-- ✅ ジャンプ先 -->
+        <div id="results" class="scroll-mt-24"></div>
+      <%# 1ページ目だけ「1位候補」を出す %>
+      <% is_first_page = (@results.current_page == 1) %>
+
+      <% if is_first_page %>
+        <% top  = @results.first %>
+        <% rest = @results.drop(1) %>
+
+        <!-- 1段目：1位 -->
+        <section class="rounded-2xl border border-emerald-200 bg-white shadow-sm overflow-hidden">
+          <div class="grid grid-cols-1 md:grid-cols-[1fr_220px]">
+            <!-- 左：情報 -->
+            <div class="p-6 flex flex-col justify-between">
+              <div>
+                <div class="inline-flex items-center gap-2">
+                  <span class="inline-flex items-center rounded-full
+                              bg-emerald-50 px-3 py-1 text-sm font-bold
+                              text-emerald-900 border border-emerald-100">
+                    1位 候補
+                  </span>
+                  <span class="text-sm text-slate-500">
+                    合計スコアが最も高い候補
+                  </span>
+                </div>
+
+                <h3 class="mt-3 text-2xl md:text-3xl font-extrabold text-slate-900">
+                  <%= link_to top.kampo.name, kampo_path(top.kampo), class: "hover:underline" %>
+                </h3>
+
+                <% if top.kampo.note.present? %>
+                  <p class="mt-4 text-sm md:text-base text-slate-600 leading-relaxed break-words">
+                    <%= truncate(top.kampo.note, length: 260) %>
+                  </p>
+                <% end %>
+              </div>
+
+              <div class="mt-6">
+                <%= link_to "詳細",
+                      kampo_path(top.kampo),
+                      class: "w-full sm:w-auto inline-flex items-center justify-center rounded-xl
+                              bg-emerald-700 px-4 py-3
+                              font-bold text-white
+                              hover:bg-emerald-800 transition" %>
+              </div>
+            </div>
+
+            <!-- 右：スコア（緑帯） -->
+            <div class="flex flex-col justify-center items-center
+                        bg-emerald-50 border-t md:border-t-0 md:border-l border-emerald-200
+                        px-6 py-8 text-center">
+              <p class="text-xs font-semibold text-emerald-800 tracking-wide">
+                合計スコア
+              </p>
+
+              <p class="mt-2 text-6xl font-extrabold text-emerald-700 leading-none">
+                <%= top.total_score %>
+              </p>
+
+              <div class="mt-4 text-sm text-emerald-900 space-y-1">
+                <p>病名 <span class="font-bold"><%= top.disease_score %></span></p>
+                <p>症状 <span class="font-bold"><%= top.symptom_score %></span></p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+      <% else %>
+        <%# 2ページ目以降は「1位候補カード」を出さない %>
+        <% rest = @results %>
+      <% end %>
+
+      <!-- 2段目：残り -->
+      <% if rest.present? %>
+        <section class="space-y-3 <%= is_first_page ? "mt-6" : "" %>">
+          <h3 class="text-sm font-semibold text-slate-900">
+            その他の候補
+          </h3>
+
+          <ul class="grid gap-4 lg:grid-cols-2">
+            <% rest.each_with_index do |result, i| %>
+              <% rank = (i + 2) + ((@results.current_page - 1) * @results.limit_value) %>
+
+              <li class="relative rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden hover:shadow-md transition">
+                <!-- ランク丸 -->
+                <span class="absolute top-3 left-3 h-8 w-8 rounded-full
+                            bg-slate-900 text-white text-sm font-extrabold
+                            flex items-center justify-center shadow">
+                  <%= rank %>
+                </span>
+
+                <div class="grid grid-cols-1 lg:grid-cols-[1fr_120px]">
+                  <div class="p-6 pl-14">
+                    <h4 class="text-base font-bold text-slate-900">
+                      <%= link_to result.kampo.name,
+                          kampo_path(
+                            result.kampo,
+                            search_session_id: @search_session&.id,
+                            medical_area_ids: params[:medical_area_ids],
+                            disease_ids:      params[:disease_ids],
+                            symptom_ids:      params[:symptom_ids]
+                          ),
+                          class: "hover:underline" %>
+                    </h4>
+
+                    <p class="mt-2 text-sm text-slate-600">
+                      病名 <span class="font-semibold text-slate-900"><%= result.disease_score %></span> /
+                      症状 <span class="font-semibold text-slate-900"><%= result.symptom_score %></span>
+                    </p>
+
+                    <div class="mt-3 flex justify-end">
+                      <%= link_to "詳細 →",
+                            kampo_path(
+                              result.kampo,
+                              search_session_id: @search_session&.id,
+                              medical_area_ids: params[:medical_area_ids],
+                              disease_ids:      params[:disease_ids],
+                              symptom_ids:      params[:symptom_ids]
+                            ),
+                            class: "inline-flex items-center justify-center rounded-xl
+                                    border border-slate-300 bg-white
+                                    px-4 py-2 text-sm font-semibold text-slate-700
+                                    hover:bg-slate-50 transition" %>
+                    </div>
+                  </div>
+
+                  <div class="flex flex-col justify-center items-center
+                              bg-emerald-50 border-t md:border-t-0 md:border-l border-emerald-200
+                              px-6 py-8 text-center">
+                    <p class="text-[11px] font-semibold text-emerald-800 tracking-wide">
+                      スコア
+                    </p>
+                    <p class="mt-1 text-3xl font-extrabold text-emerald-700 leading-none">
+                      <%= result.total_score %>
+                    </p>
+                  </div>
+                </div>
+              </li>
+            <% end %>
+          </ul>
+        </section>
+      <% end %>
+
+      <div class="mt-8 flex justify-center">
+        <%= paginate @results,
+            params: request.query_parameters,
+            link_options: { data: { turbo_frame: "search_step_frame" } } %>
+    <% end %>
+  </div>
+</div>
