@@ -1,0 +1,133 @@
+<div class="space-y-6 result-layout min-w-0 break-words overflow-x-hidden">
+  <h1 class="text-2xl md:text-3xl font-bold tracking-tight text-slate-900">
+    漢方検索 ステップ2：症状の選択
+  </h1>
+
+  <% steps = ["STEP1:傷病選択", "STEP2:症状選択", "検索結果"] %>
+  <% current = search_step_current %>
+  <% progress = ((current - 1).to_f / (steps.size - 1) * 100).round %>
+
+  <div class="mb-3" style="--progress: <%= progress %>%;">
+    <%= render "shared/step_indicator", steps: steps, current: current %>
+  </div>
+
+  <!-- 選択された病名（確認） -->
+  <section class="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm">
+    <p class="text-sm text-slate-700">
+      <span class="font-semibold text-slate-900">選択された病名：</span>
+      <%= @diseases.map(&:name).join(" / ") %>
+    </p>
+  </section>
+
+  <!-- ★ここで少し間を空ける -->
+  <div class="grid gap-6 md:grid-cols-2 mt-6">
+    <!-- 左カラム：領域（カード） -->
+    <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+      <header class="mb-4">
+        <h2 class="text-sm font-semibold text-slate-900">領域を選択（複数可）</h2>
+        <p class="mt-1 text-sm text-slate-600">選択すると、右側の症状一覧が自動で更新されます。</p>
+      </header>
+
+      <%= form_with url: step2_search_path,
+                    method: :get,
+                    data: { turbo_frame: "search_step_frame", controller: "auto-submit" } do %>
+
+        <% @disease_ids.each do |id| %>
+          <%= hidden_field_tag "disease_ids[]", id %>
+        <% end %>
+
+        <% selected_area_ids = Array(@medical_area_ids).map(&:to_s) %>
+
+        <div class="grid grid-cols-2 md:grid-cols-3 gap-2">
+          <% @medical_areas.each do |area| %>
+            <label class="flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-3 hover:bg-slate-50 transition cursor-pointer">
+              <%= check_box_tag "medical_area_ids[]",
+                                area.id,
+                                selected_area_ids.include?(area.id.to_s),
+                                id: "symptom_area_#{area.id}",
+                                class: "h-4 w-4 shrink-0 rounded border-slate-300 text-emerald-700 focus:ring-emerald-600",
+                                data: { action: "change->auto-submit#submit" } %>
+
+              <span class="text-sm text-slate-800 leading-relaxed">
+                <%= area.name %>
+              </span>
+            </label>
+          <% end %>
+        </div>
+      <% end %>
+    </section>
+
+    <!-- 右カラム：症状（フォームで包む→カード外右下に検索ボタン） -->
+    <div class="space-y-4">
+      <% if @symptoms.present? %>
+        <%= form_with url: results_search_path, method: :get,
+                      data: { turbo_frame: "search_step_frame" } do %>
+          <!-- Step1 & Step2 の選択内容を全部引き継ぐ -->
+          <% @medical_area_ids.each do |id| %>
+            <%= hidden_field_tag "medical_area_ids[]", id %>
+          <% end %>
+          <% @disease_ids.each do |id| %>
+            <%= hidden_field_tag "disease_ids[]", id %>
+          <% end %>
+
+          <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+            <header class="mb-4">
+              <h2 class="text-sm font-semibold text-slate-900">症状を選択（複数可）</h2>
+              <p class="mt-1 text-sm text-slate-600">該当する症状を選んで検索結果へ進みます。</p>
+            </header>
+
+            <div class="grid grid-cols-2 md:grid-cols-3 gap-2 max-h-[55vh] sm:max-h-[520px] overflow-y-auto overflow-x-hidden overscroll-contain pr-1">
+              <% @symptoms.each do |symptom| %>
+                <label class="flex items-center gap-2 rounded-xl border border-slate-200 bg-white px-4 py-3 hover:bg-slate-50 transition cursor-pointer">
+                  <%= check_box_tag "symptom_ids[]",
+                                    symptom.id,
+                                    Array(params[:symptom_ids]).include?(symptom.id.to_s),
+                                    id: "symptom_#{symptom.id}",
+                                    class: "h-4 w-4 shrink-0 rounded border-slate-300 text-emerald-700 focus:ring-emerald-600" %>
+
+                  <span class="text-sm text-slate-800 leading-relaxed">
+                    <%= symptom.name %>
+                  </span>
+                </label>
+              <% end %>
+            </div>
+          </section>
+
+          <!-- ★アクション：右下に寄せて横並び -->
+          <div class="flex flex-col sm:flex-row sm:justify-end gap-3 mt-4">
+            <%= link_to "傷病選択に戻る",
+                step1_search_path(params.permit(medical_area_ids: [], disease_ids: []).slice(:medical_area_ids, :disease_ids)),
+                data: { turbo_frame: "search_step_frame" },
+                class: "w-full sm:w-auto inline-flex items-center justify-center rounded-xl
+                        border border-slate-300 bg-white
+                        px-6 py-3 font-semibold text-slate-700
+                        hover:bg-slate-50 transition" %>
+
+            <%= submit_tag "検索",
+                class: "w-full sm:w-auto inline-flex items-center justify-center rounded-2xl
+                        bg-emerald-700 px-6 sm:px-10 py-4
+                        text-base sm:text-lg font-bold text-white
+                        hover:bg-emerald-800 transition shadow-md" %>
+          </div>
+        <% end %>
+      <% else %>
+        <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+          <h2 class="text-sm font-semibold text-slate-900">症状を選択（複数可）</h2>
+          <p class="mt-2 text-sm text-slate-600">
+            左の領域を選択すると、自動で症状一覧が表示されます。
+          </p>
+        </section>
+
+        <div class="flex justify-end">
+          <%= link_to "傷病選択に戻る",
+                step1_search_path(params.permit(medical_area_ids: [], disease_ids: []).slice(:medical_area_ids, :disease_ids)),
+                data: { turbo_frame: "search_step_frame" },
+                class: "inline-flex items-center justify-center rounded-xl
+                        border border-slate-300 bg-white
+                        px-6 py-3 font-semibold text-slate-700
+                        hover:bg-slate-50 transition" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
