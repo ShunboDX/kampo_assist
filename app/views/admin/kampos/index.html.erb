@@ -1,35 +1,81 @@
-<h1>漢方一覧（Admin）</h1>
+<div class="bg-slate-50 min-h-screen">
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-6">
 
-<%= form_with url: admin_kampos_path, method: :get, local: true do |f| %>
-  <%= f.label :q, "検索（漢方名 / かな）" %>
-  <%= f.text_field :q, value: @q, placeholder: "例：当帰 / とうき" %>
-  <%= f.submit "検索" %>
+    <header class="space-y-2">
+      <h1 class="text-2xl md:text-3xl font-extrabold tracking-tight text-slate-900">
+        漢方一覧（Admin）
+      </h1>
+      <p class="text-sm text-slate-600">
+        漢方名 / かなで検索できます。
+      </p>
+    </header>
 
-  <% if @q.present? %>
-    <%= link_to "クリア", admin_kampos_path %>
-  <% end %>
-<% end %>
+    <!-- 検索 -->
+    <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+      <%= form_with url: admin_kampos_path, method: :get, local: true, class: "space-y-4" do |f| %>
+        <div class="space-y-2">
+          <%= f.label :q, "検索（漢方名 / かな）", class: "text-sm font-semibold text-slate-900" %>
 
-<hr>
+          <div class="flex flex-col sm:flex-row gap-3">
+            <%= f.text_field :q,
+                  value: @q,
+                  placeholder: "例：当帰 / とうき",
+                  class: "w-full rounded-xl border border-slate-300 bg-white
+                          px-4 py-3 text-sm sm:text-base
+                          focus:border-emerald-600 focus:ring-2 focus:ring-emerald-200" %>
 
-<table>
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>漢方名</th>
-      <th>かな</th>
-      <th></th>
-    </tr>
-  </thead>
+            <%= f.submit "検索",
+                  class: "w-full sm:w-auto inline-flex items-center justify-center rounded-xl
+                          bg-emerald-700 px-6 py-3 text-sm font-bold text-white
+                          hover:bg-emerald-800 transition" %>
 
-  <tbody>
-    <% @kampos.each do |kampo| %>
-      <tr>
-        <td><%= kampo.id %></td>
-        <td><%= kampo.name %></td>
-        <td><%= kampo.kana_name %></td>
-        <td><%= link_to "編集", edit_admin_kampo_path(kampo) %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+            <% if @q.present? %>
+              <%= link_to "クリア", admin_kampos_path,
+                    class: "w-full sm:w-auto inline-flex items-center justify-center rounded-xl
+                            border border-slate-300 bg-white px-6 py-3 text-sm font-semibold text-slate-700
+                            hover:bg-slate-50 transition" %>
+            <% end %>
+          </div>
+        </div>
+      <% end %>
+    </section>
+
+    <!-- 一覧テーブル -->
+    <section class="rounded-2xl border border-slate-200 bg-white shadow-sm overflow-hidden">
+      <div class="px-6 py-4 border-b border-slate-200">
+        <h2 class="text-sm font-semibold text-slate-900">一覧</h2>
+      </div>
+
+      <!-- ✅ SP横スクロール対策 -->
+      <div class="overflow-x-auto">
+        <table class="min-w-[720px] w-full text-sm">
+          <thead class="bg-slate-50 text-slate-600">
+            <tr class="text-left">
+              <th class="px-6 py-3 font-semibold">ID</th>
+              <th class="px-6 py-3 font-semibold">漢方名</th>
+              <th class="px-6 py-3 font-semibold">かな</th>
+              <th class="px-6 py-3 font-semibold"></th>
+            </tr>
+          </thead>
+
+          <tbody class="divide-y divide-slate-200">
+            <% @kampos.each do |kampo| %>
+              <tr class="hover:bg-slate-50">
+                <td class="px-6 py-3 text-slate-700"><%= kampo.id %></td>
+                <td class="px-6 py-3 font-semibold text-slate-900"><%= kampo.name %></td>
+                <td class="px-6 py-3 text-slate-700"><%= kampo.kana_name %></td>
+                <td class="px-6 py-3 text-right">
+                  <%= link_to "編集", edit_admin_kampo_path(kampo),
+                        class: "inline-flex items-center justify-center rounded-xl
+                                border border-slate-300 bg-white px-4 py-2 text-sm font-semibold text-slate-700
+                                hover:bg-slate-50 transition" %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+  </div>
+</div>

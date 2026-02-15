@@ -1,7 +1,38 @@
-<h1>Admin Dashboard</h1>
-<p>Authorized.</p>
-<h1>Admin Dashboard</h1>
+<div class="bg-slate-50 min-h-screen">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10 space-y-8">
 
-<ul>
-  <li><%= link_to "漢方一覧", admin_kampos_path %></li>
-</ul>
+    <header class="space-y-2">
+      <h1 class="text-2xl md:text-3xl font-extrabold tracking-tight text-slate-900">
+        管理ダッシュボード
+      </h1>
+      <p class="text-sm text-slate-600">
+        管理者専用ページです。
+      </p>
+    </header>
+
+    <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+      <h2 class="text-sm font-semibold text-slate-900 mb-4">
+        コンテンツ管理
+      </h2>
+
+      <div class="grid gap-4 sm:grid-cols-2">
+
+        <%= link_to admin_kampos_path,
+              class: "group rounded-xl border border-slate-200 bg-white p-4
+                      hover:shadow-md transition flex items-center justify-between" do %>
+
+          <span class="text-sm font-semibold text-slate-900">
+            漢方一覧
+          </span>
+
+          <span class="text-emerald-700 font-bold group-hover:translate-x-1 transition">
+            →
+          </span>
+
+        <% end %>
+
+      </div>
+    </section>
+
+  </div>
+</div>
