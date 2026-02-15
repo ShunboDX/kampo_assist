@@ -22,7 +22,7 @@
 
         <%= form_with url: step1_search_path,
                       method: :get,
-                      data: { turbo_frame: "search_step_frame", controller: "auto-submit" } do %>
+                      data: { turbo_frame: "search_step_frame", turbo_action: "replace", controller: "auto-submit" } do %>
 
           <% selected_ids = Array(params[:medical_area_ids]) %>
 
@@ -47,8 +47,8 @@
 
       <div class="flex flex-col sm:flex-row sm:justify-end gap-3 mt-4">
         <%= link_to "病名を選ばず次へ",
-            step2_search_path(medical_area_ids: Array(params[:medical_area_ids])),
-            data: { turbo_frame: "search_step_frame" },
+            step2_search_path(params.permit(medical_area_ids: [], disease_ids: []).slice(:medical_area_ids, :disease_ids)),
+            data: { turbo_frame: "search_step_frame", turbo_action: "advance" },
             class: "w-full sm:w-auto inline-flex items-center justify-center rounded-xl
                     border border-slate-300 bg-white
                     px-6 py-3 font-semibold text-slate-700
@@ -60,7 +60,7 @@
     <div class="space-y-4">
       <% if @diseases.present? %>
         <%= form_with url: step2_search_path, method: :get,
-              data: { turbo_frame: "search_step_frame" } do %>
+              data: { turbo_frame: "search_step_frame", turbo_action: "advance" } do %>
           <% Array(params[:medical_area_ids]).each do |area_id| %>
             <%= hidden_field_tag "medical_area_ids[]", area_id %>
           <% end %>
