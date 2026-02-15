@@ -4,13 +4,13 @@
       <h1 class="text-2xl md:text-3xl font-extrabold tracking-tight text-slate-900">
         新規登録
       </h1>
-      <p class="text-sm text-slate-600">
+      <p class="text-base sm:text-sm text-slate-600">
         メールアドレスとパスワードを入力してください。
       </p>
     </header>
 
     <% if @user.errors.any? %>
-      <div class="rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-900 space-y-2">
+      <div class="rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-base sm:text-sm text-rose-900 space-y-2">
         <p class="font-semibold">入力内容を確認してください</p>
         <ul class="list-disc list-inside space-y-1">
           <% @user.errors.full_messages.each do |message| %>
@@ -22,42 +22,42 @@
 
     <%= form_with model: @user, class: "space-y-5" do |f| %>
       <div class="space-y-2">
-        <%= f.label :email, "メールアドレス", class: "text-sm font-semibold text-slate-900" %>
+        <%= f.label :email, "メールアドレス", class: "text-base sm:text-sm font-semibold text-slate-900" %>
         <%= f.email_field :email,
               autocomplete: "email",
-              class: "w-full rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm
+              class: "w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-base sm:text-sm sm:text-base
                       focus:border-emerald-600 focus:ring-2 focus:ring-emerald-200" %>
       </div>
 
       <div class="space-y-2">
-        <%= f.label :password, "パスワード", class: "text-sm font-semibold text-slate-900" %>
+        <%= f.label :password, "パスワード", class: "text-base sm:text-sm font-semibold text-slate-900" %>
         <%= f.password_field :password,
               autocomplete: "new-password",
-              class: "w-full rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm
+              class: "w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-base sm:text-sm sm:text-base
                       focus:border-emerald-600 focus:ring-2 focus:ring-emerald-200" %>
       </div>
 
       <div class="space-y-2">
-        <%= f.label :password_confirmation, "パスワード（確認）", class: "text-sm font-semibold text-slate-900" %>
+        <%= f.label :password_confirmation, "パスワード（確認）", class: "text-base sm:text-sm font-semibold text-slate-900" %>
         <%= f.password_field :password_confirmation,
               autocomplete: "new-password",
-              class: "w-full rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm
+              class: "w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-base sm:text-sm sm:text-base
                       focus:border-emerald-600 focus:ring-2 focus:ring-emerald-200" %>
       </div>
 
       <div class="pt-2">
         <%= f.submit "登録する",
               class: "w-full inline-flex items-center justify-center rounded-xl
-                      bg-emerald-700 px-5 py-3 text-sm font-bold text-white
+                      bg-emerald-700 px-5 py-3 text-base sm:text-sm font-bold text-white
                       hover:bg-emerald-800 transition" %>
       </div>
     <% end %>
 
-    <p class="text-sm text-slate-600">
+    <p class="text-base sm:text-sm text-slate-600">
       すでにアカウントをお持ちですか？
       <%= link_to "ログイン",
           new_user_session_path,
-          class: "font-semibold text-emerald-700 hover:underline" %>
+          class: "inline-block mt-1 font-semibold text-emerald-700 hover:underline" %>
     </p>
   </div>
 </div>
