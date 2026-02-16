@@ -109,7 +109,7 @@ class SearchesController < ApplicationController
       render partial: "shared/login_required_frame",
             status: :unauthorized
     else
-      redirect_to new_user_session_path, alert: "ログインしてください", status: :see_other
+      redirect_to new_user_session_path, alert: "ログインしてください"
     end
   end
 end
