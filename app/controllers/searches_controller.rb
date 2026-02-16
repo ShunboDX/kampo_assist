@@ -101,4 +101,15 @@ class SearchesController < ApplicationController
     # 集約運用なので updated_at が古い順に消すと自然
     user.search_sessions.order(updated_at: :asc).limit(over).delete_all
   end
+
+  def require_login
+    return if logged_in?
+
+    if turbo_frame_request?
+      render partial: "shared/login_required_frame",
+            status: :unauthorized
+    else
+      redirect_to new_user_session_path, alert: "ログインしてください"
+    end
+  end
 end

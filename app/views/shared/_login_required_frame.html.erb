@@ -1,0 +1,34 @@
+<%= turbo_frame_tag "search_step_frame" do %>
+  <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+    <div class="flex items-start gap-3">
+      <div class="mt-1 h-10 w-10 shrink-0 grid place-items-center rounded-xl bg-slate-100 text-slate-700">
+        🔒
+      </div>
+
+      <div class="min-w-0">
+        <h2 class="text-base sm:text-lg font-bold text-slate-900">
+          ログインが必要です
+        </h2>
+        <p class="mt-2 text-sm text-slate-600 leading-relaxed">
+          Step2（症状選択）はログイン後に利用できます。このままログインして検索を続けましょう。
+        </p>
+
+        <div class="mt-5 flex flex-col sm:flex-row gap-3 sm:justify-end">
+          <%= link_to "ログインへ",
+              new_user_session_path,
+              data: { turbo_frame: "_top" },
+              class: "inline-flex items-center justify-center rounded-xl
+                      bg-slate-900 px-5 py-3 text-white font-semibold
+                      hover:opacity-90 transition" %>
+
+          <%= link_to "新規登録へ",
+              new_user_path,
+              data: { turbo_frame: "_top" },
+              class: "inline-flex items-center justify-center rounded-xl
+                      border border-slate-300 bg-white px-5 py-3
+                      font-semibold text-slate-700 hover:bg-slate-50 transition" %>
+        </div>
+      </div>
+    </div>
+  </section>
+<% end %>

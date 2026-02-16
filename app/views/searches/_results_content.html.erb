@@ -205,6 +205,7 @@
               <div class="mt-6">
                 <%= link_to "詳細",
                       kampo_path(top.kampo),
+                      data: { turbo_frame: "_top" },
                       class: "w-full sm:w-auto inline-flex items-center justify-center rounded-xl
                               bg-emerald-700 px-4 py-3
                               font-bold text-white
@@ -267,6 +268,7 @@
                             disease_ids:      params[:disease_ids],
                             symptom_ids:      params[:symptom_ids]
                           ),
+                          data: { turbo_frame: "_top" },
                           class: "hover:underline" %>
                     </h4>
 
