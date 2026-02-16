@@ -65,7 +65,7 @@
     <div class="space-y-4">
       <% if @symptoms.present? %>
         <%= form_with url: results_search_path, method: :get,
-                      data: { turbo_frame: "search_step_frame", turbo_action: "advance" } do %>
+                      data: { turbo_frame: "search_step_frame", turbo_action: "advance", controller: "disable-submit" } do %>
           <!-- Step1 & Step2 の選択内容を全部引き継ぐ -->
           <% @medical_area_ids.each do |id| %>
             <%= hidden_field_tag "medical_area_ids[]", id %>
@@ -108,6 +108,7 @@
                         hover:bg-slate-50 transition" %>
 
             <%= submit_tag "検索",
+                data: { "disable-submit-target": "button", loadingText: "検索中…" },
                 class: "w-full sm:w-auto inline-flex items-center justify-center rounded-2xl
                         bg-emerald-700 px-6 sm:px-10 py-4
                         text-base sm:text-lg font-bold text-white

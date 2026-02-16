@@ -60,7 +60,7 @@
     <div class="space-y-4">
       <% if @diseases.present? %>
         <%= form_with url: step2_search_path, method: :get,
-              data: { turbo_frame: "search_step_frame", turbo_action: "advance" } do %>
+              data: { turbo_frame: "search_step_frame", turbo_action: "advance", controller: "disable-submit" } do %>
           <% Array(params[:medical_area_ids]).each do |area_id| %>
             <%= hidden_field_tag "medical_area_ids[]", area_id %>
           <% end %>
@@ -92,6 +92,7 @@
 
           <div class="flex flex-col sm:flex-row sm:justify-end gap-3 mt-4">
             <%= submit_tag "症状を選ぶ（ステップ2へ）",
+                data: { "disable-submit-target": "button", loadingText: "移動中…" },
                 class: "w-full sm:w-auto inline-flex items-center justify-center rounded-2xl
                         bg-emerald-700 px-6 sm:px-10 py-4
                         text-base sm:text-lg font-bold text-white
