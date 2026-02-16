@@ -85,7 +85,8 @@
         <h2 class="mb-2 text-sm font-semibold text-slate-900">この検索のメモ</h2>
 
         <% if logged_in? && @search_session.present? %>
-          <%= form_with url: search_case_note_path, method: :patch do |f| %>
+          <%= form_with url: search_case_note_path, method: :patch,
+                data: { controller: "disable-submit" } do |f| %>
             <%= hidden_field_tag :search_session_id, @search_session.id %>
             <%= hidden_field_tag :return_to, request.fullpath %>
 
@@ -101,6 +102,7 @@
 
               <div class="flex flex-col sm:flex-row sm:justify-end gap-3">
                 <%= f.submit "保存",
+                    data: { "disable-submit-target": "button", loadingText: "保存中…" },
                     class: "w-full sm:w-auto inline-flex items-center justify-center rounded-xl
                             bg-emerald-700 px-5 py-3 text-sm font-bold text-white
                             hover:bg-emerald-800 transition" %>
