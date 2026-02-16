@@ -7,7 +7,7 @@ RSpec.describe SearchSession, type: :model do
   it "is valid with user and conditions (conditions_hash is generated)" do
     ss = SearchSession.new(
       user: user,
-      conditions: { "medical_area_ids" => ["2", "1"], "disease_ids" => ["", "3"] }
+      conditions: { "medical_area_ids" => [ "2", "1" ], "disease_ids" => [ "", "3" ] }
     )
 
     expect(ss).to be_valid
@@ -20,15 +20,15 @@ RSpec.describe SearchSession, type: :model do
     ss = SearchSession.create!(
       user: user,
       conditions: {
-        "medical_area_ids" => ["2", "", 1],
-        "disease_ids" => [3, "1"],
-        "symptom_ids" => ["", "10", 2]
+        "medical_area_ids" => [ "2", "", 1 ],
+        "disease_ids" => [ 3, "1" ],
+        "symptom_ids" => [ "", "10", 2 ]
       }
     )
 
-    expect(ss.conditions["medical_area_ids"]).to eq(["1", "2"])
-    expect(ss.conditions["disease_ids"]).to eq(["1", "3"])
-    expect(ss.conditions["symptom_ids"]).to eq(["10", "2"])
+    expect(ss.conditions["medical_area_ids"]).to eq([ "1", "2" ])
+    expect(ss.conditions["disease_ids"]).to eq([ "1", "3" ])
+    expect(ss.conditions["symptom_ids"]).to eq([ "10", "2" ])
   end
 
   it "is invalid without conditions" do
