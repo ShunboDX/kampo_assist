@@ -42,32 +42,22 @@ class SearchesController < ApplicationController
   end
 
   def results
-    medical_area_ids = medical_area_ids_param
-    disease_ids      = disease_ids_param
-    symptom_ids      = symptom_ids_param
-
-    @medical_areas = MedicalArea.where(id: medical_area_ids)
-    @diseases      = Disease.where(id: disease_ids)
-    @symptoms      = Symptom.where(id: symptom_ids)
-
-    runner = KampoSearchRunner.new(disease_ids: disease_ids, symptom_ids: symptom_ids).call
-    @no_condition = runner.no_condition
-    @results = Kaminari.paginate_array(runner.results).page(params[:page]).per(5)
-
-    @show_login_prompt = !logged_in?
-    @search_session = SearchSessionSaver.new(
+    builder = SearchResultsBuilder.new(
       user: current_user,
-      medical_area_ids: medical_area_ids,
-      disease_ids: disease_ids,
-      symptom_ids: symptom_ids
+      params: params,
+      page: params[:page]
     ).call
 
-    if logged_in? && @search_session.present?
-      @search_case_note = current_user.case_notes.find_or_initialize_by(
-        search_session_id: @search_session.id,
-        kampo_id: nil
-      )
-    end
+    @medical_areas = builder.medical_areas
+    @diseases      = builder.diseases
+    @symptoms      = builder.symptoms
+
+    @no_condition = builder.no_condition
+    @results      = builder.results
+
+    @show_login_prompt = builder.show_login_prompt
+    @search_session    = builder.search_session
+    @search_case_note  = builder.search_case_note
   end
 
   private
