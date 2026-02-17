@@ -14,12 +14,19 @@ class CaseNotesController < ApplicationController
   end
 
   def create
+    Rails.logger.debug "[CaseNotes#create] format=#{request.format} accept=#{request.headers['ACCEPT']}"
     @case_note = current_user.case_notes.build(case_note_params)
 
     if @case_note.save
-      redirect_to case_notes_path, notice: "症例メモを作成しました"
+      respond_to do |format|
+        format.html { redirect_to case_notes_path, notice: "症例メモを作成しました" }
+        format.turbo_stream { redirect_to case_notes_path, notice: "症例メモを作成しました" }
+      end
     else
-      render :new, status: :unprocessable_entity
+      respond_to do |format|
+        format.html { render :new, status: :unprocessable_entity }
+        format.turbo_stream { render :new, status: :unprocessable_entity }
+      end
     end
   end
 
