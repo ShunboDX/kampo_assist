@@ -1,7 +1,6 @@
 require "rails_helper"
 
 RSpec.describe "SearchSession flow", type: :system do
-
   let!(:kampo) { create(:kampo) }
 
   let(:result) do
@@ -15,7 +14,7 @@ RSpec.describe "SearchSession flow", type: :system do
 
   before do
     allow(KampoSearch).to receive(:new) do |**_kwargs|
-      double(call: [result])
+      double(call: [ result ])
     end
   end
 
