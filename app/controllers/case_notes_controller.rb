@@ -14,13 +14,20 @@ class CaseNotesController < ApplicationController
   end
 
   def create
+    Rails.logger.debug "[CaseNotes#create] format=#{request.format} accept=#{request.headers['ACCEPT']}"
     @case_note = current_user.case_notes.build(case_note_params)
 
-  if @case_note.search_session_id.present? &&
-     !current_user.search_sessions.exists?(id: @case_note.search_session_id)
-    @case_note.errors.add(:search_session_id, "が不正です")
-    render :new, status: :unprocessable_entity
-  end
+    if @case_note.save
+      respond_to do |format|
+        format.html { redirect_to case_notes_path, notice: "症例メモを作成しました" }
+        format.turbo_stream { redirect_to case_notes_path, notice: "症例メモを作成しました" }
+      end
+    else
+      respond_to do |format|
+        format.html { render :new, status: :unprocessable_entity }
+        format.turbo_stream { render :new, status: :unprocessable_entity }
+      end
+    end
   end
 
   def edit
