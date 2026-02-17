@@ -50,14 +50,9 @@ class SearchesController < ApplicationController
     @diseases      = Disease.where(id: disease_ids)
     @symptoms      = Symptom.where(id: symptom_ids)
 
-    if disease_ids.blank? && symptom_ids.blank?
-      @no_condition = true
-      @results = Kaminari.paginate_array([]).page(params[:page]).per(5)
-    else
-      @no_condition = false
-      raw_results = KampoSearch.new(disease_ids:, symptom_ids:).call
-      @results = Kaminari.paginate_array(raw_results).page(params[:page]).per(5)
-    end
+    runner = KampoSearchRunner.new(disease_ids: disease_ids, symptom_ids: symptom_ids).call
+    @no_condition = runner.no_condition
+    @results = Kaminari.paginate_array(runner.results).page(params[:page]).per(5)
 
     @show_login_prompt = !logged_in?
     @search_session = SearchSessionSaver.new(
