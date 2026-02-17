@@ -19,9 +19,8 @@ class CaseNotesController < ApplicationController
   if @case_note.search_session_id.present? &&
      !current_user.search_sessions.exists?(id: @case_note.search_session_id)
     @case_note.errors.add(:search_session_id, "が不正です")
-    return render :new, status: :unprocessable_entity
+    render :new, status: :unprocessable_entity
   end
-
   end
 
   def edit
