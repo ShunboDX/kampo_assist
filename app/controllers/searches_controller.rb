@@ -6,7 +6,7 @@ class SearchesController < ApplicationController
                    .where.not(name: [ "全身症候" ])
                    .order(:id)
 
-    medical_area_ids = Array(params[:medical_area_ids]).reject(&:blank?)
+    medical_area_ids = medical_area_ids_param
 
     if medical_area_ids.present?
       @selected_medical_areas = MedicalArea.where(id: medical_area_ids)
@@ -21,8 +21,8 @@ class SearchesController < ApplicationController
   end
 
   def step2
-    @medical_area_ids = Array(params[:medical_area_ids]).reject(&:blank?)
-    @disease_ids      = Array(params[:disease_ids]).reject(&:blank?)
+    @medical_area_ids = medical_area_ids_param
+    @disease_ids      = disease_ids_param
 
     @medical_areas = MedicalArea
       .where.not(name: [ "血液" ])
@@ -42,9 +42,9 @@ class SearchesController < ApplicationController
   end
 
   def results
-    medical_area_ids = Array(params[:medical_area_ids]).reject(&:blank?)
-    disease_ids      = Array(params[:disease_ids]).reject(&:blank?)
-    symptom_ids      = Array(params[:symptom_ids]).reject(&:blank?)
+    medical_area_ids = medical_area_ids_param
+    disease_ids      = disease_ids_param
+    symptom_ids      = symptom_ids_param
 
     @medical_areas = MedicalArea.where(id: medical_area_ids)
     @diseases      = Disease.where(id: disease_ids)
@@ -71,6 +71,22 @@ class SearchesController < ApplicationController
   end
 
   private
+
+  def array_param(key)
+    Array(params[key]).reject(&:blank?)
+  end
+
+  def medical_area_ids_param
+    array_param(:medical_area_ids)
+  end
+
+  def disease_ids_param
+    array_param(:disease_ids)
+  end
+
+  def symptom_ids_param
+    array_param(:symptom_ids)
+  end
 
   def save_search_session!(medical_area_ids:, disease_ids:, symptom_ids:)
     return unless current_user
