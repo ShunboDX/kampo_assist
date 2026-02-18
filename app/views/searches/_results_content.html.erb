@@ -272,7 +272,8 @@
                             search_session_id: @search_session&.id,
                             medical_area_ids: params[:medical_area_ids],
                             disease_ids:      params[:disease_ids],
-                            symptom_ids:      params[:symptom_ids]
+                            symptom_ids:      params[:symptom_ids],
+                            return_to:        request.fullpath
                           ),
                           data: { turbo_frame: "_top" },
                           class: "hover:underline" %>
@@ -290,7 +291,8 @@
                             search_session_id: @search_session&.id,
                             medical_area_ids: params[:medical_area_ids],
                             disease_ids:      params[:disease_ids],
-                            symptom_ids:      params[:symptom_ids]
+                            symptom_ids:      params[:symptom_ids],
+                            return_to:        request.fullpath
                           ),
                           data: { turbo_frame: "_top" },
                           class: "inline-flex items-center justify-center rounded-xl
