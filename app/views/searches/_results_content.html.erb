@@ -204,12 +204,18 @@
 
               <div class="mt-6">
                 <%= link_to "詳細",
-                      kampo_path(top.kampo),
-                      data: { turbo_frame: "_top" },
-                      class: "w-full sm:w-auto inline-flex items-center justify-center rounded-xl
-                              bg-emerald-700 px-4 py-3
-                              font-bold text-white
-                              hover:bg-emerald-800 transition" %>
+                    kampo_path(
+                      top.kampo,
+                      search_session_id: @search_session&.id,
+                      medical_area_ids: params[:medical_area_ids],
+                      disease_ids:      params[:disease_ids],
+                      symptom_ids:      params[:symptom_ids],
+                      return_to:        request.fullpath
+                    ),
+                    data: { turbo_frame: "_top" },
+                    class: "w-full sm:w-auto inline-flex items-center justify-center rounded-xl
+                            bg-emerald-700 px-4 py-3 font-bold text-white
+                            hover:bg-emerald-800 transition" %>
               </div>
             </div>
 

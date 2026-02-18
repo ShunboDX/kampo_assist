@@ -1,12 +1,11 @@
-<div class="mt-10">
+<% back_url = params[:return_to].presence || results_search_path %>
+
+<div class="mt-8 flex justify-center">
   <%= link_to "← 検索結果に戻る",
-      results_search_path(
-        medical_area_ids: params[:medical_area_ids],
-        disease_ids:      params[:disease_ids],
-        symptom_ids:      params[:symptom_ids]
-      ),
-      class: "w-full sm:w-auto inline-flex items-center justify-center rounded-xl
+      back_url,
+      data: { turbo_frame: "_top" },
+      class: "inline-flex items-center justify-center rounded-xl
               border border-slate-300 bg-white
-              px-6 py-3 text-sm font-semibold text-slate-700
+              px-5 py-3 text-sm font-semibold text-slate-700
               hover:bg-slate-50 transition" %>
 </div>
