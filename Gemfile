@@ -21,6 +21,9 @@ gem "puma", ">= 5.0"
 # ページネーション
 gem "kaminari"
 
+# 日本語化
+gem "rails-i18n"
+
 # 認証
 gem "sorcery"
 gem "omniauth"
