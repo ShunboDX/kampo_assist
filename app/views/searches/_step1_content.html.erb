@@ -76,6 +76,33 @@
               <p class="mt-1 text-sm text-slate-600">該当する病名を選んで、Step2（症状選択）へ進みます。</p>
             </header>
 
+            <!-- ★ここに追加（オートコンプリート検索） -->
+            <div
+              data-controller="autocomplete-select"
+              data-autocomplete-select-url-value="<%= autocomplete_diseases_path %>"
+              data-autocomplete-select-debounce-value="200"
+              data-checkbox-prefix="disease"
+              class="mb-4"
+            >
+              <input
+                type="text"
+                placeholder="病名を検索（例：胃炎、頭痛など）"
+                class="w-full rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm
+                      focus:border-emerald-600 focus:ring-2 focus:ring-emerald-200"
+                data-autocomplete-select-target="input"
+                data-action="
+                  input->autocomplete-select#input
+                  compositionstart->autocomplete-select#compositionstart
+                  compositionend->autocomplete-select#compositionend
+                "
+              />
+
+              <div
+                class="hidden mt-2 rounded-xl border border-slate-200 bg-white p-2 shadow-sm"
+                data-autocomplete-select-target="list"
+              ></div>
+            </div>
+
             <div class="grid grid-cols-2 md:grid-cols-3 gap-2
                         max-h-[55vh] sm:max-h-[520px]
                         overflow-y-auto overflow-x-hidden overscroll-contain pr-1">

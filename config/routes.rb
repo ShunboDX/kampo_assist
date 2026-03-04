@@ -20,6 +20,13 @@ Rails.application.routes.draw do
     get :results
   end
 
+  # ====== Autocomplete ======
+  namespace :autocomplete do
+    get :diseases
+    get :symptoms
+    get :kampos
+  end
+
   # ====== Kampos ======
   resources :kampos, only: [ :show ] do
     # ====== Favorite ======
