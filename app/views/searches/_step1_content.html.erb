@@ -60,7 +60,12 @@
     <div class="space-y-4">
       <% if @diseases.present? %>
         <%= form_with url: step2_search_path, method: :get,
-              data: { turbo_frame: "search_step_frame", turbo_action: "advance", controller: "disable-submit" } do %>
+              data: {
+                turbo_frame: "search_step_frame",
+                turbo_action: "advance",
+                controller: "disable-submit delayed-loading",
+                "delayed-loading-delay-value": 300
+              } do %>
           <% Array(params[:medical_area_ids]).each do |area_id| %>
             <%= hidden_field_tag "medical_area_ids[]", area_id %>
           <% end %>
@@ -89,6 +94,12 @@
               <% end %>
             </div>
           </section>
+          
+          <div data-delayed-loading-target="indicator"
+                class="hidden mt-3 rounded-xl border border-slate-200 bg-slate-50 p-3 text-sm text-slate-700"
+                aria-hidden="true">
+              読み込み中…
+            </div>
 
           <div class="flex flex-col sm:flex-row sm:justify-end gap-3 mt-4">
             <%= submit_tag "症状を選ぶ（ステップ2へ）",

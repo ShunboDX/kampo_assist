@@ -65,7 +65,13 @@
     <div class="space-y-4">
       <% if @symptoms.present? %>
         <%= form_with url: results_search_path, method: :get,
-                      data: { turbo_frame: "search_step_frame", turbo_action: "advance", controller: "disable-submit" } do %>
+                      data: {
+                        turbo_frame: "search_step_frame",
+                        turbo_action: "advance",
+                        controller: "disable-submit delayed-loading",
+                        "delayed-loading-delay-value": 300
+                      } do %>
+
           <!-- Step1 & Step2 の選択内容を全部引き継ぐ -->
           <% @medical_area_ids.each do |id| %>
             <%= hidden_field_tag "medical_area_ids[]", id %>
@@ -96,6 +102,13 @@
               <% end %>
             </div>
           </section>
+
+          <!-- 0.3秒以上かかる時だけ出る -->
+          <div data-delayed-loading-target="indicator"
+              class="hidden mt-3 rounded-xl border border-slate-200 bg-slate-50 p-3 text-sm text-slate-700"
+              aria-hidden="true">
+            検索中…
+          </div>
 
           <!-- ★アクション：右下に寄せて横並び -->
           <div class="flex flex-col sm:flex-row sm:justify-end gap-3 mt-4">
