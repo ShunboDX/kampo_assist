@@ -30,4 +30,3 @@ class SearchCaseNotesController < ApplicationController
     params[:return_to].presence || results_search_path(search_session_id: search_session.id)
   end
 end
-
