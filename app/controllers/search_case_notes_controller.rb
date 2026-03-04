@@ -9,15 +9,24 @@ class SearchCaseNotesController < ApplicationController
       kampo_id: nil
     )
 
-    note.body = params.require(:case_note).permit(:body)[:body]
+    note.assign_attributes(case_note_params)
 
     if note.save
-      redirect_to params[:return_to].presence || results_search_path(search_session_id: search_session.id),
+      redirect_to return_to_path(search_session),
                   notice: "検索メモを保存しました"
     else
-      # results 画面に戻してエラー表示したい場合は、最小なら notice なしで戻すでもOK
-      redirect_to params[:return_to].presence || results_search_path(search_session_id: search_session.id),
+      redirect_to return_to_path(search_session),
                   alert: note.errors.full_messages.join(", ")
     end
+  end
+
+  private
+
+  def case_note_params
+    params.require(:case_note).permit(:body)
+  end
+
+  def return_to_path(search_session)
+    params[:return_to].presence || results_search_path(search_session_id: search_session.id)
   end
 end
