@@ -3,18 +3,14 @@ class Autocomplete::SymptomsController < ApplicationController
     q = params[:q].to_s.strip
     return render json: [] if q.blank?
 
+    escaped = ActiveRecord::Base.sanitize_sql_like(q)
+
     symptoms = Symptom
-      .where("name ILIKE ?", "%#{sanitize_sql_like(q)}%")
+      .where("name LIKE ?", "%#{escaped}%")
       .order(:name)
       .limit(10)
-      .select(:id, :name)
+      .pluck(:id, :name)
 
-    render json: symptoms.map { |s| { id: s.id, name: s.name } }
-  end
-
-  private
-
-  def sanitize_sql_like(string)
-    ActiveRecord::Base.sanitize_sql_like(string)
+    render json: symptoms.map { |id, name| { id: id, name: name } }
   end
 end

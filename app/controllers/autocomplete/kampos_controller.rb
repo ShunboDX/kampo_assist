@@ -3,18 +3,14 @@ class Autocomplete::KamposController < ApplicationController
     q = params[:q].to_s.strip
     return render json: [] if q.blank?
 
+    escaped = ActiveRecord::Base.sanitize_sql_like(q)
+
     kampos = Kampo
-      .where("name ILIKE ?", "%#{sanitize_sql_like(q)}%")
+      .where("name LIKE ?", "%#{escaped}%")
       .order(:name)
       .limit(10)
-      .select(:id, :name)
+      .pluck(:id, :name)
 
-    render json: kampos.map { |k| { id: k.id, name: k.name } }
-  end
-
-  private
-
-  def sanitize_sql_like(string)
-    ActiveRecord::Base.sanitize_sql_like(string)
+    render json: kampos.map { |id, name| { id: id, name: name } }
   end
 end

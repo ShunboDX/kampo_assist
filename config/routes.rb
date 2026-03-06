@@ -22,9 +22,9 @@ Rails.application.routes.draw do
 
   # ====== Autocomplete ======
   namespace :autocomplete do
-    get :diseases
-    get :symptoms
-    get :kampos
+    resources :symptoms, only: :index
+    resources :diseases, only: :index
+    resources :kampos,   only: :index
   end
 
   # ====== Kampos ======
