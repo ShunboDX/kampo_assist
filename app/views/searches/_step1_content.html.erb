@@ -22,7 +22,14 @@
 
         <%= form_with url: step1_search_path,
                       method: :get,
-                      data: { turbo_frame: "search_step_frame", turbo_action: "replace", controller: "auto-submit" } do %>
+                      id: "medical-areas-form",
+                      data: {
+                        turbo_frame: "search_step_frame",
+                        turbo_action: "replace",
+                        controller: "auto-submit clear-checkboxes",
+                        "clear-checkboxes-selector-value": 'input[name="medical_area_ids[]"]',
+                        "clear-checkboxes-submit-value": true
+                      } do %>
 
           <% selected_ids = Array(params[:medical_area_ids]) %>
 
@@ -60,11 +67,14 @@
     <div class="space-y-4">
       <% if @diseases.present? %>
         <%= form_with url: step2_search_path, method: :get,
+              id: "diseases-form",
               data: {
                 turbo_frame: "search_step_frame",
                 turbo_action: "advance",
-                controller: "disable-submit delayed-loading",
-                "delayed-loading-delay-value": 300
+                controller: "disable-submit delayed-loading clear-checkboxes",
+                "delayed-loading-delay-value": 300,
+                "clear-checkboxes-selector-value": 'input[name="disease_ids[]"]',
+                "clear-checkboxes-submit-value": false
               } do %>
           <% Array(params[:medical_area_ids]).each do |area_id| %>
             <%= hidden_field_tag "medical_area_ids[]", area_id %>
@@ -129,6 +139,15 @@
             </div>
 
           <div class="flex flex-col sm:flex-row sm:justify-end gap-3 mt-4">
+            <button type="button"
+                    data-action="click->clear-checkboxes#clear"
+                    class="w-full sm:w-auto inline-flex items-center justify-center rounded-xl
+                          border border-slate-300 bg-white
+                          px-6 py-3 font-semibold text-slate-700
+                          hover:bg-slate-50 transition">
+              病名クリア
+            </button>
+
             <%= submit_tag "症状を選ぶ（ステップ2へ）",
                 data: { "disable-submit-target": "button", loadingText: "移動中…" },
                 class: "w-full sm:w-auto inline-flex items-center justify-center rounded-2xl

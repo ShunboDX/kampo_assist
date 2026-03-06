@@ -65,12 +65,14 @@
     <div class="space-y-4">
       <% if @symptoms.present? %>
         <%= form_with url: results_search_path, method: :get,
-                      data: {
-                        turbo_frame: "search_step_frame",
-                        turbo_action: "advance",
-                        controller: "disable-submit delayed-loading",
-                        "delayed-loading-delay-value": 300
-                      } do %>
+          data: {
+            turbo_frame: "search_step_frame",
+            turbo_action: "advance",
+            controller: "disable-submit delayed-loading clear-checkboxes",
+            "delayed-loading-delay-value": 300,
+            "clear-checkboxes-selector-value": 'input[name="symptom_ids[]"]',
+            "clear-checkboxes-submit-value": false
+          } do %>
 
           <!-- Step1 & Step2 の選択内容を全部引き継ぐ -->
           <% @medical_area_ids.each do |id| %>
@@ -139,6 +141,15 @@
 
           <!-- ★アクション：右下に寄せて横並び -->
           <div class="flex flex-col sm:flex-row sm:justify-end gap-3 mt-4">
+            <button type="button"
+                    data-action="click->clear-checkboxes#clear"
+                    class="w-full sm:w-auto inline-flex items-center justify-center rounded-xl
+                          border border-slate-300 bg-white
+                          px-6 py-3 font-semibold text-slate-700
+                          hover:bg-slate-50 transition">
+              条件クリア
+            </button>
+
             <%= link_to "傷病選択に戻る",
                 step1_search_path(params.permit(medical_area_ids: [], disease_ids: []).slice(:medical_area_ids, :disease_ids)),
                 data: { turbo_frame: "search_step_frame", turbo_action: "advance" },
