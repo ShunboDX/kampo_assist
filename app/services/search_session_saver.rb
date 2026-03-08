@@ -38,7 +38,9 @@ class SearchSessionSaver
     over = @user.search_sessions.count - @limit
     return if over <= 0
 
-    # 既存実装の意図を維持（updated_atが古い順に削除）
-    @user.search_sessions.order(updated_at: :asc).limit(over).delete_all
+    @user.search_sessions
+         .order(updated_at: :asc)
+         .limit(over)
+         .destroy_all
   end
 end
