@@ -4,7 +4,7 @@ RSpec.describe KampoSearchRunner do
   it "sets no_condition true and returns empty results when all conditions are blank" do
     runner = described_class.new(
       medical_area_ids: [],
-      disease_ids: [""],
+      disease_ids: [ "" ],
       symptom_ids: [],
       keyword: ""
     ).call
@@ -14,7 +14,7 @@ RSpec.describe KampoSearchRunner do
   end
 
   it "calls KampoSearch with filtered kampos when any condition is present" do
-    fake_result = [double]
+    fake_result = [ double ]
     filtered_kampos = Kampo.none
 
     query_double = instance_double(KampoSearchQuery, call: filtered_kampos)
@@ -22,20 +22,20 @@ RSpec.describe KampoSearchRunner do
 
     expect(KampoSearchQuery).to receive(:new).with(
       medical_area_ids: [],
-      disease_ids: ["1"],
+      disease_ids: [ "1" ],
       symptom_ids: [],
       keyword: ""
     ).and_return(query_double)
 
     expect(KampoSearch).to receive(:new).with(
-      disease_ids: ["1"],
+      disease_ids: [ "1" ],
       symptom_ids: [],
       kampos_scope: filtered_kampos
     ).and_return(search_double)
 
     runner = described_class.new(
       medical_area_ids: [],
-      disease_ids: ["1"],
+      disease_ids: [ "1" ],
       symptom_ids: [],
       keyword: ""
     ).call

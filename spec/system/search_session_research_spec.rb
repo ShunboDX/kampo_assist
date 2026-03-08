@@ -57,21 +57,21 @@ RSpec.describe "SearchSession flow", type: :system do
     visit step1_search_path
     expect(page).to have_content("漢方検索 ステップ1")
 
-    visit step1_search_path(medical_area_ids: [medical_area.id])
+    visit step1_search_path(medical_area_ids: [ medical_area.id ])
     expect(page).to have_content("病名を選択（複数可）")
     expect(page).to have_content(disease.name)
 
     visit step2_search_path(
-      medical_area_ids: [medical_area.id],
-      disease_ids: [disease.id]
+      medical_area_ids: [ medical_area.id ],
+      disease_ids: [ disease.id ]
     )
     expect(page).to have_content("漢方検索 ステップ2：症状の選択")
     expect(page).to have_content(symptom.name)
 
     visit results_search_path(
-      medical_area_ids: [medical_area.id],
-      disease_ids: [disease.id],
-      symptom_ids: [symptom.id]
+      medical_area_ids: [ medical_area.id ],
+      disease_ids: [ disease.id ],
+      symptom_ids: [ symptom.id ]
     )
 
     expect(page).to have_content("検索結果")
