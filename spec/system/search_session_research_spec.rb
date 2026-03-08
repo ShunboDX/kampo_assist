@@ -34,11 +34,8 @@ RSpec.describe "SearchSession flow", type: :system do
     )
   end
 
-  # seedに存在する値に依存しないため、画面上のチェックは「id」で行う。
-  # ただし、Step1では「全身症候」が除外されるので、それ以外のMedicalAreaを1つ用意する。
   let!(:medical_area) do
     MedicalArea.find_or_create_by!(name: "呼吸器") do |a|
-      # display_order が必須の場合に備えて入れる（不要なら無視される）
       a.display_order = 1 if a.respond_to?(:display_order=) && a.display_order.blank?
     end
   end
@@ -82,11 +79,17 @@ RSpec.describe "SearchSession flow", type: :system do
     expect(page).to have_content(disease.name)
     expect(page).to have_content(symptom.name)
 
+    search_session = SearchSession.order(created_at: :desc).first
+
     visit search_sessions_path
     expect(page).to have_content("検索履歴")
     expect(page).to have_link("詳細へ")
 
-    click_link "詳細へ"
+    within("ul.divide-y > li", match: :first) do
+      click_link "詳細へ"
+    end
+
+    expect(page).to have_current_path(search_session_path(search_session), ignore_query: true)
     expect(page).to have_content("検索履歴 詳細")
 
     click_link "この条件で再検索"
