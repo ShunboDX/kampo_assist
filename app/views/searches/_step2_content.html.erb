@@ -66,8 +66,7 @@
       <% if @symptoms.present? %>
         <%= form_with url: results_search_path, method: :get,
           data: {
-            turbo_frame: "search_step_frame",
-            turbo_action: "advance",
+            turbo: false,
             controller: "disable-submit delayed-loading clear-checkboxes",
             "delayed-loading-delay-value": 300,
             "clear-checkboxes-selector-value": 'input[name="symptom_ids[]"]',
