@@ -39,8 +39,6 @@ class KampoSearchQuery
     scope
       .joins(:symptoms)
       .where(symptoms: { id: symptom_ids })
-      .group("kampos.id")
-      .having("COUNT(DISTINCT symptoms.id) = ?", symptom_ids.size)
   end
 
   def filter_by_keyword(scope)
