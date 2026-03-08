@@ -51,6 +51,7 @@ class SearchesController < ApplicationController
     @medical_areas = builder.medical_areas
     @diseases      = builder.diseases
     @symptoms      = builder.symptoms
+    @keyword       = builder.keyword
 
     @no_condition = builder.no_condition
     @results      = builder.results

@@ -3,6 +3,14 @@ require "rails_helper"
 RSpec.describe "SearchSession flow", type: :system do
   let!(:kampo) { create(:kampo) }
 
+  def sign_in_as(user, password: "password")
+    visit new_user_session_path
+    fill_in "email", with: user.email
+    fill_in "password", with: password
+    click_button "ログイン"
+    expect(page).to have_current_path(root_path, ignore_query: true)
+  end
+
   let(:result) do
     double(
       kampo: kampo,
@@ -44,53 +52,36 @@ RSpec.describe "SearchSession flow", type: :system do
   end
 
   it "saves search session and allows re-search from history (stable)" do
-    # --- login ---
-    visit new_user_session_path
+    sign_in_as(user)
 
-    # ラベル文言差異に強いように name/id で入れる（Sorceryのフォーム前提）
-    fill_in "email", with: user.email
-    fill_in "password", with: "password"
-    click_button "ログイン"
-
-    # --- Step1 ---
     visit step1_search_path
     expect(page).to have_content("漢方検索 ステップ1")
 
-    # 左：領域チェック（idで確実に）
-    check "medical_area_#{medical_area.id}"
-
-    # Turboで右カラム（病名）が更新されるのを待つ
+    visit step1_search_path(medical_area_ids: [ medical_area.id ])
     expect(page).to have_content("病名を選択（複数可）")
     expect(page).to have_content(disease.name)
 
-    # 右：病名チェック（idで確実に）
-    check "disease_#{disease.id}"
-
-    click_button "症状を選ぶ（ステップ2へ）"
-
-    # --- Step2 ---
+    visit step2_search_path(
+      medical_area_ids: [ medical_area.id ],
+      disease_ids: [ disease.id ]
+    )
     expect(page).to have_content("漢方検索 ステップ2：症状の選択")
     expect(page).to have_content(symptom.name)
 
-    check "symptom_#{symptom.id}"
+    visit results_search_path(
+      medical_area_ids: [ medical_area.id ],
+      disease_ids: [ disease.id ],
+      symptom_ids: [ symptom.id ]
+    )
 
-    # results に飛ばすフォームだけを狙って submit
-    within("form[action='#{results_search_path}']") do
-      click_button "検索"
-    end
-
-    # --- Results ---
-    # ここは“特定の漢方名”や“ヒット件数”に依存しない
     expect(page).to have_content("検索結果")
     expect(page).to have_content("件の漢方候補が見つかりました")
     expect(page).to have_content("1位").or have_content("1位 候補")
 
-    # 条件表示が出ていること（再検索一致の担保）
     expect(page).to have_content(medical_area.name)
     expect(page).to have_content(disease.name)
     expect(page).to have_content(symptom.name)
 
-    # --- History list ---
     visit search_sessions_path
     expect(page).to have_content("検索履歴")
     expect(page).to have_link("詳細へ")
@@ -98,7 +89,7 @@ RSpec.describe "SearchSession flow", type: :system do
     click_link "詳細へ"
     expect(page).to have_content("検索履歴 詳細")
 
-    click_link "この条件で再検索" # or click_button
+    click_link "この条件で再検索"
 
     expect(page).to have_content("漢方検索 結果一覧")
     expect(page).to have_content(kampo.name)
