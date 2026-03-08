@@ -1,24 +1,24 @@
-# app/services/search_results_builder.rb
 class SearchResultsBuilder
   PER_PAGE = 5
   SEARCH_SESSION_LIMIT = 100
 
-  attr_reader :medical_area_ids, :disease_ids, :symptom_ids,
+  attr_reader :medical_area_ids, :disease_ids, :symptom_ids, :keyword,
               :medical_areas, :diseases, :symptoms,
               :no_condition, :results,
               :show_login_prompt, :search_session, :search_case_note
 
   def initialize(user:, params:, page:)
-    @user  = user
+    @user   = user
     @params = params
-    @page  = page
+    @page   = page
 
     @medical_area_ids = array_param(:medical_area_ids)
     @disease_ids      = array_param(:disease_ids)
     @symptom_ids      = array_param(:symptom_ids)
+    @keyword          = @params[:keyword].to_s.strip
 
     @show_login_prompt = @user.nil?
-    @search_case_note = nil
+    @search_case_note  = nil
   end
 
   def call
@@ -42,7 +42,13 @@ class SearchResultsBuilder
   end
 
   def run_search_and_paginate
-    runner = KampoSearchRunner.new(disease_ids: @disease_ids, symptom_ids: @symptom_ids).call
+    runner = KampoSearchRunner.new(
+      medical_area_ids: @medical_area_ids,
+      disease_ids: @disease_ids,
+      symptom_ids: @symptom_ids,
+      keyword: @keyword
+    ).call
+
     @no_condition = runner.no_condition
     @results = Kaminari.paginate_array(runner.results).page(@page).per(PER_PAGE)
   end
