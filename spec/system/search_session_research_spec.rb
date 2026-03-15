@@ -86,7 +86,7 @@ RSpec.describe "SearchSession flow", type: :system do
     expect(page).to have_link("詳細へ")
 
     within("ul.divide-y > li", match: :first) do
-      click_link "詳細へ"
+      click_link href: search_session_path(search_session)
     end
 
     expect(page).to have_current_path(search_session_path(search_session), ignore_query: true)
