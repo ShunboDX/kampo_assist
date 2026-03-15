@@ -7,8 +7,13 @@
           kampo: @kampo,
           favorited: @favorited %>
 
+    <%= render "kampos/show/section_search_note",
+          search_session: @search_session,
+          search_case_note: @search_case_note %>
+
     <%= render "kampos/show/section_note", kampo: @kampo %>
     <%= render "kampos/show/section_detail", kampo: @kampo %>
+
     <%= render "kampos/show/section_case_note",
           kampo: @kampo,
           case_note: @case_note %>

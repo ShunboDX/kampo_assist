@@ -1,5 +1,21 @@
-<h1>症例メモ作成</h1>
+<div class="bg-slate-50 min-h-screen">
+  <div class="mx-auto max-w-4xl px-4 py-10 sm:px-6 lg:px-8">
+    <section class="space-y-6">
+      <header class="space-y-2">
+        <p class="text-sm font-semibold tracking-wide text-emerald-700">
+          CASE NOTE
+        </p>
+        <h1 class="text-2xl font-bold tracking-tight text-slate-900 md:text-3xl">
+          症例メモ作成
+        </h1>
+        <p class="text-sm leading-relaxed text-slate-600 md:text-base">
+          この検索結果に対する気づきや判断理由を保存できます。
+        </p>
+      </header>
 
-<%= render "form", case_note: @case_note %>
-
-<p><%= link_to "一覧に戻る", case_notes_path %></p>
+      <div class="rounded-3xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+        <%= render "form", case_note: @case_note %>
+      </div>
+    </section>
+  </div>
+</div>

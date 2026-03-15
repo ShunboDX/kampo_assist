@@ -3,7 +3,7 @@ class SearchSessionsController < ApplicationController
 
   def index
     @search_sessions = current_user.search_sessions
-                                    .includes(:case_note) # ← 1件ずつ取りに行くのを防ぐ
+                                    .includes(:search_case_note)
                                     .order(created_at: :desc)
                                     .page(params[:page])
                                     .per(25)

@@ -1,0 +1,26 @@
+<% if search_session.present? %>
+  <section class="space-y-3">
+    <h2 class="text-sm font-semibold text-slate-900">
+      この検索のメモ
+    </h2>
+    <p class="text-sm text-slate-600">
+      検索条件全体に対して保存したメモです。
+    </p>
+
+    <% if search_case_note&.body.present? %>
+      <div class="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+        <div class="text-sm leading-relaxed break-words text-slate-700 sm:text-base">
+          <%= simple_format(h(search_case_note.body)) %>
+        </div>
+
+        <p class="mt-4 text-xs text-slate-500">
+          最終更新：<%= l(search_case_note.updated_at, format: :short) %>
+        </p>
+      </div>
+    <% else %>
+      <p class="text-sm text-slate-600">
+        この検索条件にはまだメモがありません。
+      </p>
+    <% end %>
+  </section>
+<% end %>
