@@ -18,15 +18,12 @@ class CaseNotesController < ApplicationController
     @case_note = current_user.case_notes.build(case_note_params)
 
     if @case_note.save
-      respond_to do |format|
-        format.html { redirect_to case_notes_path, notice: "症例メモを作成しました" }
-        format.turbo_stream { redirect_to case_notes_path, notice: "症例メモを作成しました" }
-      end
+      redirect_to(
+        safe_return_to || kampo_path(@case_note.kampo, search_session_id: @case_note.search_session_id),
+        notice: "漢方メモを登録しました"
+      )
     else
-      respond_to do |format|
-        format.html { render :new, status: :unprocessable_entity }
-        format.turbo_stream { render :new, status: :unprocessable_entity }
-      end
+      render :new, status: :unprocessable_entity
     end
   end
 

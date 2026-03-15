@@ -15,6 +15,7 @@
 
         <%= link_to "この条件で再検索",
             results_search_path(@search_session.conditions),
+            data: { turbo: false },
             class: "inline-flex items-center justify-center rounded-xl
                     bg-emerald-700 px-4 py-2 text-sm font-semibold text-white
                     hover:bg-emerald-800 transition" %>
