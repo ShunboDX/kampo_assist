@@ -35,7 +35,7 @@ class CaseNotesController < ApplicationController
 
   def update
     if @case_note.update(case_note_params)
-      redirect_to(safe_return_to || case_notes_path, notice: "症例メモを更新しました")
+      redirect_to(safe_return_to || case_notes_path, notice: "漢方メモを更新しました")
     else
       render :edit, status: :unprocessable_entity
     end

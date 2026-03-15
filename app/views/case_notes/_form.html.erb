@@ -1,7 +1,10 @@
-<%= form_with model: case_note do |f| %>
+<%= form_with model: case_note, class: "space-y-6" do |f| %>
   <% if case_note.errors.any? %>
-    <div class="alert alert-danger">
-      <ul>
+    <div class="rounded-2xl border border-red-200 bg-red-50 px-4 py-4 shadow-sm">
+      <h2 class="text-sm font-semibold text-red-700">
+        入力内容を確認してください
+      </h2>
+      <ul class="mt-2 list-disc space-y-1 pl-5 text-sm text-red-600">
         <% case_note.errors.full_messages.each do |msg| %>
           <li><%= msg %></li>
         <% end %>
@@ -14,13 +17,26 @@
   <%= f.hidden_field :kampo_id %>
   <%= f.hidden_field :search_session_id %>
 
-  <div>
-    <%= f.label :body, "症例メモ" %><br>
-    <%= f.text_area :body, rows: 8 %>
+  <div class="space-y-2">
+    <%= f.label :body, "漢方メモ", class: "block text-sm font-semibold text-slate-900" %>
+    <p class="text-sm leading-relaxed text-slate-600">
+      処方の判断理由や患者の状態、次回確認したいことなどを記録できます。
+    </p>
+
+    <%= f.text_area :body,
+          rows: 10,
+          placeholder: "漢方メモを入力してください",
+          class: "block w-full rounded-2xl border border-slate-300 bg-white px-4 py-3 text-sm text-slate-900 shadow-sm placeholder:text-slate-400 focus:border-emerald-500 focus:outline-none focus:ring-4 focus:ring-emerald-100" %>
   </div>
 
-  <div>
-    <%= f.submit %>
+  <div class="flex flex-col-reverse gap-3 sm:flex-row sm:items-center sm:justify-between">
+    <%= link_to "漢方詳細に戻る",
+        (params[:return_to].presence || kampo_path(case_note.kampo, search_session_id: case_note.search_session_id)),
+        class: "inline-flex items-center justify-center rounded-full border border-slate-300 bg-white px-4 py-2 text-sm font-medium text-slate-700 shadow-sm transition hover:bg-slate-50" %>
+
+    <%= f.submit(
+          case_note.persisted? ? "更新する" : "登録する",
+          class: "inline-flex items-center justify-center rounded-full bg-emerald-600 px-5 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-emerald-700 focus:outline-none focus:ring-4 focus:ring-emerald-200"
+        ) %>
   </div>
 <% end %>
-

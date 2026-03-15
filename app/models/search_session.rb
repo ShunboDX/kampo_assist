@@ -1,6 +1,12 @@
 class SearchSession < ApplicationRecord
   belongs_to :user
-  has_one :case_note, dependent: :destroy
+
+  has_one :search_case_note,
+          -> { where(kampo_id: nil) },
+          class_name: "CaseNote",
+          dependent: :destroy
+
+  has_many :case_notes, dependent: :destroy
 
   validates :conditions, presence: true
   validates :conditions_hash, presence: true
